@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 
-namespace GO.Infra
+namespace GO.Infra.MongoDb
 {
     public abstract class MongoDb
     {

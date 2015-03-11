@@ -3,15 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Site", "GO\GO.Site.csproj", "{A56C5794-7B59-4F2E-93C7-26B2C5C9B5A8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Tests", "GO.Tests\GO.Tests.csproj", "{4FE80D0F-9965-4499-8F8F-597D57C03E66}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Domain", "GO.Domain\GO.Domain.csproj", "{7223AE94-57F7-4FD9-A15A-EB9D89D344FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Infra", "GO.Infra\GO.Infra.csproj", "{13FEBE7F-EE23-4CB3-9813-C507D59AC575}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Infra.MongoDb", "GO.Infra\GO.Infra.MongoDb.csproj", "{13FEBE7F-EE23-4CB3-9813-C507D59AC575}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Service", "GO.Service\GO.Service.csproj", "{2C9E2473-EF33-4C58-A971-64C9788AB2E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Infra.SqlServer", "GO.Infra.SqlServer\GO.Infra.SqlServer.csproj", "{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1E8A266-CC32-474F-8A79-C39E20824215}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Store", "GO.Store\GO.Store.csproj", "{FE5DA258-0D36-41F0-AB14-3CAD680D468D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A56C5794-7B59-4F2E-93C7-26B2C5C9B5A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A56C5794-7B59-4F2E-93C7-26B2C5C9B5A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A56C5794-7B59-4F2E-93C7-26B2C5C9B5A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A56C5794-7B59-4F2E-93C7-26B2C5C9B5A8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4FE80D0F-9965-4499-8F8F-597D57C03E66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4FE80D0F-9965-4499-8F8F-597D57C03E66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4FE80D0F-9965-4499-8F8F-597D57C03E66}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +39,14 @@ Global
 		{2C9E2473-EF33-4C58-A971-64C9788AB2E0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C9E2473-EF33-4C58-A971-64C9788AB2E0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C9E2473-EF33-4C58-A971-64C9788AB2E0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

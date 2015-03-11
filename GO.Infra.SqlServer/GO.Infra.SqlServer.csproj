@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>GO.Infra.SqlServer</RootNamespace>
+    <AssemblyName>GO.Infra.SqlServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="DAD.cs" />
+    <Compile Include="DataContext\PhotoMapping.cs" />
+    <Compile Include="DataContext\CategoryMapping.cs" />
+    <Compile Include="DataContext\CustomerMapping.cs" />
+    <Compile Include="DataContext\SupplierMapping.cs" />
+    <Compile Include="DataContext\ProductMapping.cs" />
+    <Compile Include="ICrud.cs" />
+    <Compile Include="DataContext\GoStoreDataContext.cs" />
+    <Compile Include="Migrations\201503100137103_primeiro.cs" />
+    <Compile Include="Migrations\201503100137103_primeiro.Designer.cs">
+      <DependentUpon>201503100137103_primeiro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503100151097_segundo.cs" />
+    <Compile Include="Migrations\201503100151097_segundo.Designer.cs">
+      <DependentUpon>201503100151097_segundo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503101448368_terceiro.cs" />
+    <Compile Include="Migrations\201503101448368_terceiro.Designer.cs">
+      <DependentUpon>201503101448368_terceiro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503110516097_quarto.cs" />
+    <Compile Include="Migrations\201503110516097_quarto.Designer.cs">
+      <DependentUpon>201503110516097_quarto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GO.Domain\GO.Domain.csproj">
+      <Project>{7223ae94-57f7-4fd9-a15a-eb9d89d344ff}</Project>
+      <Name>GO.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201503100137103_primeiro.resx">
+      <DependentUpon>201503100137103_primeiro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503100151097_segundo.resx">
+      <DependentUpon>201503100151097_segundo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503101448368_terceiro.resx">
+      <DependentUpon>201503101448368_terceiro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503110516097_quarto.resx">
+      <DependentUpon>201503110516097_quarto.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

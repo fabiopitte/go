@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GO.Infra
+namespace GO.Infra.MongoDb
 {
     public class Repository<T> : DAD<T> where T : new()
     {

@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GO.Infra
+namespace GO.Infra.MongoDb
 {
     public abstract class DAD<T> : MongoDb, ICrud<T>
     {

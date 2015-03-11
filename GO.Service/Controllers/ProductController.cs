@@ -1,5 +1,6 @@
 ﻿using GO.Domain;
-using GO.Infra;
+//using GO.Infra.MongoDb;
+using GO.Infra.SqlServer;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
@@ -11,8 +12,8 @@ namespace GO.Service.Controllers
     [RoutePrefix("api/v1/public")]
     public class ProductController : ApiController
     {
+        [Route("products")]
         [HttpGet]
-        [Route("product")]
         public HttpResponseMessage Search()
         {
             var products = new Repository<Product>().Search(new Product());
@@ -20,11 +21,87 @@ namespace GO.Service.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
+        [Route("products/{id}")]
+        [HttpGet]
+        public HttpResponseMessage Get(string id)
+        {
+            try
+            {
+                var product = new Repository<Product>().Get(int.Parse(id));
+
+                product.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto salvo com sucesso!" };
+
+                return Request.CreateResponse(HttpStatusCode.OK, product);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao obter o produto.");
+            }
+        }
+
         [HttpPost]
         [Route("product")]
-        public Product Add(Product product)
+        public HttpResponseMessage Post(Product product)
         {
-            return new Repository<Product>().Add(product);
+            if (null == product) return Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao incluir o produto.");
+
+            try
+            {
+                var novo = new Repository<Product>().Add(product);
+
+                novo.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto salvo com sucesso!" };
+
+                return Request.CreateResponse(HttpStatusCode.Created, novo);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao incluir o produto.");
+            }
+        }
+
+        [HttpPut]
+        [Route("product", Name = "product")]
+        public HttpResponseMessage Put([FromBody]Product product)
+        {
+            if (null == product) return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            try
+            {
+                var alterado = new Repository<Product>().Update(product);
+
+                alterado.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto alterado com sucesso!" };
+
+                return Request.CreateResponse(HttpStatusCode.OK, alterado);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao alterar o produto.");
+            }
+        }
+
+        [HttpDelete]
+        [Route("product/{id}")]
+        public HttpResponseMessage Delete(string id)
+        {
+            if (id == "0") return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            try
+            {
+                new Repository<Product>().Delete(int.Parse(id));
+
+                var product = new Product { Response = new Response { Titulo = "Sucesso", Mensagem = "Produto excluido com sucesso!" } };
+
+                return Request.CreateResponse(HttpStatusCode.OK, product);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao excluir o produto.");
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
         }
     }
 }

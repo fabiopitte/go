@@ -43,6 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="Customer.cs" />
+    <Compile Include="Supplier.cs" />
     <Compile Include="Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
