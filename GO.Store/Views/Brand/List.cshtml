@@ -1,14 +1,13 @@
 ﻿<script id="template-listagem" type="application/html-template">
     <tr>
         <td>{{Title}}</td>
-        <td class="hidden-xs"><s class="red">{{Cost}}</s></td>
-        <td><b class="blue">{{Price}}</b></td>
-        <td>{{Quantity}}</td>
-        <td><b class="green">{{Total}}</b></td>
         <td width="75px">
             <div class="hidden-sm hidden-xs btn-group">
                 <a href="Index/{{Edicao}}" class="btn btn-xs btn-info">
-                    <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                </a>
+                <a href="#" onclick="excluir(this)" data-id="{{Exclusao}}" class="btn btn-xs btn-danger">
+                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
                 </a>
             </div>
             <div class="hidden-md hidden-lg">
@@ -25,6 +24,13 @@
                                 </span>
                             </a>
                         </li>
+                        <li>
+                            <a href="#" onclick="excluir(this)" data-id="{{Exclusao-m}}" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                <span class="red">
+                                    <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -37,18 +43,16 @@
         <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
             <thead>
                 <tr>
-                    <th>Produto</th>
-                    <th class="hidden-xs">Custo</th>
-                    <th>Preço</th>
-                    <th>Qtd</th>
-                    <th><i class="ace-icon glyphicon glyphicon-euro bigger-110 hidden-480"></i>Total</th>
+                    <th>Nome</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody id="corpo"></tbody>
+            <tbody id="corpo">
+                
+            </tbody>
         </table>
     </div>
 </div>
 
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
-<script src="~/Scripts/app/product.js"></script>
+<script src="~/Scripts/app/brand.js"></script>

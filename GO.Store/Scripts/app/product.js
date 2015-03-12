@@ -2,49 +2,116 @@
 
 $(document).ready(function () {
 
-    if ($('#idFornecedor').val() !== undefined && $('#idFornecedor').val() !== '') {
+    if ($('#idProduto').val() !== undefined) {
+        pesquisarCategorias();
+        pesquisarFornecedores();
+        pesquisarMarcas();
+    }
+
+    if ($('#idProduto').val() !== undefined && $('#idProduto').val() !== '') {
         obter();
     } else if ($('#template-listagem').val() !== undefined) {
         pesquisar();
     }
 });
 
-$('#resetar').click(function () { $('#idFornecedor').val(''); });
+function pesquisarCategorias() {
+
+    $.ajax({
+        type: "GET",
+        data: null,
+        url: "http://localhost:60341/api/v1/public/categories/",
+        contentType: "application/json"
+    }).success(function (data) {
+
+        $('#Category').empty();
+
+        $('#Category').append($('<option/>').attr("value", "").text("-- Escolha uma categoria --"));
+
+        $.each(data, function (i, option) {
+            $('#Category').append($('<option/>').attr("value", option.id).text(option.title));
+        });
+    });
+}
+
+function pesquisarFornecedores() {
+
+    $.ajax({
+        type: "GET",
+        data: null,
+        url: "http://localhost:60341/api/v1/public/suppliers/",
+        contentType: "application/json"
+    }).success(function (data) {
+
+        $('#Supplier').empty();
+
+        $('#Supplier').append($('<option/>').attr("value", "").text("-- Escolha um fornecedor --"));
+
+        $.each(data, function (i, option) {
+            $('#Supplier').append($('<option/>').attr("value", option.id).text(option.nome));
+        });
+    });
+}
+
+function pesquisarMarcas() {
+
+    $.ajax({
+        type: "GET",
+        data: null,
+        url: "http://localhost:60341/api/v1/public/brandies/",
+        contentType: "application/json"
+    }).success(function (data) {
+
+        $('#Brand').empty();
+
+        $('#Brand').append($('<option/>').attr("value", "").text("-- Escolha uma marca --"));
+
+        $.each(data, function (i, option) {
+            $('#Brand').append($('<option/>').attr("value", option.id).text(option.title));
+        });
+    });
+}
+
+$('#resetar').click(function () { $('#idProduto').val(''); });
 
 $('#salvar').click(function () {
 
-    if ($('#Nome').val() == '') {
-        $('#Nome').closest('.form-group').addClass('has-error');
-        $('#Nome').focus();
+    if ($('#Title').val() == '') {
+        $('#Title').closest('.form-group').addClass('has-error');
+        $('#Title').focus();
         return;
     }
     else {
-        $('#Nome').closest('.form-group').removeClass('has-error');
+        $('#Title').closest('.form-group').removeClass('has-error');
     }
 
     $(this).text('aguarde...');
 
-    var supplier = {
-        Id: $('#idFornecedor').val(),
-        Nome: $('#Nome').val(),
-        Email: $('#Email').val(),
-        DDDTelefone: $('#DDDTelefone').val(),
-        Telefone: $('#Telefone').val(),
-        DDDCelular: $('#DDDCelular').val(),
-        Celular: $('#Celular').val(),
-        CNPJ: $('#CNPJ').val(),
-        IE: $('#Ie').val(),
-        Observacoes: $('#Observacoes').val()
+    var product = {
+        Id: $('#idProduto').val(),
+        Title: $('#Title').val(),
+        Description: $('#Description').val(),
+        Style: $('#Style').val(),
+        Size: $('#Size').val(),
+        Measure: $('#Measure').val(),
+        Color: $('#Color').val(),
+        Model: $('#Model').val(),
+        BrandId: $('#Brand').val(),
+        SupplierId: $('#Supplier').val(),
+        CategoryId: $('#Category').val(),
+        Quantity: $('#Quantity').val(),
+        Cost: $('#Cost').val(),
+        Price: $('#Price').val()
     }
 
-    if ($('#idFornecedor').val() == '') { salvar(supplier); } else { atualizar(supplier); }
+    if ($('#idProduto').val() == '') { salvar(product); } else { atualizar(product); }
 });
 
-function salvar(supplier) {
+function salvar(product) {
     $.ajax({
         type: "POST",
-        data: JSON.stringify(supplier),
-        url: "http://localhost:60341/api/v1/public/supplier/",
+        data: JSON.stringify(product),
+        url: "http://localhost:60341/api/v1/public/product/",
         contentType: "application/json"
     }).success(function (data) {
         $('#idFornecedor').val(data.id);
@@ -59,11 +126,11 @@ function salvar(supplier) {
     });
 }
 
-function atualizar(supplier) {
+function atualizar(product) {
     $.ajax({
         type: "PUT",
-        data: JSON.stringify(supplier),
-        url: "http://localhost:60341/api/v1/public/supplier/",
+        data: JSON.stringify(product),
+        url: "http://localhost:60341/api/v1/public/product/",
         contentType: "application/json"
     }).success(function (data) {
         $('.bootbox-body').text(data.response.mensagem);
@@ -82,7 +149,7 @@ function pesquisar() {
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/suppliers/",
+        url: "http://localhost:60341/api/v1/public/products/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -92,12 +159,12 @@ function pesquisar() {
 
             var html =
                 template
-                    .replace("{{Nome}}", element.nome)
-                    .replace("{{Email}}", element.email)
-                    .replace("{{Telefone}}", element.dddTelefone + '-' + element.telefone)
-                    .replace("{{Celular}}", element.dddCelular + '-' + element.celular)
+                    .replace("{{Title}}", element.title)
+                    .replace("{{Cost}}", element.cost)
+                    .replace("{{Price}}", element.price)
+                    .replace("{{Quantity}}", element.quantity == 1 ? '1 <span class="red ace-icon fa fa-flag bigger"></span>' : element.quantity)
+                    .replace("{{Total}}", element.price * element.quantity)
                     .replace("{{Edicao}}", element.id).replace("{{Exclusao}}", element.id)
-                    .replace("{{Edicao-m}}", element.id).replace("{{Exclusao-m}}", element.id)
 
             $("#corpo").prepend(html);
         });
@@ -108,7 +175,7 @@ function obter() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:60341/api/v1/public/suppliers/" + $('#idFornecedor').val(),
+        url: "http://localhost:60341/api/v1/public/products/" + $('#idProduto').val(),
         contentType: "application/json"
     }).success(function (data) {
         preencherFormulario(data);
@@ -121,7 +188,7 @@ function excluir(obj) {
 
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:60341/api/v1/public/supplier/" + id,
+        url: "http://localhost:60341/api/v1/public/product/" + id,
         contentType: "application/json"
     }).success(function (data) {
         $(obj).closest('tr').remove();
@@ -130,14 +197,19 @@ function excluir(obj) {
 
 function preencherFormulario(dados) {
 
-    $('#idFornecedor').val(dados.id);
-    $('#Nome').val(dados.nome);
-    $('#Email').val(dados.email);
-    $('#DDDTelefone').val(dados.dddTelefone);
-    $('#Telefone').val(dados.telefone);
-    $('#DDDCelular').val(dados.dddCelular);
-    $('#Celular').val(dados.celular);
-    $('#CNPJ').val(dados.cnpj);
-    $('#Ie').val(dados.ie);
-    $('#Observacoes').val(dados.observacoes);
+    $('#idProduto').val(dados.id);
+    $('#Title').val(dados.title);
+    $('#Description').val(dados.description);
+    $('#Style').val(dados.style);
+    $('#Size').val(dados.size);
+    $('#Measure').val(dados.measure);
+    $('#Color').val(dados.color);
+    $('#Model').val(dados.model);
+    $('#Brand').val(dados.brandId);
+    $('#Supplier').val(dados.supplierId);
+    $('#Category').val(dados.categoryId);
+
+    $('#Quantity').val(dados.quantity);
+    $('#Cost').val(dados.cost);
+    $('#Price').val(dados.price);
 }

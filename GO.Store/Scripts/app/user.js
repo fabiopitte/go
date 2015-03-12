@@ -2,52 +2,44 @@
 
 $(document).ready(function () {
 
-    if ($('#idCliente').val() !== undefined && $('#idCliente').val() !== '') {
+    if ($('#idUsuario').val() !== undefined && $('#idUsuario').val() !== '') {
         obter();
     } else if ($('#template-listagem').val() !== undefined) {
         pesquisar();
     }
 });
 
-$('#resetar').click(function () { $('#idCliente').val(''); });
+$('#resetar').click(function () { $('#idUsuario').val(''); });
 
 $('#salvar').click(function () {
 
-    if ($('#Nome').val() == '') {
-        $('#Nome').closest('.form-group').addClass('has-error');
-        $('#Nome').focus();
+    if ($('#Name').val() == '') {
+        $('#Name').closest('.form-group').addClass('has-error');
+        $('#Name').focus();
         return;
     }
     else {
-        $('#Nome').closest('.form-group').removeClass('has-error');
+        $('#Name').closest('.form-group').removeClass('has-error');
     }
 
     $(this).text('aguarde...');
 
-    var customer = {
-        Id: $('#idCliente').val(),
-        Nome: $('#Nome').val(),
-        Email: $('#Email').val(),
-        DDDTelefone: $('#DDDTelefone').val(),
-        Telefone: $('#Telefone').val(),
-        DDDCelular: $('#DDDCelular').val(),
-        Celular: $('#Celular').val(),
-        CNPJ: $('#CNPJ').val(),
-        IE: $('#Ie').val(),
-        Observacoes: $('#Observacoes').val()
+    var user = {
+        Id: $('#idUsuario').val(),
+        Name: $('#Name').val()
     }
 
-    if ($('#idCliente').val() == '') { salvar(customer); } else { atualizar(customer); }
+    if ($('#idUsuario').val() == '') { salvar(user); } else { atualizar(user); }
 });
 
-function salvar(customer) {
+function salvar(user) {
     $.ajax({
         type: "POST",
-        data: JSON.stringify(customer),
-        url: "http://localhost:60341/api/v1/public/customer/",
+        data: JSON.stringify(user),
+        url: "http://localhost:60341/api/v1/public/user/",
         contentType: "application/json"
     }).success(function (data) {
-        $('#idCliente').val(data.id);
+        $('#idUsuario').val(data.id);
         $('.bootbox-body').text(data.response.mensagem);
         $('.modal-body').css('background-color', '#fff').css('color', '#393939');
     }).error(function (data) {
@@ -59,11 +51,11 @@ function salvar(customer) {
     });
 }
 
-function atualizar(customer) {
+function atualizar(user) {
     $.ajax({
         type: "PUT",
-        data: JSON.stringify(customer),
-        url: "http://localhost:60341/api/v1/public/customer/",
+        data: JSON.stringify(user),
+        url: "http://localhost:60341/api/v1/public/user/",
         contentType: "application/json"
     }).success(function (data) {
         $('.bootbox-body').text(data.response.mensagem);
@@ -82,7 +74,7 @@ function pesquisar() {
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/customers/",
+        url: "http://localhost:60341/api/v1/public/users/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -92,10 +84,7 @@ function pesquisar() {
 
             var html =
                 template
-                    .replace("{{Nome}}", element.nome)
-                    .replace("{{Email}}", element.email)
-                    .replace("{{Telefone}}", element.dddTelefone + '-' + element.telefone)
-                    .replace("{{Celular}}", element.dddCelular + '-' + element.celular)
+                    .replace("{{Name}}", element.title)
                     .replace("{{Edicao}}", element.id).replace("{{Exclusao}}", element.id)
                     .replace("{{Edicao-m}}", element.id).replace("{{Exclusao-m}}", element.id)
 
@@ -108,7 +97,7 @@ function obter() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:60341/api/v1/public/customers/" + $('#idCliente').val(),
+        url: "http://localhost:60341/api/v1/public/users/" + $('#idUsuario').val(),
         contentType: "application/json"
     }).success(function (data) {
         preencherFormulario(data);
@@ -121,7 +110,7 @@ function excluir(obj) {
 
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:60341/api/v1/public/customer/" + id,
+        url: "http://localhost:60341/api/v1/public/user/" + id,
         contentType: "application/json"
     }).success(function (data) {
         $(obj).closest('tr').remove();
@@ -129,15 +118,6 @@ function excluir(obj) {
 }
 
 function preencherFormulario(dados) {
-
-    $('#idCliente').val(dados.id);
-    $('#Nome').val(dados.nome);
-    $('#Email').val(dados.email);
-    $('#DDDTelefone').val(dados.dddTelefone);
-    $('#Telefone').val(dados.telefone);
-    $('#DDDCelular').val(dados.dddCelular);
-    $('#Celular').val(dados.celular);
-    $('#CNPJ').val(dados.cnpj);
-    $('#Ie').val(dados.ie);
-    $('#Observacoes').val(dados.observacoes);
+    $('#idUsuario').val(dados.id);
+    $('#Name').val(dados.name);
 }

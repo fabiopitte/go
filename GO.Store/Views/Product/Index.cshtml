@@ -1,51 +1,105 @@
 ﻿<div class="row">
     <div class="col-xs-12">
-        <form class="form-horizontal" action="#" role="form" id="form-fornecedores">
-            <input type="hidden" id="idFornecedor" value="@ViewBag.id" />
+        <form class="form-horizontal" action="#" role="form" id="form-produtos">
+            <input type="hidden" id="idProduto" value="@ViewBag.id" />
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="Nome"> Nome </label>
+                <label class="col-sm-3 control-label no-padding-right" for="Title"> Titulo </label>
                 <div class="col-sm-9">
-                    <input type="text" id="Nome" class="col-xs-12 col-sm-5" required maxlength="100">
+                    <input type="text" id="Title" class="col-xs-12 col-sm-5" required maxlength="100">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="Email"> Email </label>
+                <label class="col-sm-3 control-label no-padding-right" for="Description"> Descrição </label>
                 <div class="col-sm-9">
-                    <input type="text" id="Email" class="col-xs-12 col-sm-5" maxlength="100">
+                    <textarea type="text" id="Description" class="col-xs-12 col-sm-5" maxlength="255"></textarea>
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="Telefone">Telefone</label>
+                <label class="col-sm-3 control-label no-padding-right" for="Style"> Estilo </label>
                 <div class="col-sm-9">
-                    <input class="col-xs-12 col-sm-1" type="text" id="DDDTelefone" placeholder="DDD" maxlength="3">
-                    <input class="col-xs-12 col-sm-4" type="text" id="Telefone" maxlength="10">
+                    <input type="text" id="Style" class="col-xs-12 col-sm-5" required maxlength="4">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="Celular">Celular</label>
+                <label class="col-sm-3 control-label no-padding-right" for="Size"> Tamanho </label>
                 <div class="col-sm-9">
-                    <input class="col-xs-12 col-sm-1" type="text" id="DDDCelular" placeholder="DDD" maxlength="3">
-                    <input class="col-xs-12 col-sm-4" type="text" id="Celular" maxlength="10">
+                    <input type="text" id="Size" class="col-xs-12 col-sm-5" required maxlength="4">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="CNPJ"> CNPJ </label>
+                <label class="col-sm-3 control-label no-padding-right" for="Measure"> Medida </label>
                 <div class="col-sm-9">
-                    <input type="text" id="CNPJ" class="col-xs-12 col-sm-5" maxlength="14">
+                    <input type="text" id="Measure" class="col-xs-12 col-sm-5" required maxlength="4">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="Ie"> I.E </label>
+                <label class="col-sm-3 control-label no-padding-right" for="Color"> Cor </label>
                 <div class="col-sm-9">
-                    <input type="text" id="Ie" class="col-xs-12 col-sm-5" maxlength="10">
+                    <input type="text" id="Color" class="col-xs-12 col-sm-5" required maxlength="4">
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-3 control-label no-padding-right" for="Observacoes"> Observações </label>
+                <label class="col-sm-3 control-label no-padding-right" for="Model"> Modelo </label>
                 <div class="col-sm-9">
-                    <textarea type="text" id="Observacoes" class="col-xs-12 col-sm-5" maxlength="255"></textarea>
+                    <input type="text" id="Model" class="col-xs-12 col-sm-5" required maxlength="4">
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Brand"> Marca </label>
+                <div class="col-sm-9">
+                    <select id="Brand" class="col-xs-5"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Supplier"> Fornecedor </label>
+                <div class="col-sm-9">
+                    <select id="Supplier" class="col-xs-5"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Category"> Categoria </label>
+                <div class="col-sm-9">
+                    <select id="Category" class="col-xs-5"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Category"> Foto</label>
+                <div class="col-sm-5">
+                    <label class="ace-file-input">
+                        <input type="file" id="id-input-file-2">
+                        <span class="ace-file-container" data-title="Escolha">
+                            <span class="ace-file-name" data-title="Sem arquivo...">
+                                <i class=" ace-icon fa fa-upload"></i>
+                            </span>
+                        </span>
+                        <a class="remove" href="#">
+                            <i class=" ace-icon fa fa-times"></i>
+                        </a>
+                    </label>
+                </div>
+            </div>
+
+            <h4 class="header blue bolder smaller">Preço/Custo</h4>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Quantity"> Quantidade </label>
+                <div class="col-sm-4">
+                    <input type="text" id="Quantity" class="col-xs-12 col-sm-5" required maxlength="4">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Cost"> Custo Unitário</label>
+                <div class="col-sm-4">
+                    <input type="text" id="Cost" class="col-xs-12 col-sm-5">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label no-padding-right" for="Price"> Preço Unitário</label>
+                <div class="col-sm-4">
+                    <input type="text" id="Price" class="col-xs-12 col-sm-5" required>
+                </div>
+            </div>
+
+
 
             <div class="form-actions center">
                 <button class="btn btn-sm" type="reset" id="resetar">
@@ -61,4 +115,4 @@
     </div>
 </div>
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
-<script src="~/Scripts/app/supplier.js"></script>
+<script src="~/Scripts/app/product.js"></script>

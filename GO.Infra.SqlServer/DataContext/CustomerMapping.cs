@@ -11,16 +11,16 @@ namespace GO.Infra.SqlServer.DataContext
 
             HasKey(c => c.Id);
 
-            Property(c => c.Nome).HasMaxLength(100).IsRequired();
-            Property(c => c.Email).HasMaxLength(100);
-            Property(c => c.DDDTelefone).HasMaxLength(3);
-            Property(c => c.Telefone).HasMaxLength(10);
-            Property(c => c.DDDCelular).HasMaxLength(3);
-            Property(c => c.Celular).HasMaxLength(10);
-            Property(c => c.IE).HasMaxLength(10);
-            Property(c => c.Observacoes).HasMaxLength(255);
-            Property(c => c.CNPJ).HasMaxLength(14);
-            Property(c => c.RazaoSocial).HasMaxLength(100);
+            Property(c => c.Nome).HasColumnType("varchar").HasMaxLength(100).IsRequired();
+            Property(c => c.Email).HasColumnType("varchar").HasMaxLength(100);
+            Property(c => c.DDDTelefone).HasColumnType("varchar").HasMaxLength(3);
+            Property(c => c.Telefone).HasColumnType("varchar").HasMaxLength(10);
+            Property(c => c.DDDCelular).HasColumnType("varchar").HasMaxLength(3);
+            Property(c => c.Celular).HasColumnType("varchar").HasMaxLength(10);
+            Property(c => c.IE).HasColumnType("varchar").HasMaxLength(10);
+            Property(c => c.Observacoes).HasColumnType("varchar").HasMaxLength(255);
+            Property(c => c.CNPJ).HasColumnType("varchar").HasMaxLength(14);
+            Property(c => c.RazaoSocial).HasColumnType("varchar").HasMaxLength(100);
 
             Ignore(c => c.Response);
         }

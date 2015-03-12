@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAD.cs" />
+    <Compile Include="DataContext\BrandMapping.cs" />
+    <Compile Include="DataContext\UserMapping.cs" />
     <Compile Include="DataContext\PhotoMapping.cs" />
     <Compile Include="DataContext\CategoryMapping.cs" />
     <Compile Include="DataContext\CustomerMapping.cs" />
@@ -69,6 +71,34 @@
     <Compile Include="Migrations\201503110516097_quarto.cs" />
     <Compile Include="Migrations\201503110516097_quarto.Designer.cs">
       <DependentUpon>201503110516097_quarto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503111305379_quinto.cs" />
+    <Compile Include="Migrations\201503111305379_quinto.Designer.cs">
+      <DependentUpon>201503111305379_quinto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503111727209_sexto.cs" />
+    <Compile Include="Migrations\201503111727209_sexto.Designer.cs">
+      <DependentUpon>201503111727209_sexto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503111857067_setimo.cs" />
+    <Compile Include="Migrations\201503111857067_setimo.Designer.cs">
+      <DependentUpon>201503111857067_setimo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503112133289_oitavo.cs" />
+    <Compile Include="Migrations\201503112133289_oitavo.Designer.cs">
+      <DependentUpon>201503112133289_oitavo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503112157069_nono.cs" />
+    <Compile Include="Migrations\201503112157069_nono.Designer.cs">
+      <DependentUpon>201503112157069_nono.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503120019234_decimo.cs" />
+    <Compile Include="Migrations\201503120019234_decimo.Designer.cs">
+      <DependentUpon>201503120019234_decimo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201503120031028_decimo-primeiro.cs" />
+    <Compile Include="Migrations\201503120031028_decimo-primeiro.Designer.cs">
+      <DependentUpon>201503120031028_decimo-primeiro.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +126,27 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201503110516097_quarto.resx">
       <DependentUpon>201503110516097_quarto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503111305379_quinto.resx">
+      <DependentUpon>201503111305379_quinto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503111727209_sexto.resx">
+      <DependentUpon>201503111727209_sexto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503111857067_setimo.resx">
+      <DependentUpon>201503111857067_setimo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503112133289_oitavo.resx">
+      <DependentUpon>201503112133289_oitavo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503112157069_nono.resx">
+      <DependentUpon>201503112157069_nono.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503120019234_decimo.resx">
+      <DependentUpon>201503120019234_decimo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503120031028_decimo-primeiro.resx">
+      <DependentUpon>201503120031028_decimo-primeiro.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

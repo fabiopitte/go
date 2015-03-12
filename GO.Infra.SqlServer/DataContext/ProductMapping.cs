@@ -11,11 +11,27 @@ namespace GO.Infra.SqlServer.DataContext
 
             HasKey(c => c.Id);
 
-            Property(c => c.Title).HasMaxLength(100).IsRequired();
+            Property(c => c.Title).HasColumnType("varchar").HasMaxLength(100).IsRequired();
 
-            Property(c => c.Description).HasMaxLength(255);
+            Property(c => c.Cost).IsOptional();
 
-            Property(c => c.Tamanho).HasMaxLength(10);
+            Property(c => c.Margin).IsOptional();
+
+            Property(c => c.SupplierId).IsOptional();
+
+            Property(c => c.PhotoId).IsOptional();
+
+            Property(c => c.Description).HasColumnType("varchar").HasMaxLength(255);
+
+            Property(c => c.Size).HasColumnType("varchar").HasMaxLength(50);
+
+            Property(c => c.Measure).HasColumnType("varchar").HasMaxLength(50);
+
+            Property(c => c.Color).HasColumnType("varchar").HasMaxLength(50);
+
+            Property(c => c.Model).HasColumnType("varchar").HasMaxLength(50);
+
+            Property(c => c.Style).HasColumnType("varchar").HasMaxLength(50);
 
             HasRequired(c => c.Category);
 

@@ -29,7 +29,7 @@ namespace GO.Service.Controllers
             {
                 var product = new Repository<Product>().Get(int.Parse(id));
 
-                product.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto salvo com sucesso!" };
+                product.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto obtido com sucesso!" };
 
                 return Request.CreateResponse(HttpStatusCode.OK, product);
             }
@@ -47,6 +47,8 @@ namespace GO.Service.Controllers
 
             try
             {
+                Validar(product);
+
                 var novo = new Repository<Product>().Add(product);
 
                 novo.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto salvo com sucesso!" };
@@ -67,6 +69,8 @@ namespace GO.Service.Controllers
 
             try
             {
+                Validar(product);
+
                 var alterado = new Repository<Product>().Update(product);
 
                 alterado.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto alterado com sucesso!" };
@@ -97,6 +101,14 @@ namespace GO.Service.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao excluir o produto.");
             }
+        }
+
+        private static void Validar(Product product)
+        {
+            product.PhotoId = product.PhotoId == 0 ? null : product.PhotoId;
+            product.SupplierId = product.SupplierId == 0 ? null : product.SupplierId;
+            product.BrandId = product.BrandId == 0 ? null : product.BrandId;
+            product.CategoryId = product.CategoryId == 0 ? null : product.CategoryId;
         }
 
         protected override void Dispose(bool disposing)

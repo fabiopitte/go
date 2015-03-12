@@ -1,0 +1,118 @@
+﻿<div id="user-profile-3" class="user-profile row">
+    <div class="col-sm-offset-1 col-sm-10">
+
+        <form class="form-horizontal">
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-16">
+                    <li class="active">
+                        <a data-toggle="tab" href="#edit-basic" aria-expanded="true">
+                            <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
+                            Informações
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a data-toggle="tab" href="#edit-password" aria-expanded="false">
+                            <i class="blue ace-icon fa fa-key bigger-125"></i>
+                            Senha
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content profile-edit-tab-content">
+                    <div id="edit-basic" class="tab-pane active">
+                        <h4 class="header blue bolder smaller">Geral</h4>
+
+                        <div class="row">
+
+                            <div class="vspace-12-sm"></div>
+
+                            <div class="col-xs-12 col-sm-8">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-username">Nome</label>
+                                    <div class="col-sm-8">
+                                        <input class="col-xs-12 col-sm-10" type="text" id="form-field-username">
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-username">Login</label>
+                                    <div class="col-sm-8">
+                                        <input class="col-xs-12 col-sm-10" type="text" id="form-field-username">
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-username">Email</label>
+                                    <div class="col-sm-8">
+                                        <input class="col-xs-12 col-sm-10" type="text" id="form-field-username">
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="Telefone">Telefone</label>
+                                    <div class="col-sm-8">
+                                        <input class="col-xs-12 col-sm-3" type="text" id="DDDTelefone" placeholder="DDD" maxlength="3">
+                                        <input class="col-xs-12 col-sm-7" type="text" id="Telefone" maxlength="10">
+                                    </div>
+                                </div>
+
+                                @*<div class="form-group">
+                                    <label class="col-sm-4 control-label no-padding-right" for="form-field-first">Telefone</label>
+
+                                    <div class="col-sm-8">
+                                        <input class="input-small col-sm-2" type="text" id="form-field-first">
+                                        <input class="input-small col-sm-6" type="text" id="form-field-last">
+                                    </div>
+                                </div>*@
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-password" class="tab-pane">
+                        <div class="space-10"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-pass1">Nova Senha</label>
+
+                            <div class="col-sm-9">
+                                <input type="password" id="form-field-pass1">
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label no-padding-right" for="form-field-pass2">Confirme a Senha</label>
+
+                            <div class="col-sm-9">
+                                <input type="password" id="form-field-pass2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix form-actions">
+                <div class="col-md-offset-3 col-md-9">
+                    <button class="btn btn-info" type="button">
+                        <i class="ace-icon fa fa-check bigger-110"></i>
+                        Salvar
+                    </button>
+
+                    &nbsp; &nbsp;
+                    <button class="btn" type="reset">
+                        <i class="ace-icon fa fa-undo bigger-110"></i>
+                        Cancelar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div><!-- /.span -->
+</div>

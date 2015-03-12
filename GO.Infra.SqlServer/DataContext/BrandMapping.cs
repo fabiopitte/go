@@ -3,11 +3,11 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace GO.Infra.SqlServer.DataContext
 {
-    public class CategoryMapping : EntityTypeConfiguration<Category>
+    public class BrandMapping : EntityTypeConfiguration<Brand>
     {
-        public CategoryMapping()
+        public BrandMapping()
         {
-            ToTable("tblCategory");
+            ToTable("tblBrand");
 
             HasKey(c => c.Id);
 

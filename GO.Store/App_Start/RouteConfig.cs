@@ -12,7 +12,7 @@ namespace GO.Interface
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Category", action = "List", id = UrlParameter.Optional }
+                defaults: new { controller = "Product", action = "Invoice", id = UrlParameter.Optional }
             );
         }
     }

@@ -11,7 +11,7 @@ namespace GO.Infra.SqlServer.DataContext
 
             HasKey(c => c.Id);
 
-            Property(c => c.Title).HasMaxLength(100).IsRequired();
+            Property(c => c.Title).HasColumnType("varchar").HasMaxLength(100).IsRequired();
         }
     }
 }
