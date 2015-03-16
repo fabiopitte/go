@@ -15,12 +15,20 @@ $(document).ready(function () {
     }
 });
 
+function abrirModalUpload() {
+    $('#upload').modal('show');
+}
+
+function abrirModalGaleria() {
+    $('#galeria').modal('show');
+}
+
 function pesquisarCategorias() {
 
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/categories/",
+        url: PathService + "/api/v1/public/categories/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -39,7 +47,7 @@ function pesquisarFornecedores() {
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/suppliers/",
+        url: PathService + "/api/v1/public/suppliers/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -58,7 +66,7 @@ function pesquisarMarcas() {
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/brandies/",
+        url: PathService + "/api/v1/public/brandies/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -111,18 +119,15 @@ function salvar(product) {
     $.ajax({
         type: "POST",
         data: JSON.stringify(product),
-        url: "http://localhost:60341/api/v1/public/product/",
+        url: PathService + "/api/v1/public/product/",
         contentType: "application/json"
     }).success(function (data) {
-        $('#idFornecedor').val(data.id);
-        $('.bootbox-body').text(data.response.mensagem);
-        $('.modal-body').css('background-color', '#fff').css('color', '#393939');
+        $('#idProduto').val(data.id);
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
     }).error(function (data) {
-        $('.bootbox-body').text(data.responseText);
-        $('.modal-body').css('background-color', 'rgb(187, 62, 62)').css('color', 'white');
+        mensagem('Erro no cadastro', data.responseText, 'erro');
     }).complete(function () {
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
-        $('.bootbox').modal('show');
     });
 }
 
@@ -130,26 +135,25 @@ function atualizar(product) {
     $.ajax({
         type: "PUT",
         data: JSON.stringify(product),
-        url: "http://localhost:60341/api/v1/public/product/",
+        url: PathService + "/api/v1/public/product/",
         contentType: "application/json"
     }).success(function (data) {
-        $('.bootbox-body').text(data.response.mensagem);
-        $('.modal-body').css('background-color', '#fff').css('color', '#393939');
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
     }).error(function (data) {
-        $('.bootbox-body').text(data.responseText);
-        $('.modal-body').css('background-color', 'rgb(187, 62, 62)').css('color', 'white');
+        mensagem('Erro no cadastro', data.responseText, 'erro');
     }).complete(function () {
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
-        $('.bootbox').modal('show');
     });
 }
 
 function pesquisar() {
 
+    $('#load').removeClass('hide');
+
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/products/",
+        url: PathService + "/api/v1/public/products/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -159,15 +163,18 @@ function pesquisar() {
 
             var html =
                 template
+                    .replace("{{Quantity}}", element.quantity == 1 ? '<strong class="red">1</strong> <span class="red ace-icon fa fa-flag bigger"></span>' : element.quantity)
                     .replace("{{Title}}", element.title)
-                    .replace("{{Cost}}", element.cost)
+                    .replace("{{Brand}}", element.brand.title)
                     .replace("{{Price}}", element.price)
-                    .replace("{{Quantity}}", element.quantity == 1 ? '1 <span class="red ace-icon fa fa-flag bigger"></span>' : element.quantity)
-                    .replace("{{Total}}", element.price * element.quantity)
-                    .replace("{{Edicao}}", element.id).replace("{{Exclusao}}", element.id)
-
+                    .replace("{{Cost}}", element.cost)
+                    .replace("{{Product}}", element.id).replace("{{Product-m}}", element.id)
+                    .replace("{{Out}}", element.id).replace("{{Out-m}}", element.id)
+                    .replace("{{Edit}}", element.id).replace("{{Edit-m}}", element.id)
             $("#corpo").prepend(html);
         });
+    }).complete(function () {
+        $('#load').addClass('hide');
     });
 }
 
@@ -175,7 +182,7 @@ function obter() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:60341/api/v1/public/products/" + $('#idProduto').val(),
+        url: PathService + "/api/v1/public/products/" + $('#idProduto').val(),
         contentType: "application/json"
     }).success(function (data) {
         preencherFormulario(data);
@@ -188,10 +195,13 @@ function excluir(obj) {
 
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:60341/api/v1/public/product/" + id,
+        url: PathService + "/api/v1/public/product/" + id,
         contentType: "application/json"
     }).success(function (data) {
         $(obj).closest('tr').remove();
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+    }).error(function (data) {
+        mensagem('Oooooops', data.responseText, 'erro');
     });
 }
 

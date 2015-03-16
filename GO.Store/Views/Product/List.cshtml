@@ -1,14 +1,25 @@
 ﻿<script id="template-listagem" type="application/html-template">
     <tr>
         <td>{{Title}}</td>
-        <td class="hidden-xs"><s class="red">{{Cost}}</s></td>
-        <td><b class="blue">{{Price}}</b></td>
+        <td>{{Brand}}</td>
         <td>{{Quantity}}</td>
-        <td><b class="green">{{Total}}</b></td>
-        <td width="75px">
+        <td><b class="blue">{{Cost}}</b></td>
+        <td><b class="green">{{Price}}</b></td>
+        <td width="140px">
             <div class="hidden-sm hidden-xs btn-group">
-                <a href="Index/{{Edicao}}" class="btn btn-xs btn-info">
-                    <i class="ace-icon fa fa-search-plus bigger-130"></i>
+                <a href="Index/{{Edit}}" class="btn btn-xs btn-warning">
+                    <i class="ace-icon fa fa-pencil-square-o bigger-160"></i>
+                </a>
+            </div>
+            <div class="hidden-sm hidden-xs btn-group">
+                <a onclick="abrirModalGaleria({{Product}})" class="btn btn-xs btn-info">
+                    <i class="ace-icon fa fa-camera bigger-160"></i>
+                </a>
+            </div>
+
+            <div class="hidden-sm hidden-xs btn-group">
+                <a href="/Sale/Index/{{Out}}" class="btn btn-xs btn-success">
+                    <i class="ace-icon fa fa-cloud-download bigger-160"></i>
                 </a>
             </div>
             <div class="hidden-md hidden-lg">
@@ -19,9 +30,23 @@
 
                     <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                         <li>
-                            <a href="Index/{{Edicao-m}}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
-                                <span class="green">
+                            <a href="Index/{{Edit-m}}" class="tooltip-warning" data-rel="tooltip" title="" data-original-title="Editar">
+                                <span class="orange">
                                     <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a onclick="abrirModalGaleria({{Product-m}})" href="#" class="tooltip-primary" data-rel="tooltip" title="" data-original-title="fotos">
+                                <span class="blue">
+                                    <i class="ace-icon fa fa-camera bigger-120"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/Sale/Index/{{Out-m}}" class="tooltip-success" data-rel="tooltip" title="" data-original-title="saida">
+                                <span class="green">
+                                    <i class="ace-icon fa fa-cloud-download bigger-120"></i>
                                 </span>
                             </a>
                         </li>
@@ -34,21 +59,34 @@
 
 <div class="row">
     <div class="col-sm-10 col-sm-offset-1">
+        <h4 class="pull-right">
+            Total em Estoque :
+            <span class="red">395</span>
+        </h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
         <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
             <thead>
                 <tr>
                     <th>Produto</th>
-                    <th class="hidden-xs">Custo</th>
-                    <th>Preço</th>
+                    <th>Marca</th>
                     <th>Qtd</th>
-                    <th><i class="ace-icon glyphicon glyphicon-euro bigger-110 hidden-480"></i>Total</th>
+                    <th>Custo</th>
+                    <th>Preço</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody id="corpo"></tbody>
         </table>
     </div>
+    <div class="col-xs-12 text-center hide" id="load">
+        <h3 class="lighter grey">
+            <i class="ace-icon fa fa-spinner fa-spin orange bigger-240"></i>
+        </h3>
+    </div>
 </div>
-
 <script src="~/Scripts/jquery-1.9.1.min.js"></script>
 <script src="~/Scripts/app/product.js"></script>

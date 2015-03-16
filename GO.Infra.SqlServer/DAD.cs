@@ -68,5 +68,16 @@ namespace GO.Infra.SqlServer
 
             return true;
         }
+
+        public virtual GO.Domain.User Login(GO.Domain.User user)
+        {
+            try
+            {
+                var consulta = db.User.FirstOrDefault(usuario => usuario.Login.Equals(user.Login) && usuario.Password.Equals(user.Password));
+
+                return consulta;
+            }
+            catch (Exception ex) { throw ex; }
+        }
     }
 }

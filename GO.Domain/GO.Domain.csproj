@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Item.cs" />
+    <Compile Include="Sale.cs" />
     <Compile Include="Brand.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Photo.cs" />

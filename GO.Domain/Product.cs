@@ -1,7 +1,15 @@
-﻿namespace GO.Domain
+﻿using System;
+using System.Collections.Generic;
+
+namespace GO.Domain
 {
     public class Product
     {
+        public Product()
+        {
+            this.Photos = new List<Photo>();
+        }
+
         public int Id { get; set; }
 
         public string Title { get; set; }
@@ -9,6 +17,8 @@
         public decimal Price { get; set; }
 
         public decimal Cost { get; set; }
+
+        public DateTime? InsertDate { get; set; }
 
         public decimal Margin { get; set; }
 
@@ -20,10 +30,8 @@
 
         public int? BrandId { get; set; }
 
-        public int? PhotoId { get; set; }
-
         public string Description { get; set; }
-        
+
         public string Style { get; set; }
 
         public string Size { get; set; }
@@ -34,7 +42,7 @@
 
         public string Model { get; set; }
 
-        public virtual Photo Photo { get; set; }
+        public virtual ICollection<Photo> Photos { get; set; }
 
         public virtual Category Category { get; set; }
 

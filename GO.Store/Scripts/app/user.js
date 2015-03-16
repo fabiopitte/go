@@ -22,11 +22,41 @@ $('#salvar').click(function () {
         $('#Name').closest('.form-group').removeClass('has-error');
     }
 
+    if ($('#Login').val() == '') {
+        $('#Login').closest('.form-group').addClass('has-error');
+        $('#Login').focus();
+        return;
+    }
+    else {
+        $('#Login').closest('.form-group').removeClass('has-error');
+    }
+
+    if ($('#Email').val() == '') {
+        $('#Email').closest('.form-group').addClass('has-error');
+        $('#Email').focus();
+        return;
+    }
+    else {
+        $('#Email').closest('.form-group').removeClass('has-error');
+    }
+
+    if ($('#Password').val() !== $('#confirm-password').val()) {
+        $('#confirm-password').closest('.form-group').addClass('has-error');
+    }
+    else {
+        $('#confirm-password').closest('.form-group').removeClass('has-error');
+    }
+
     $(this).text('aguarde...');
 
     var user = {
         Id: $('#idUsuario').val(),
-        Name: $('#Name').val()
+        Name: $('#Name').val(),
+        Login: $('#Login').val(),
+        Email: $('#Email').val(),
+        DDDTelefone: $('#DDDTelefone').val(),
+        Telefone: $('#Telefone').val(),
+        Password: $('#Password').val()
     }
 
     if ($('#idUsuario').val() == '') { salvar(user); } else { atualizar(user); }
@@ -36,18 +66,15 @@ function salvar(user) {
     $.ajax({
         type: "POST",
         data: JSON.stringify(user),
-        url: "http://localhost:60341/api/v1/public/user/",
+        url: PathService + "/api/v1/public/user/",
         contentType: "application/json"
     }).success(function (data) {
         $('#idUsuario').val(data.id);
-        $('.bootbox-body').text(data.response.mensagem);
-        $('.modal-body').css('background-color', '#fff').css('color', '#393939');
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
     }).error(function (data) {
-        $('.bootbox-body').text(data.responseText);
-        $('.modal-body').css('background-color', 'rgb(187, 62, 62)').css('color', 'white');
+        mensagem('Erro no cadastro', data.responseText, 'erro');
     }).complete(function () {
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
-        $('.bootbox').modal('show');
     });
 }
 
@@ -55,26 +82,25 @@ function atualizar(user) {
     $.ajax({
         type: "PUT",
         data: JSON.stringify(user),
-        url: "http://localhost:60341/api/v1/public/user/",
+        url: PathService + "/api/v1/public/user/",
         contentType: "application/json"
     }).success(function (data) {
-        $('.bootbox-body').text(data.response.mensagem);
-        $('.modal-body').css('background-color', '#fff').css('color', '#393939');
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
     }).error(function (data) {
-        $('.bootbox-body').text(data.responseText);
-        $('.modal-body').css('background-color', 'rgb(187, 62, 62)').css('color', 'white');
+        mensagem('Erro no cadastro', data.responseText, 'erro');
     }).complete(function () {
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
-        $('.bootbox').modal('show');
     });
 }
 
 function pesquisar() {
 
+    $('#load').removeClass('hide');
+
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/users/",
+        url: PathService + "/api/v1/public/users/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -90,6 +116,8 @@ function pesquisar() {
 
             $("#corpo").prepend(html);
         });
+    }).complete(function () {
+        $('#load').addClass('hide');
     });
 }
 
@@ -97,7 +125,7 @@ function obter() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:60341/api/v1/public/users/" + $('#idUsuario').val(),
+        url: PathService + "/api/v1/public/users/" + $('#idUsuario').val(),
         contentType: "application/json"
     }).success(function (data) {
         preencherFormulario(data);
@@ -110,14 +138,21 @@ function excluir(obj) {
 
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:60341/api/v1/public/user/" + id,
+        url: PathService + "/api/v1/public/user/" + id,
         contentType: "application/json"
     }).success(function (data) {
         $(obj).closest('tr').remove();
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+    }).error(function (data) {
+        mensagem('Oooooops', data.responseText, 'erro');
     });
 }
 
 function preencherFormulario(dados) {
     $('#idUsuario').val(dados.id);
     $('#Name').val(dados.name);
+    $('#Login').val(dados.login);
+    $('#Email').val(dados.email);
+    $('#DDDTelefone').val(dados.dddTelefone);
+    $('#Telefone').val(dados.telefone);
 }

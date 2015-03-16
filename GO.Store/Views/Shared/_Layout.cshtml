@@ -9,17 +9,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+    <link href="~/Content/jquery.gritter.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300">
     <link rel="stylesheet" href="~/Content/ace.min.css" class="ace-main-stylesheet" id="main-ace-style">
     <link href="~/Content/ace-skins.min.css" rel="stylesheet" />
     <script src="~/Scripts/ace-extra.min.js"></script>
+    <script src="~/Scripts/dropzone/dropzone.js"></script>
+    <script>var PathService = 'http://localhost:60629/';</script>
+    <link href="~/Scripts/dropzone/basic.css" rel="stylesheet" />
+    <link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
 </head>
 <body class="skin-1">
 
-    <div class="bootbox modal fade in" tabindex="-1" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
-        <div class="modal-backdrop fade in" style="height: 100%;">
+    <div class="bootbox modal fade in" id="upload" tabindex="-1" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="blue bigger">Upload de Fotos</h4>
+                </div>
 
+                <div class="modal-body">
+                    <div class="row">
+                        <form action="/Product/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzone" style="background: none; border: none;">
+                            <div class="fallback">
+                                <input name="file" type="file" multiple />
+                                <input type="submit" value="Upload" />
+                            </div>
+                            <div class="dz-default dz-message">
+                                <span>
+                                    <span class="bigger-150 bolder">
+                                            <i class="ace-icon fa fa-caret-right red"></i> Arraste
+                                        </span> as fotos aqui
+                                        <br>
+                                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>
+                                </span>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button data-bb-handler="success" type="button" data-dismiss="modal" class="btn btn-sm btn-primary">OK</button>
+                    </div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="bootbox modal fade in" id="galeria" tabindex="-1" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="blue bigger">Fotos do produto</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="bootbox-body">
+                        @{ Html.RenderPartial("_Photos"); }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bootbox modal fade in" id="mensagem" tabindex="-1" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
@@ -32,6 +84,12 @@
             </div>
         </div>
     </div>
+
+    <span class="col-sm-4">
+        <label class="pull-right inline">
+            <input id="gritter-light" hidden checked="" type="checkbox">
+        </label>
+    </span>
 
     <div id="navbar" class="navbar navbar-default navbar-collapse h-navbar" style="height:45px;">
         <script type="text/javascript">
@@ -102,6 +160,7 @@
             </div>
         </div>
     </div>
+
     <div class="main-container" id="main-container">
         <script type="text/javascript">
             try { ace.settings.check('main-container', 'fixed') } catch (e) { }
@@ -149,7 +208,7 @@
                     </a>
                 </li>
                 <li class="hover">
-                    <a href="/Product/Invoice">
+                    <a href="/Sale/Index">
                         <i class="menu-icon fa fa-barcode"></i>
                         <span class="menu-text"> Saida </span>
                     </a>
@@ -187,7 +246,7 @@
                 <div id="sidebar2" class="sidebar responsive" data-sidebar="false" data-sidebar-scroll="true" data-sidebar-hover="true">
                     <ul class="nav nav-list" style="top: 0px;">
                         <li class="">
-                            <a href="#">
+                            <a href="/DashBoard/Index">
                                 <i class="menu-icon fa fa-tachometer"></i>
                                 <span class="menu-text"> Dashboard </span>
                             </a>
@@ -196,7 +255,7 @@
                         <li class="">
                             <a href="/Product/List">
                                 <i class="menu-icon fa fa-list-alt"></i>
-                                <span class="menu-text">Produtos</span>
+                                <span class="menu-text">Estoque</span>
                             </a>
                             <b class="arrow"></b>
                         </li>
@@ -260,6 +319,14 @@
     <!--[if !IE]> -->
     <script type="text/javascript">
         window.jQuery || document.write("<script src='/Scripts/jquery-1.9.1.min.js'>" + "<" + "/script>");
+
+        mensagem = function (titulo, mensagem, tipo) {
+            $.gritter.add({
+                title: titulo,
+                text: mensagem,
+                class_name: tipo == 'sucesso' ? 'gritter-success' : 'gritter-error'
+            });
+        }
     </script>
 
     <!-- <![endif]-->
@@ -268,13 +335,15 @@
      window.jQuery || document.write("<script src='~/Scripts/jquery-1.9.1.min.js'>"+"<"+"/script>");
     </script>
     <![endif]-->
+
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/ace-elements.min.js"></script>
+    <script src="~/Scripts/ace.min.js"></script>
+    <script src="~/Scripts/jquery.gritter.min.js"></script>
     <script type="text/javascript">
         if ('ontouchstart' in document.documentElement) document.write("<script src='dist/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
 
-    <script src="~/Scripts/ace-elements.min.js"></script>
-    <script src="~/Scripts/ace.min.js"></script>
     <script>
         (function (i, s, o, g, r, a, m) {
             i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {

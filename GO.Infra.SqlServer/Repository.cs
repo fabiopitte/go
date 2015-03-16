@@ -29,5 +29,10 @@ namespace GO.Infra.SqlServer
         {
             return base.Delete(id);
         }
+
+        public override Domain.User Login(Domain.User user)
+        {
+            return base.Login(user);
+        }
     }
 }

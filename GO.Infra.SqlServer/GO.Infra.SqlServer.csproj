@@ -47,6 +47,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DAD.cs" />
+    <Compile Include="DataContext\ItemMapping.cs" />
+    <Compile Include="DataContext\SaleMapping.cs" />
     <Compile Include="DataContext\BrandMapping.cs" />
     <Compile Include="DataContext\UserMapping.cs" />
     <Compile Include="DataContext\PhotoMapping.cs" />
@@ -56,49 +58,21 @@
     <Compile Include="DataContext\ProductMapping.cs" />
     <Compile Include="ICrud.cs" />
     <Compile Include="DataContext\GoStoreDataContext.cs" />
-    <Compile Include="Migrations\201503100137103_primeiro.cs" />
-    <Compile Include="Migrations\201503100137103_primeiro.Designer.cs">
-      <DependentUpon>201503100137103_primeiro.cs</DependentUpon>
+    <Compile Include="Migrations\201503130127263_a.cs" />
+    <Compile Include="Migrations\201503130127263_a.Designer.cs">
+      <DependentUpon>201503130127263_a.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503100151097_segundo.cs" />
-    <Compile Include="Migrations\201503100151097_segundo.Designer.cs">
-      <DependentUpon>201503100151097_segundo.cs</DependentUpon>
+    <Compile Include="Migrations\201503130130278_b.cs" />
+    <Compile Include="Migrations\201503130130278_b.Designer.cs">
+      <DependentUpon>201503130130278_b.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503101448368_terceiro.cs" />
-    <Compile Include="Migrations\201503101448368_terceiro.Designer.cs">
-      <DependentUpon>201503101448368_terceiro.cs</DependentUpon>
+    <Compile Include="Migrations\201503131936067_c.cs" />
+    <Compile Include="Migrations\201503131936067_c.Designer.cs">
+      <DependentUpon>201503131936067_c.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201503110516097_quarto.cs" />
-    <Compile Include="Migrations\201503110516097_quarto.Designer.cs">
-      <DependentUpon>201503110516097_quarto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111305379_quinto.cs" />
-    <Compile Include="Migrations\201503111305379_quinto.Designer.cs">
-      <DependentUpon>201503111305379_quinto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111727209_sexto.cs" />
-    <Compile Include="Migrations\201503111727209_sexto.Designer.cs">
-      <DependentUpon>201503111727209_sexto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503111857067_setimo.cs" />
-    <Compile Include="Migrations\201503111857067_setimo.Designer.cs">
-      <DependentUpon>201503111857067_setimo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503112133289_oitavo.cs" />
-    <Compile Include="Migrations\201503112133289_oitavo.Designer.cs">
-      <DependentUpon>201503112133289_oitavo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503112157069_nono.cs" />
-    <Compile Include="Migrations\201503112157069_nono.Designer.cs">
-      <DependentUpon>201503112157069_nono.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503120019234_decimo.cs" />
-    <Compile Include="Migrations\201503120019234_decimo.Designer.cs">
-      <DependentUpon>201503120019234_decimo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503120031028_decimo-primeiro.cs" />
-    <Compile Include="Migrations\201503120031028_decimo-primeiro.Designer.cs">
-      <DependentUpon>201503120031028_decimo-primeiro.cs</DependentUpon>
+    <Compile Include="Migrations\201503131949049_d.cs" />
+    <Compile Include="Migrations\201503131949049_d.Designer.cs">
+      <DependentUpon>201503131949049_d.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -115,38 +89,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201503100137103_primeiro.resx">
-      <DependentUpon>201503100137103_primeiro.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503130127263_a.resx">
+      <DependentUpon>201503130127263_a.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503100151097_segundo.resx">
-      <DependentUpon>201503100151097_segundo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503130130278_b.resx">
+      <DependentUpon>201503130130278_b.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503101448368_terceiro.resx">
-      <DependentUpon>201503101448368_terceiro.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503131936067_c.resx">
+      <DependentUpon>201503131936067_c.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503110516097_quarto.resx">
-      <DependentUpon>201503110516097_quarto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111305379_quinto.resx">
-      <DependentUpon>201503111305379_quinto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111727209_sexto.resx">
-      <DependentUpon>201503111727209_sexto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503111857067_setimo.resx">
-      <DependentUpon>201503111857067_setimo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503112133289_oitavo.resx">
-      <DependentUpon>201503112133289_oitavo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503112157069_nono.resx">
-      <DependentUpon>201503112157069_nono.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503120019234_decimo.resx">
-      <DependentUpon>201503120019234_decimo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503120031028_decimo-primeiro.resx">
-      <DependentUpon>201503120031028_decimo-primeiro.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201503131949049_d.resx">
+      <DependentUpon>201503131949049_d.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

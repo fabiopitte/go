@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace GO.Store.Controllers
+namespace GO.Controllers
 {
     public class SupplierController : Controller
     {

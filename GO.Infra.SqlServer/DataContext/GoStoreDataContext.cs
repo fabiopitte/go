@@ -13,11 +13,13 @@ namespace GO.Infra.SqlServer.DataContext
         public DbSet<Photo> Photo { get; set; }
         public DbSet<User> User { get; set; }
         public DbSet<Brand> Brand { get; set; }
+        public DbSet<Sale> Sale { get; set; }
+        public DbSet<Item> Item { get; set; }
 
         public GoStoreDataContext()
             : base("name=GOStoreConnectionString")
         {
-            Database.SetInitializer<GoStoreDataContext>(new GostoreDataContextInitializer());
+            //Database.SetInitializer<GoStoreDataContext>(new GostoreDataContextInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,6 +31,8 @@ namespace GO.Infra.SqlServer.DataContext
             modelBuilder.Configurations.Add(new PhotoMapping());
             modelBuilder.Configurations.Add(new UserMapping());
             modelBuilder.Configurations.Add(new BrandMapping());
+            modelBuilder.Configurations.Add(new SaleMapping());
+            modelBuilder.Configurations.Add(new ItemMapping());
 
             base.OnModelCreating(modelBuilder);
         }

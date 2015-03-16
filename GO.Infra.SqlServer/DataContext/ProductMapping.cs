@@ -19,8 +19,6 @@ namespace GO.Infra.SqlServer.DataContext
 
             Property(c => c.SupplierId).IsOptional();
 
-            Property(c => c.PhotoId).IsOptional();
-
             Property(c => c.Description).HasColumnType("varchar").HasMaxLength(255);
 
             Property(c => c.Size).HasColumnType("varchar").HasMaxLength(50);

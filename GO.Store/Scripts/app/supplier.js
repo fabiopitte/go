@@ -44,18 +44,15 @@ function salvar(supplier) {
     $.ajax({
         type: "POST",
         data: JSON.stringify(supplier),
-        url: "http://localhost:60341/api/v1/public/supplier/",
+        url: PathService + "/api/v1/public/supplier/",
         contentType: "application/json"
     }).success(function (data) {
         $('#idFornecedor').val(data.id);
-        $('.bootbox-body').text(data.response.mensagem);
-        $('.modal-body').css('background-color', '#fff').css('color', '#393939');
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
     }).error(function (data) {
-        $('.bootbox-body').text(data.responseText);
-        $('.modal-body').css('background-color', 'rgb(187, 62, 62)').css('color', 'white');
+        mensagem('Erro no cadastro', data.responseText, 'erro');
     }).complete(function () {
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
-        $('.bootbox').modal('show');
     });
 }
 
@@ -63,26 +60,25 @@ function atualizar(supplier) {
     $.ajax({
         type: "PUT",
         data: JSON.stringify(supplier),
-        url: "http://localhost:60341/api/v1/public/supplier/",
+        url: PathService + "/api/v1/public/supplier/",
         contentType: "application/json"
     }).success(function (data) {
-        $('.bootbox-body').text(data.response.mensagem);
-        $('.modal-body').css('background-color', '#fff').css('color', '#393939');
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
     }).error(function (data) {
-        $('.bootbox-body').text(data.responseText);
-        $('.modal-body').css('background-color', 'rgb(187, 62, 62)').css('color', 'white');
+        mensagem('Erro no cadastro', data.responseText, 'erro');
     }).complete(function () {
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
-        $('.bootbox').modal('show');
     });
 }
 
 function pesquisar() {
 
+    $('#load').removeClass('hide');
+
     $.ajax({
         type: "GET",
         data: null,
-        url: "http://localhost:60341/api/v1/public/suppliers/",
+        url: PathService + "/api/v1/public/suppliers/",
         contentType: "application/json"
     }).success(function (data) {
 
@@ -101,6 +97,8 @@ function pesquisar() {
 
             $("#corpo").prepend(html);
         });
+    }).complete(function () {
+        $('#load').addClass('hide');
     });
 }
 
@@ -108,7 +106,7 @@ function obter() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:60341/api/v1/public/suppliers/" + $('#idFornecedor').val(),
+        url: PathService + "/api/v1/public/suppliers/" + $('#idFornecedor').val(),
         contentType: "application/json"
     }).success(function (data) {
         preencherFormulario(data);
@@ -121,10 +119,13 @@ function excluir(obj) {
 
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:60341/api/v1/public/supplier/" + id,
+        url: PathService + "/api/v1/public/supplier/" + id,
         contentType: "application/json"
     }).success(function (data) {
         $(obj).closest('tr').remove();
+        mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+    }).error(function (data) {
+        mensagem('Oooooops', data.responseText, 'erro');
     });
 }
 

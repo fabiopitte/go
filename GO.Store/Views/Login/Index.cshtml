@@ -57,37 +57,36 @@
                                             Entre com o login
                                         </h4>
                                         <div class="space-6"></div>
-                                        <form>
-                                            <fieldset>
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="text" class="form-control" placeholder="Login">
-                                                        <i class="ace-icon fa fa-user"></i>
-                                                    </span>
+                                        <fieldset>
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="text" id="Login" class="form-control" placeholder="Login">
+                                                    <i class="ace-icon fa fa-user"></i>
+                                                </span>
+                                            </label>
+
+                                            <label class="block clearfix">
+                                                <span class="block input-icon input-icon-right">
+                                                    <input type="password" id="Password" class="form-control" placeholder="Senha">
+                                                    <i class="ace-icon fa fa-lock"></i>
+                                                </span>
+                                            </label>
+
+                                            <div class="space"></div>
+
+                                            <div class="clearfix">
+                                                <label class="inline">
                                                 </label>
 
-                                                <label class="block clearfix">
-                                                    <span class="block input-icon input-icon-right">
-                                                        <input type="password" class="form-control" placeholder="Senha">
-                                                        <i class="ace-icon fa fa-lock"></i>
-                                                    </span>
-                                                </label>
+                                                <button type="button" id="btn-logar" class="width-35 pull-right btn btn-sm btn-primary">
+                                                    <i class="ace-icon fa fa-key"></i>
+                                                    <span class="bigger-110">Login</span>
+                                                </button>
+                                            </div>
 
-                                                <div class="space"></div>
-
-                                                <div class="clearfix">
-                                                    <label class="inline">
-                                                    </label>
-
-                                                    <button type="button" class="width-35 pull-right btn btn-sm btn-primary">
-                                                        <i class="ace-icon fa fa-key"></i>
-                                                        <span class="bigger-110">Login</span>
-                                                    </button>
-                                                </div>
-
-                                                <div class="space-4"></div>
-                                            </fieldset>
-                                        </form>
+                                            <div class="space-4"></div>
+                                            <span id="mensagem" class="red"></span>
+                                        </fieldset>
                                     </div>
 
                                     <div class="toolbar clearfix">
@@ -98,8 +97,8 @@
                                             </a>
                                         </div>
                                     </div>
-                                </div><!-- /.widget-body -->
-                            </div><!-- /.login-box -->
+                                </div>
+                            </div>
 
                             <div id="forgot-box" class="forgot-box widget-box no-border">
                                 <div class="widget-body">
@@ -131,7 +130,7 @@
                                                 </div>
                                             </fieldset>
                                         </form>
-                                    </div><!-- /.widget-main -->
+                                    </div>
 
                                     <div class="toolbar center">
                                         <a href="#" data-target="#login-box" class="back-to-login-link">
@@ -173,6 +172,8 @@
 
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
+        var PathService = 'http://localhost:60629';
+
         jQuery(function ($) {
             $(document).on('click', '.toolbar a[data-target]', function (e) {
                 e.preventDefault();
@@ -181,31 +182,7 @@
                 $(target).addClass('visible');//show target
             });
         });
-
-        //you don't need this, just used for changing background
-        jQuery(function ($) {
-            $('#btn-login-dark').on('click', function (e) {
-                $('body').attr('class', 'login-layout');
-                $('#id-text2').attr('class', 'white');
-                $('#id-company-text').attr('class', 'blue');
-
-                e.preventDefault();
-            });
-            $('#btn-login-light').on('click', function (e) {
-                $('body').attr('class', 'login-layout light-login');
-                $('#id-text2').attr('class', 'grey');
-                $('#id-company-text').attr('class', 'blue');
-
-                e.preventDefault();
-            });
-            $('#btn-login-blur').on('click', function (e) {
-                $('body').attr('class', 'login-layout blur-login');
-                $('#id-text2').attr('class', 'white');
-                $('#id-company-text').attr('class', 'light-blue');
-
-                e.preventDefault();
-            });
-        });
     </script>
+    <script src="~/Scripts/app/login.js"></script>
 </body>
 </html>
