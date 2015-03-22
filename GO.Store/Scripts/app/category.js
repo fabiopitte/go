@@ -81,14 +81,9 @@ function pesquisar() {
 
         $(data).each(function (index, element) {
 
-            console.log(element);
-
-            var html =
-                template
-                    .replace("{{Title}}", element.title)
-                    .replace("{{Edicao}}", element.id).replace("{{Exclusao}}", element.id)
-                    .replace("{{Edicao-m}}", element.id).replace("{{Exclusao-m}}", element.id)
-
+            var html = template.replace("{{Title}}", element.title)
+                               .replace("{{Edicao}}", element.id).replace("{{Exclusao}}", element.id)
+                               .replace("{{Edicao-m}}", element.id).replace("{{Exclusao-m}}", element.id)
             $("#corpo").prepend(html);
         });
     }).complete(function () {

@@ -1,0 +1,65 @@
+﻿<div class="page-header">
+    <h1>Cadastro de Fornecedor</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <form class="form-horizontal" role="form" name="formSupplier" novalidate ng-submit="salvar()">
+            <input type="hidden" ng-model="supplier.id" />
+            <div class="form-group" show-errors>
+                <label for="nome" class="col-sm-2 control-label">Nome</label>
+                <div class="col-sm-5">
+                    <input type="text" ng-required="true" class="form-control" name="nome" id="nome" ng-model="supplier.nome" maxlength="100" autofocus>
+                </div>
+            </div>
+
+            <div class="form-group" show-errors>
+                <label for="email" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-5">
+                    <input type="text" ng-required="true" class="form-control" name="email" id="email" ng-model="supplier.email" maxlength="100" autofocus>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Telefone">Telefone</label>
+                <div class="col-sm-5">
+                    <input class="col-xs-12 col-sm-2" type="text" id="DDDTelefone" ng-model="supplier.dddTelefone" placeholder="DDD" maxlength="3">
+                    <input class="col-xs-12 col-sm-10" ng-model="supplier.telefone" type="text" id="Telefone" maxlength="10">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Celular">Celular</label>
+                <div class="col-sm-5">
+                    <input class="col-xs-12 col-sm-2" ng-model="supplier.dddCelular" type="text" id="DDDCelular" placeholder="DDD" maxlength="3">
+                    <input class="col-xs-12 col-sm-10" type="text" ng-model="supplier.celular" id="Celular" maxlength="10">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="CNPJ"> CNPJ </label>
+                <div class="col-sm-5">
+                    <input type="text" id="CNPJ" ng-model="supplier.cnpj" class="form-control" maxlength="14">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Ie"> I.E </label>
+                <div class="col-sm-5">
+                    <input type="text" id="Ie" ng-model="supplier.ie" class="form-control" maxlength="10">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Observacoes"> Observações </label>
+                <div class="col-sm-5">
+                    <textarea type="text" ng-model="supplier.observacoes" id="Observacoes" class="form-control" maxlength="255"></textarea>
+                </div>
+            </div>
+            <div class="form-actions center">
+                <button class="btn btn-sm" type="reset" id="resetar">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    Cancelar
+                </button>
+                <button type="button" ng-click="salvar()" class="btn btn-sm btn-success">
+                    Salvar
+                    <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,113 @@
+﻿<!DOCTYPE html>
+<html ng-app="gostoWebStore">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8">
+    <title>Controle de Estoque</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <link href="../Content/bootstrap.min.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">-->
+    <link href="../Content/jquery.gritter.min.css" rel="stylesheet" />
+    <!--<link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300">-->
+    <link rel="stylesheet" href="../Content/ace.min.css" class="ace-main-stylesheet" id="main-ace-style">
+    <link href="../Content/ace-skins.min.css" rel="stylesheet" />
+    <script src="../Scripts/ace-extra.min.js"></script>
+    <script src="../Scripts/dropzone/dropzone.js"></script>
+    <script>var PathService = 'http://localhost:60629/';</script>
+    <link href="../Scripts/dropzone/basic.css" rel="stylesheet" />
+    <link href="../Scripts/dropzone/dropzone.css" rel="stylesheet" />
+    <link href="Content/loading-bar.min.css" rel="stylesheet" />
+</head>
+<body class="skin-1">
+    <span class="col-sm-4 hidden">
+        <label class="pull-right inline">
+            <input id="gritter-light" style="display:none;" checked="" type="checkbox">
+        </label>
+    </span>
+    <div navbar id="navbar" class="navbar navbar-default navbar-collapse h-navbar navbar-fixed-top" style="height:45px;"></div>
+    <div class="main-container" id="main-container">
+        <div sidebar-top id="sidebar" class="sidebar h-sidebar navbar-collapse collapse sidebar-fixed" data-sidebar="true" data-sidebar-scroll="true" data-sidebar-hover="true" ng-controller="navigationController"></div>
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div sidebar-side id="sidebar2" class="sidebar responsive sidebar-fixed" data-sidebar="false" data-sidebar-scroll="true" data-sidebar-hover="true" ng-controller="navigationController"></div>
+                <div class="page-content main-content">
+                    <div data-ng-view=""></div>
+                </div>
+            </div>
+        </div>
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div>
+
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <![endif]-->
+    <!--[if !IE]> -->
+    <script type="text/javascript">
+        window.jQuery || document.write("<script src='/Scripts/jquery-1.9.1.min.js'>" + "<" + "/script>");
+
+        mensagem = function (titulo, mensagem, tipo) {
+            $.gritter.add({
+                title: titulo,
+                text: mensagem,
+                class_name: tipo == 'sucesso' ? 'gritter-success' : 'gritter-error'
+            });
+        }
+    </script>
+    <!-- <![endif]-->
+    <!--[if IE]>
+    <script type="text/javascript">
+     window.jQuery || document.write("<script src='~/Scripts/jquery-1.9.1.min.js'>"+"<"+"/script>");
+    </script>
+    <![endif]-->
+    <script src="../Scripts/bootstrap.min.js"></script>
+    <script src="../Scripts/ace-elements.min.js"></script>
+    <script src="../Scripts/ace.min.js"></script>
+    <script src="../Scripts/jquery.gritter.min.js"></script>
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='dist/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <!--<script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-60551121-1', 'auto');
+        ga('send', 'pageview');
+
+    </script>-->
+</body>
+</html>
+
+<!-- 3rd party libraries -->
+<script src="Scripts/angular.min.js"></script>
+<script src="Scripts/angular-route.min.js"></script>
+<script src="scripts/angular-local-storage.min.js"></script>
+<script src="scripts/loading-bar.min.js"></script>
+
+<!-- Load app main script -->
+<script src="app/app.js?v=2"></script>
+<!-- Load services -->
+<script src="app/services/authService.js?v=2"></script>
+<script src="app/services/authInterceptorService.js?v=2"></script>
+<script src="app/services/gostoFactory.js"></script>
+<script src="app/services/tokensManagerService.js?v=2"></script>
+<!-- Load controllers -->
+<script src="app/controllers/indexController.js?v=2"></script>
+<script src="app/controllers/loginController.js?v=2"></script>
+<script src="app/controllers/categoryController.js"></script>
+<script src="app/controllers/brandController.js"></script>
+<script src="app/controllers/supplierController.js"></script>
+<script src="app/controllers/navigationController.js"></script>
+<script src="app/controllers/tokensManagerController.js?v=2"></script>
+<!--Load directives-->
+<script src="app/directives/navbar.js"></script>
+<script src="app/directives/sidebarTop.js"></script>
+<script src="app/directives/sidebarSide.js"></script>
+<script src="app/directives/validation.js"></script>
