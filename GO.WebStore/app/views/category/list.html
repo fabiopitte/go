@@ -3,6 +3,13 @@
     <h1>Lista de Categorias</h1>
 </div>
 <div class="row">
+    <div class="col-sm-10 col-sm-offset-1">
+        <h4 class="pull-right">
+            Total: <span class="red">{{totalRegistros}}</span>
+        </h4>
+    </div>
+</div>
+<div class="row">
     <div class="col-xs-12">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
@@ -27,33 +34,33 @@
                             <td>{{item.title}}</td>
                             <td width="75px">
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <a ng-href="#category/{{item.id}}" ng-click="editar(item)" class="btn btn-xs btn-default">
+                                    <a ng-href="#/category/{{item.id}}" ng-click="editar(item)" class="btn btn-xs btn-success">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
-                                    <button ng-click="excluir(item)" class="btn btn-xs btn-danger">
+                                    <button ng-click="excluir(item,$index)" class="btn btn-xs btn-danger">
                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                     </button>
                                 </div>
                                 <div class="hidden-md hidden-lg">
                                     <div class="inline pos-rel">
-                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                        <button class="btn btn-minier btn-default dropdown-toggle" data-toggle="dropdown" data-position="auto">
                                             <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
                                         </button>
 
                                         <ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
                                             <li>
-                                                <a ng-href="#category/{{item.id}}" ng-click="editar(item)" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
+                                                <a ng-href="#/category/{{item.id}}" ng-click="editar(item)" class="tooltip-success" data-rel="tooltip" title="" data-original-title="Edit">
                                                     <span class="green">
                                                         <i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
                                                     </span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <button ng-click="excluir(item)" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
+                                                <a href="#/categories" ng-click="excluir(item, $index)" class="tooltip-error" data-rel="tooltip" title="" data-original-title="Delete">
                                                     <span class="red">
                                                         <i class="ace-icon fa fa-trash-o bigger-120"></i>
                                                     </span>
-                                                </button>
+                                                </a>
                                             </li>
                                         </ul>
                                     </div>

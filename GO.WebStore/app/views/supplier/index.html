@@ -11,11 +11,29 @@
                     <input type="text" ng-required="true" class="form-control" name="nome" id="nome" ng-model="supplier.nome" maxlength="100" autofocus>
                 </div>
             </div>
-
-            <div class="form-group" show-errors>
-                <label for="email" class="col-sm-2 control-label">Email</label>
+            <div class="form-group">
+                <label for="Email" class="col-sm-2 control-label">Email</label>
                 <div class="col-sm-5">
-                    <input type="text" ng-required="true" class="form-control" name="email" id="email" ng-model="supplier.email" maxlength="100" autofocus>
+                    <input type="email" ng-required="true" class="form-control" name="Email" id="Email" ng-model="supplier.email" maxlength="100">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">Tipo</label>
+
+                <div class="col-xs-12 col-sm-5">
+                    <div>
+                        <label class="line-height-1">
+                            <input name="tipoPessoa" value="0" type="radio" class="ace" aria-required="true" ng-model="supplier.tipoPessoa">
+                            <span class="lbl"> Pessoa Fisica</span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="line-height-1">
+                            <input name="tipoPessoa" value="1" type="radio" class="ace" ng-model="supplier.tipoPessoa">
+                            <span class="lbl"> Pessoa Juridica</span>
+                        </label>
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -33,9 +51,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="CNPJ"> CNPJ </label>
+                <label class="col-sm-2 control-label" for="CNPJ"> CPF/CNPJ </label>
                 <div class="col-sm-5">
                     <input type="text" id="CNPJ" ng-model="supplier.cnpj" class="form-control" maxlength="14">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="nome" class="col-sm-2 control-label">Razão Social</label>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control" name="RazaoSocial" id="RazaoSocial" ng-model="supplier.razaoSocial" maxlength="100">
                 </div>
             </div>
             <div class="form-group">
@@ -44,6 +68,34 @@
                     <input type="text" id="Ie" ng-model="supplier.ie" class="form-control" maxlength="10">
                 </div>
             </div>
+
+            <div class="col-sm-8">
+                <h4 class="header blue bolder smaller"><i class="menu-icon fa fa-user orange"></i> Contato</h4>
+
+                <div class="vspace-12-sm"></div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="NomeContato"> Nome </label>
+                <div class="col-sm-5">
+                    <input type="text" id="NomeContato" name="NomeContato" ng-model="supplier.nomeContato" class="form-control" maxlength="100">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="contatoFone"> Fone Comercial </label>
+                <div class="col-sm-5">
+                    <input type="text" id="TelefoneContato" name="TelefoneContato" ng-model="supplier.telefoneContato" class="form-control" maxlength="100">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="contatoEmail"> Email </label>
+                <div class="col-sm-5">
+                    <input type="text" id="EmailContato" name="EmailContato" ng-model="supplier.emailContato" class="form-control" maxlength="100">
+                </div>
+            </div>
+
+            <div ng-include src="urlEndereco"></div>
+
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="Observacoes"> Observações </label>
                 <div class="col-sm-5">
@@ -51,11 +103,11 @@
                 </div>
             </div>
             <div class="form-actions center">
-                <button class="btn btn-sm" type="reset" id="resetar">
+                <button class="btn btn-sm" type="reset" ng-click="resetar()">
                     <i class="ace-icon fa fa-undo bigger-110"></i>
                     Cancelar
                 </button>
-                <button type="button" ng-click="salvar()" class="btn btn-sm btn-success">
+                <button type="submit" class="btn btn-sm btn-success">
                     Salvar
                     <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                 </button>

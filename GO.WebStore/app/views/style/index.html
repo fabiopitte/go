@@ -1,0 +1,26 @@
+<div class="page-header">
+    <h1>Cadastro de Estilo</h1>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <form class="form-horizontal" role="form" name="formEstilo" novalidate ng-submit="salvar()">
+            <input type="hidden" ng-model="style.id" />
+            <div class="form-group" show-errors>
+                <label for="title" class="col-sm-2 control-label">Nome</label>
+                <div class="col-sm-5">
+                    <input type="text" ng-required="true" class="form-control" name="title" id="title" ng-model="style.title" maxlength="100" autofocus>
+                </div>
+            </div>
+            <div class="form-actions center">
+                <button class="btn btn-sm" type="reset" ng-click="resetar()">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-sm btn-success">
+                    Salvar
+                    <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

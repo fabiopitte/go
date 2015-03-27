@@ -1,35 +1,35 @@
 ﻿<ul class="nav nav-list" style="top: 0px;">
-    <li ng-class="{active:isActive('/dashBoard/list')}">
-        <a href="#/dashBoard/list">
+    <li ng-class="{active:isActive('/dashboard')}">
+        <a href="#/dashboard">
             <i class="menu-icon fa fa-tachometer"></i>
             <span class="menu-text"> Dashboard </span>
         </a>
         <b class="arrow"></b>
     </li>
-    <li ng-class="{active:isActive('/product/list')}">
-        <a href="#/product/list">
+    <li ng-class="{active:isActive('/products')}">
+        <a href="#/products">
             <i class="menu-icon fa fa-exchange"></i>
             <span class="menu-text">Estoque</span>
         </a>
         <b class="arrow"></b>
     </li>
-    <li ng-class="{active:isActive('/customer/list')}">
-        <a href="#/customer/list">
-            <i class="menu-icon fa fa-list-alt"></i>
+    <li ng-class="{active:isActive('/customers')}">
+        <a href="#/customers">
+            <i class="menu-icon fa fa-user"></i>
             <span class="menu-text">Clientes</span>
         </a>
         <b class="arrow"></b>
     </li>
     <li ng-class="{active:isActive('/suppliers')}">
         <a href="#/suppliers">
-            <i class="menu-icon fa fa-list-alt"></i>
+            <i class="menu-icon fa fa-users"></i>
             <span class="menu-text">Fornecedores</span>
         </a>
         <b class="arrow"></b>
     </li>
     <li ng-class="{active:isActive('/brandies')}">
         <a href="#/brandies">
-            <i class="menu-icon fa fa-list-alt"></i>
+            <i class="menu-icon fa fa-bookmark"></i>
             <span class="menu-text"> Marcas </span>
         </a>
         <b class="arrow"></b>
@@ -40,6 +40,61 @@
             <span class="menu-text"> Categorias </span>
         </a>
         <b class="arrow"></b>
+    </li>
+    <li ng-class="{active:isActive('/styles')}">
+        <a href="#/styles">
+            <i class="menu-icon fa fa-heart"></i>
+            <span class="menu-text"> Estilos </span>
+        </a>
+        <b class="arrow"></b>
+    </li>
+    <li ng-class="{active:isActive('/category') || isActive('/brand') || isActive('/supplier')|| isActive('/style')}">
+        <a href="#" class="dropdown-toggle">
+            <i class="menu-icon fa fa-list"></i>
+            <span class="menu-text"> Cadastros </span>
+            <b class="arrow fa fa-angle-down"></b>
+        </a>
+
+        <b class="arrow"></b>
+
+        <ul class="submenu nav-hide" style="display: none;">
+            <li ng-class="{active:isActive('/customer')}">
+                <a href="#/customer">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Cliente
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li ng-class="{active:isActive('/supplier')}">
+                <a href="#/supplier">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Fornecedor
+                </a>
+                <b class="arrow"></b>
+            </li>
+
+            <li ng-class="{active:isActive('/brand')}">
+                <a href="#/brand">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Marca
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li ng-class="{active:isActive('/category')}">
+                <a href="#/category">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Categoria
+                </a>
+                <b class="arrow"></b>
+            </li>
+            <li ng-class="{active:isActive('/style')}">
+                <a href="#/style">
+                    <i class="menu-icon fa fa-caret-right"></i>
+                    Estilo
+                </a>
+                <b class="arrow"></b>
+            </li>
+        </ul>
     </li>
 </ul>
 <div class="sidebar-toggle sidebar-collapse">

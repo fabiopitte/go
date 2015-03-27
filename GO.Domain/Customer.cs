@@ -9,7 +9,9 @@
         public string Email { get; set; }
 
         public string CNPJ { get; set; }
-        
+
+        public string RG { get; set; }
+
         public string IE { get; set; }
 
         public string RazaoSocial { get; set; }
@@ -25,6 +27,10 @@
         public string Celular { get; set; }
 
         public byte TipoPessoa { get; set; }
+
+        public int? AddressId { get; set; }
+
+        public virtual Address Endereco { get; set; }
 
         public Response Response { get; set; }
     }

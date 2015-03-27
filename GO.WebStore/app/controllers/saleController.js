@@ -1,65 +1,39 @@
 ﻿'use strict';
 
-app.controller('categoryCtrl', ['$scope', 'gostoFactory', function ($scope, gostoFactory) {
+app.controller('saleController', function ($scope, gostoFactory) {
 
-    $scope.status;
-    $scope.categorias;
-
-    $scope.pesquisarCategorias = function () {
-
-        gostoFactory.pesquisarCategorias()
-            .success(function (data) {
-                var template = $("#template-listagem").clone().html();
-
-                angular.forEach(data, function (value, key) {
-
-                    var html = template.replace("{{Title}}", value.title)
-                                       .replace("{{Edicao}}", value.id).replace("{{Exclusao}}", value.id)
-                                       .replace("{{Edicao-m}}", value.id).replace("{{Exclusao-m}}", value.id)
-
-                    $("#corpo").append(html);
+    // Instantiate the Bloodhound suggestion engine
+    var clientes = new Bloodhound({
+        datumTokenizer: function (datum) {
+            return Bloodhound.tokenizers.whitespace(datum.value);
+        },
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+            url: 'http://localhost:60629/api/v1/public/customers',
+            filter: function (clientes) {
+                // Map the remote source JSON array to a JavaScript object array
+                return $.map(clientes, function (cliente) {
+                    return {
+                        value: cliente.nome,
+                        id: cliente.id
+                    };
                 });
-
-                $scope.categorias = data;
-
-            }).error(function (error) {
-                $scope.status = 'Aconteceu algum erro ao carregar os dados';
-            });
-    };
-
-    $scope.atualizaCategoria = function (id) {
-        var cat;
-        for (var i = 0; i < $scope.categorias.length; i++) {
-            var currCat = $scope.categorias[i];
-            if (currCat.ID === id) {
-                cat = currCat;
-                break;
             }
         }
+    });
 
-        dataFactory.updateCustomer(cat)
-          .success(function () {
-              $scope.status = 'Updated Category! Refreshing customer list.';
-          })
-          .error(function (error) {
-              $scope.status = 'Unable to update category: ' + error.message;
-          });
-    };
+    // Initialize the Bloodhound suggestion engine
+    clientes.initialize();
 
-    $scope.inserirCategoria = function () {
-        //Fake customer data
-        var cust = {
-            ID: 10,
-            FirstName: 'JoJo',
-            LastName: 'Pikidily'
-        };
-        dataFactory.insertCustomer(cust)
-            .success(function () {
-                $scope.status = 'Inserted Customer! Refreshing customer list.';
-                $scope.categorias.push(cust);
-            }).
-            error(function (error) {
-                $scope.status = 'Unable to insert customer: ' + error.message;
-            });
-    };
-}]);
+    // Instantiate the Typeahead UI
+    $('#typeahead').typeahead(null, {
+        minLength: 3,
+        displayKey: function (key) {
+            return key.value
+        },
+        source: clientes.ttAdapter()
+    }).on('typeahead:selected', function (obj, datum) {
+        console.log(datum.id);
+        //armazena o cliente
+    });
+});

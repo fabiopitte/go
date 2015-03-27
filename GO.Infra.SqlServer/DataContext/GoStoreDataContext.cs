@@ -15,6 +15,8 @@ namespace GO.Infra.SqlServer.DataContext
         public DbSet<Brand> Brand { get; set; }
         public DbSet<Sale> Sale { get; set; }
         public DbSet<Item> Item { get; set; }
+        public DbSet<Address> Endereco { get; set; }
+        public DbSet<Style> Style { get; set; }
 
         public GoStoreDataContext()
             : base("name=GOStoreConnectionString")
@@ -33,6 +35,8 @@ namespace GO.Infra.SqlServer.DataContext
             modelBuilder.Configurations.Add(new BrandMapping());
             modelBuilder.Configurations.Add(new SaleMapping());
             modelBuilder.Configurations.Add(new ItemMapping());
+            modelBuilder.Configurations.Add(new AddressMapping());
+            modelBuilder.Configurations.Add(new StyleMapping());
 
             base.OnModelCreating(modelBuilder);
         }

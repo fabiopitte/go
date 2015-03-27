@@ -56,5 +56,65 @@ app.factory('gostoFactory', ['$http', function ($http) {
         return $http.delete(urlBase + '/supplier/' + supplierId);
     }
 
+    //Cliente
+    dataFactory.pesquisarClientes = function () {
+        return $http.get(urlBase + '/customers');
+    };
+
+    dataFactory.inserirCliente = function (customer) {
+        return $http.post(urlBase + '/customer', JSON.stringify(customer));
+    }
+
+    dataFactory.atualizarCliente = function (customer) {
+        return $http.put(urlBase + '/customer', JSON.stringify(customer));
+    }
+
+    dataFactory.excluirCliente = function (customerId) {
+        return $http.delete(urlBase + '/customer/' + customerId);
+    }
+
+    //Produto
+    dataFactory.pesquisarProdutos= function () {
+        return $http.get(urlBase + '/products');
+    };
+
+    dataFactory.inserirProduto = function (product) {
+        return $http.post(urlBase + '/product', JSON.stringify(product));
+    }
+
+    dataFactory.atualizarProduto = function (product) {
+        return $http.put(urlBase + '/product', JSON.stringify(product));
+    }
+
+    dataFactory.excluirProduto = function (productId) {
+        return $http.delete(urlBase + '/product/' + productId);
+    }
+
+    //usuario
+    dataFactory.obterUsuario = function (userId) {
+        return $http.get(urlBase + '/users/' + userId);
+    }
+
+    dataFactory.atualizarUsuario = function (user) {
+        return $http.put(urlBase + '/user', JSON.stringify(user));
+    }
+
+    //Estilo
+    dataFactory.pesquisarEstilos = function () {
+        return $http.get(urlBase + '/styles');
+    };
+
+    dataFactory.inserirEstilo = function (style) {
+        return $http.post(urlBase + '/style', JSON.stringify(style));
+    }
+
+    dataFactory.atualizarEstilo = function (style) {
+        return $http.put(urlBase + '/style', JSON.stringify(style));
+    }
+
+    dataFactory.excluirEstilo = function (styleId) {
+        return $http.delete(urlBase + '/style/' + styleId);
+    }
+
     return dataFactory;
 }]);

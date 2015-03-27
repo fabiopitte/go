@@ -1,0 +1,144 @@
+﻿<link href="../../../Content/typeahead.css" rel="stylesheet" />
+<div class="page-header">
+    <h1>Venda de Produto</h1>
+</div>
+
+<div class="col-xs-12">
+    <form class="form-horizontal" action="#" role="form" id="form-marca">
+        <input type="hidden" id="idVenda" value="1" />
+
+        <div class="form-group" show-errors>
+
+            <label for="title" class="col-sm-2 control-label">Cliente</label>
+            <div class="col-sm-5">
+                <input id="typeahead" ng-required="true" class="form-control" autofocus />
+            </div>
+        </div>
+        <div class="form-group" show-errors>
+
+            <label for="title" class="col-sm-2 control-label">Data de Emissão</label>
+            <div class="col-sm-2">
+                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+            </div>
+        </div>
+        <div class="hr hr-16 hr-dotted"></div>
+
+        <div class="col-sm-12 widget-container-col">
+            <div class="widget-box transparent">
+                <div class="widget-header">
+                    <h4 class="widget-title lighter">Itens</h4>
+                </div>
+
+                <div class="widget-body">
+                    <div class="widget-main no-padding-left no-padding-right">
+                        <div class="form-group" show-errors>
+                            <label for="title" class="col-sm-2 control-label">Produto</label>
+                            <div class="col-sm-5">
+                                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="title" class="col-sm-2 control-label">Quantidade</label>
+                            <div class="col-sm-2">
+                                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                            </div>
+                        </div>
+                        <div class="form-group" show-errors>
+                            <label for="title" class="col-sm-2 control-label">Valor</label>
+                            <div class="col-sm-2">
+                                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                            </div>
+                        </div>
+                        <a class="btn btn-link pull-left">
+                            Adicionar mais item
+                        </a>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="hr hr-16 hr-dotted"></div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="Observacoes"> Observações </label>
+                <div class="col-sm-5">
+                    <textarea type="text" ng-model="customer.observacoes" id="Observacoes" class="form-control" maxlength="255"></textarea>
+                </div>
+            </div>
+            <div class="hr hr-16 hr-dotted"></div>
+
+            <div class="form-group">
+                <label class="control-label col-xs-12 col-sm-2 no-padding-right">Pagamento</label>
+
+                <div class="col-xs-12 col-sm-5">
+                    <div>
+                        <label class="line-height-1">
+                            <input name="tipoPessoa" value="1" type="radio" checked class="ace" aria-required="true" aria-describedby="gender-error">
+                            <span class="lbl"> A vista</span>
+                        </label>
+                    </div>
+
+                    <div>
+                        <label class="line-height-1">
+                            <input name="tipoPessoa" value="2" type="radio" class="ace">
+                            <span class="lbl"> Parcelado</span>
+                        </label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group" show-errors>
+                <label for="title" class="col-sm-2 control-label">Parcelas</label>
+                <div class="col-sm-2">
+                    <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                </div>
+            </div>
+            <div class="form-group" show-errors>
+                <label for="title" class="col-sm-2 control-label">Tipo pagamento</label>
+                <div class="col-sm-5">
+                    <select id="Category" name="Category" ng-model="product.category" class="form-control">
+                        <option value="0"></option>
+                        <option value="1">Cartão de Credito</option>
+                        <option value="2">Cartão de Débito</option>
+                        <option value="3">Dinheiro</option>
+                    </select>
+                </div>
+            </div>
+            <div class="hr hr-16 hr-dotted"></div>
+            <div class="col-sm-6 col-sm-offset-2">
+                <div class="well well-sm">
+                    <h4 class="blue">Total da venda</h4>
+                    <i class="ace-icon fa fa-asterisk bigger-160"></i> Valor total dos produtos
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                        </div>
+                    </div>
+                    <i class="ace-icon fa fa-pencil-square-o bigger-160"></i> Desconto
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                        </div>
+                    </div>
+                    <i class="ace-icon fa fa-shopping-cart bigger-160"></i> Valor total da venda
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <input type="text" readonly class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="clearfix"></div>
+
+        <div class="form-actions center">
+            <button class="btn btn-sm" type="reset" ng-click="resetar()">
+                <i class="ace-icon fa fa-undo bigger-110"></i>
+                Cancelar
+            </button>
+            <button type="button" id="salvar" class="btn btn-sm btn-success">
+                Salvar
+                <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+            </button>
+        </div>
+    </form>
+</div>

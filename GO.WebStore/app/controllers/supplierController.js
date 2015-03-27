@@ -4,11 +4,28 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
 
     $scope.supplier = {};
     $scope.suppliers = {};
+    $scope.endereco = {};
+
+    $scope.totalRegistros = 0;
+    $scope.urlEndereco = '/app/views/endereco.html';
+
+    if ($routeParams.code != null && window.supplier != null) {
+        $scope.supplier = window.supplier;
+        $scope.endereco = $scope.supplier.endereco;
+        window.supplier = null;
+        window.endereco = null;
+    }
+    else {
+        $scope.urlModal = "/app/views/modalExclusao.html";
+        window.supplier = null;
+        window.endereco = null;
+    }
 
     $scope.pesquisar = function () {
         gostoFactory.pesquisarFornecedores()
             .success(function (data) {
                 $scope.suppliers = data;
+                $scope.totalRegistros = data.length;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
@@ -22,6 +39,8 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
             return;
         }
 
+        $scope.supplier.endereco = $scope.endereco;
+
         var id = $scope.supplier.id;
         if (id == undefined) { inserir(); } else { atualizar(); }
     };
@@ -29,6 +48,7 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
     $scope.editar = function (item) {
         $scope.supplier = item;
         window.supplier = $scope.supplier;
+        $scope.endereco = item.endereco;
     };
 
     $scope.excluir = function (item) {
@@ -45,14 +65,12 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
 
         var supplierId = $scope.supplier.id;
 
-        angular.forEach($scope.suppliers, function (item, v) {
-            if (item.id === supplierId) {
-
-            }
-        });
-
         gostoFactory.excluirFornecedor(supplierId)
             .success(function (data) {
+
+                $scope.suppliers.splice($scope.index, 1);
+                $scope.totalRegistros = $scope.suppliers.length;
+
                 mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
 
                 $('#mensagem').modal('hide');
@@ -62,11 +80,8 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
             });
     };
 
-    if ($routeParams.code != null && window.supplier != null) {
-        $scope.supplier = window.supplier;
-    }
-    else {
-        $scope.urlModal = "/app/views/modalExclusao.html";
+    $scope.resetar = function () {
+        $scope.supplier = null;
         window.supplier = null;
     }
 

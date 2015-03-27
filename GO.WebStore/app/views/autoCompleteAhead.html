@@ -1,0 +1,51 @@
+﻿<style>
+    .loading_div {
+        display: block;
+        margin: 10px 0px;
+    }
+
+    .item {
+        width: 100%;
+        margin: auto;
+        text-align: left;
+        margin-top: 10px;
+        background: #F2F2F2;
+        padding: 10px;
+        box-shadow: 0px 0px 5px #CCC;
+    }
+
+        .item.title {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+    .subtitle {
+        font-size: 14px;
+        color: #444;
+    }
+
+    .iluminado {
+        background-color: #C44741;
+        color: #f2f2f2;
+    }
+
+    .ativo {
+        border-color: #337ab7;
+        border-width: 2px;
+        text-decoration: none;
+        margin-bottom: 18px;
+    }
+
+    .contrato {
+        cursor: pointer;
+    }
+</style>
+<input type="text" ng-model="exibe" placeholder="{{prompt}}" class="form-control" autofocus id="inputCliente" name="inputCliente" ng-keydown="selected=false" />
+
+<div class="items" ng-hide="!exibe.length || selected">
+    <div class="item" ng-repeat="item in items | filter:exibe track by $index" ng-click="handleSelection(item)" style="cursor:pointer" ng-class="{iluminado:isCurrent($index)}" ng-mouseenter="setCurrent($index)">
+        
+        <h4 class="title text-left">{{item[title]}} <small class="text-right" style="color: #909090; ">{{item[subtitle]}}</small></h4>
+        <p class="subtitle text-left">{{item[detail]}}</p>
+    </div>
+</div>

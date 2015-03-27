@@ -4,11 +4,13 @@ app.controller('brandController', ['$scope', '$location', '$routeParams', 'gosto
 
     $scope.brand = {};
     $scope.brandies = {};
+    $scope.totalRegistros = 0;
 
     $scope.pesquisar = function () {
         gostoFactory.pesquisarMarcas()
             .success(function (data) {
                 $scope.brandies = data;
+                $scope.totalRegistros = data.length;
 
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
@@ -46,14 +48,12 @@ app.controller('brandController', ['$scope', '$location', '$routeParams', 'gosto
 
         var brandId = $scope.brand.id;
 
-        angular.forEach($scope.brandies, function (item, v) {
-            if (item.id === brandId) {
-
-            }
-        });
-
         gostoFactory.excluirMarca(brandId)
             .success(function (data) {
+
+                $scope.brandies.splice($scope.index, 1);
+                $scope.totalRegistros = $scope.brandies.length;
+
                 mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
 
                 $('#mensagem').modal('hide');
@@ -68,6 +68,11 @@ app.controller('brandController', ['$scope', '$location', '$routeParams', 'gosto
     }
     else {
         $scope.urlModal = "/app/views/modalExclusao.html";
+        window.brand = null;
+    }
+
+    $scope.resetar = function () {
+        $scope.brand = null;
         window.brand = null;
     }
 

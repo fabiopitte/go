@@ -21,6 +21,9 @@ namespace GO.Infra.SqlServer.DataContext
             Property(c => c.Observacoes).HasColumnType("varchar").HasMaxLength(255);
             Property(c => c.CNPJ).HasColumnType("varchar").HasMaxLength(14);
             Property(c => c.RazaoSocial).HasColumnType("varchar").HasMaxLength(100);
+            Property(c => c.RG).HasColumnType("varchar").HasMaxLength(100);
+
+            Property(c => c.AddressId).IsOptional();
 
             Ignore(c => c.Response);
         }

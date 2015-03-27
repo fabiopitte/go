@@ -1,65 +1,116 @@
 ﻿'use strict';
 
-app.controller('categoryCtrl', ['$scope', 'gostoFactory', function ($scope, gostoFactory) {
+app.controller('customerController', ['$scope', '$location', '$routeParams', 'gostoFactory', function ($scope, $location, $routeParams, gostoFactory) {
 
-    $scope.status;
-    $scope.categorias;
+    $scope.customer = {};
+    $scope.customers = {};
+    $scope.endereco = {};
 
-    $scope.pesquisarCategorias = function () {
+    $scope.totalRegistros = 0;
+    $scope.urlEndereco = '/app/views/endereco.html';
 
-        gostoFactory.pesquisarCategorias()
+    if ($routeParams.code != null && window.customer != null) {
+        $scope.customer = window.customer;
+        $scope.endereco = $scope.customer.endereco;
+        window.customer = null;
+        window.endereco = null;
+    }
+    else {
+        $scope.urlModal = "/app/views/modalExclusao.html";
+        window.customer = null;
+        window.endereco = null;
+    }
+
+    $scope.pesquisar = function () {
+        gostoFactory.pesquisarClientes()
             .success(function (data) {
-                var template = $("#template-listagem").clone().html();
-
-                angular.forEach(data, function (value, key) {
-
-                    var html = template.replace("{{Title}}", value.title)
-                                       .replace("{{Edicao}}", value.id).replace("{{Exclusao}}", value.id)
-                                       .replace("{{Edicao-m}}", value.id).replace("{{Exclusao-m}}", value.id)
-
-                    $("#corpo").append(html);
-                });
-
-                $scope.categorias = data;
-
+                $scope.customers = data;
+                $scope.totalRegistros = data.length;
             }).error(function (error) {
-                $scope.status = 'Aconteceu algum erro ao carregar os dados';
+                $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
     };
 
-    $scope.atualizaCategoria = function (id) {
-        var cat;
-        for (var i = 0; i < $scope.categorias.length; i++) {
-            var currCat = $scope.categorias[i];
-            if (currCat.ID === id) {
-                cat = currCat;
-                break;
-            }
+    $scope.salvar = function () {
+
+        $scope.$broadcast('show-errors-event');
+
+        if ($scope.formCliente.$invalid) {
+            return;
         }
 
-        dataFactory.updateCustomer(cat)
-          .success(function () {
-              $scope.status = 'Updated Category! Refreshing customer list.';
-          })
-          .error(function (error) {
-              $scope.status = 'Unable to update category: ' + error.message;
-          });
+        $scope.customer.endereco = $scope.endereco;
+
+        var id = $scope.customer.id;
+        if (id == undefined) { inserir(); } else { atualizar(); }
     };
 
-    $scope.inserirCategoria = function () {
-        //Fake customer data
-        var cust = {
-            ID: 10,
-            FirstName: 'JoJo',
-            LastName: 'Pikidily'
-        };
-        dataFactory.insertCustomer(cust)
-            .success(function () {
-                $scope.status = 'Inserted Customer! Refreshing customer list.';
-                $scope.categorias.push(cust);
-            }).
-            error(function (error) {
-                $scope.status = 'Unable to insert customer: ' + error.message;
+    $scope.editar = function (item) {
+        $scope.customer = item;
+        window.customer = $scope.customer;
+        $scope.endereco = item.endereco;
+    };
+
+    $scope.excluir = function (item) {
+
+        $scope.customer = item;
+
+        $scope.CorpoMensagem = "Deseja mesmo excluir o cliente " + item.nome + "?";
+        $scope.BtnOk = "Excluir";
+        $scope.BtnCancelar = "Cancelar";
+        $('#mensagem').modal('show');
+    };
+
+    $scope.clickExcluir = function () {
+
+        var customerId = $scope.customer.id;
+
+        gostoFactory.excluirCliente(customerId)
+            .success(function (data) {
+
+                $scope.customers.splice($scope.index, 1);
+                $scope.totalRegistros = $scope.customers.length;
+
+                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+
+                $('#mensagem').modal('hide');
+
+            }).error(function (error) {
+                mensagem('Aconteceu algum erro', error, 'erro');
             });
+    };
+
+    $scope.resetar = function () {
+        $scope.customer = null;
+        window.customer = null;
+    }
+
+    function inserir() {
+
+        var cust = $scope.customer;
+        gostoFactory.inserirCliente(cust)
+            .success(function (data) {
+                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+
+            }).error(function (error) {
+                mensagem('Erro no cadastro', error, 'erro');
+            });
+
+        $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+    };
+
+    function atualizar() {
+
+        var cust = $scope.customer;
+
+        gostoFactory.atualizarCliente(cust)
+            .success(function (data) {
+                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+
+            }).error(function (error) {
+                mensagem('Erro no cadastro', error, 'erro');
+            });
+
+        $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
     };
 }]);

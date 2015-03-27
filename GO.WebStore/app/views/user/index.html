@@ -1,0 +1,100 @@
+﻿<div id="user-profile-3" class="user-profile row">
+    <div class="col-sm-offset-1 col-sm-10">
+        <form class="form-horizontal" role="form" name="formUsuario" novalidate ng-submit="salvar()">
+            <input type="hidden" id="usuarioId" ng-model="user.id" value="2" />
+            <div class="tabbable">
+                <ul class="nav nav-tabs padding-16">
+                    <li class="active">
+                        <a data-toggle="tab" href="#/user#edit-basic" aria-expanded="true">
+                            <i class="green ace-icon fa fa-pencil-square-o bigger-125"></i>
+                            Informações
+                        </a>
+                    </li>
+
+                    <li class="">
+                        <a data-toggle="tab" href="#/user#edit-password" aria-expanded="false">
+                            <i class="blue ace-icon fa fa-key bigger-125"></i>
+                            Senha
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content profile-edit-tab-content">
+                    <div id="edit-basic" class="tab-pane active">
+                        <h4 class="header blue bolder smaller">Informações</h4>
+
+                        <div class="row">
+
+                            <div class="vspace-12-sm"></div>
+
+                            <div class="col-xs-12 col-sm-8">
+                                <div class="form-group" show-errors>
+                                    <label class="col-sm-2 control-label" for="Name">Nome</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" id="Name" name="name" ng-model="user.name" required maxlength="100">
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group" show-errors>
+                                    <label class="col-sm-2 control-label" for="Login">Login</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" id="Login" name="Login" ng-model="user.login" required>
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group" show-errors>
+                                    <label class="col-sm-2 control-label" for="Email">Email</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="email" id="Email" name="Email" ng-model="user.email" required>
+                                    </div>
+                                </div>
+
+                                <div class="space-4"></div>
+
+                                <div class="form-group" show-errors>
+                                    <label class="col-sm-2 control-label" for="Telefone">Telefone</label>
+                                    <div class="col-sm-10">
+                                        <input class="col-xs-12 col-sm-3" type="text" id="DDDTelefone" placeholder="DDD" maxlength="3" name="DDDTelefone" ng-model="user.dddTelefone" required>
+                                        <input class="col-xs-12 col-sm-9" type="text" id="Telefone" maxlength="10" name="Telefone" ng-model="user.telefone" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="edit-password" class="tab-pane">
+                        <div class="space-10"></div>
+                        <div class="form-group" show-errors>
+                            <label class="col-sm-2 control-label" for="Password">Nova Senha</label>
+                            <div class="col-sm-5">
+                                <input type="password" id="Password" name="Password" ng-model="user.password" required>
+                            </div>
+                        </div>
+
+                        <div class="space-4"></div>
+                        <div class="form-group" show-errors>
+                            <label class="col-sm-2 control-label" for="confirme-password">Confirme a Senha</label>
+                            <div class="col-sm-5">
+                                <input type="password" id="confirme-password" name="confirme-password" ng-model="user.password" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="clearfix form-actions center">
+                <button class="btn btn-sm" type="reset" ng-click="resetar()">
+                    <i class="ace-icon fa fa-undo bigger-110"></i>
+                    Cancelar
+                </button>
+                <button type="submit" class="btn btn-sm btn-success">
+                    Salvar
+                    <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

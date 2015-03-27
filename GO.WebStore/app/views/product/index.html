@@ -1,0 +1,451 @@
+﻿<link href="../../../Scripts/dropzone/basic.css" rel="stylesheet" />
+<link href="../../../Scripts/dropzone/dropzone.css" rel="stylesheet" />
+
+<div class="page-header">
+    <h1>Entrada de Produto</h1>
+</div>
+
+<div class="widget-box">
+    <div class="widget-body">
+        <div class="widget-main">
+            <div id="fuelux-wizard-container" class="">
+                <div>
+                    <ul class="steps">
+                        <li data-step="1" class="active">
+                            <span class="step">1</span>
+                            <span class="title">Dados</span>
+                        </li>
+                        <li data-step="2" class="">
+                            <span class="step">2</span>
+                            <span class="title">Estoque</span>
+                        </li>
+                        <li data-step="3" class="">
+                            <span class="step">3</span>
+                            <span class="title">Upload</span>
+                        </li>
+                        <li data-step="4" class="">
+                            <span class="step">4</span>
+                            <span class="title">Concluir</span>
+                        </li>
+                    </ul>
+                </div>
+                <hr>
+                <div class="step-content pos-rel">
+                    <div class="step-pane active" data-step="1">
+                        <h3 class="lighter block green">Entre com o produto</h3>
+                        <form class="form-horizontal" role="form" name="validation-form" id="validation-form" novalidate>
+                            <input type="hidden" ng-model="product.id" id="idProduto" />
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Codigo</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" ng-required="true" class="form-control" name="Code" id="Code" ng-model="product.code" maxlength="100" autofocus>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="title" class="col-sm-2 control-label">Titulo</label>
+                                    <div class="col-sm-5">
+                                        <input type="text" ng-required="true" class="form-control" name="Title" id="Title" ng-model="product.title" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Description"> Descrição </label>
+                                    <div class="col-sm-5">
+                                        <textarea type="text" class="form-control" name="description" id="description" ng-model="product.description" maxlength="255"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Style"> Estilo </label>
+                                    <div class="col-sm-5">
+                                        <select id="Style" class="form-control" name="Style" ng-model="product.style"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Category"> Categoria </label>
+                                    <div class="col-sm-5">
+                                        <select id="Category" name="Category" ng-model="product.category" class="form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Size"> Tamanho </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="Size" name="Size" ng-model="product.size" class="form-control" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Measure"> Medida </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="Measure" name="Measure" ng-model="product.measure" class="form-control" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Color"> Cor </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="Color" name="Color" ng-model="product.color" class="form-control" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Model"> Modelo </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" id="Model" name="Model" ng-model="product.model" class="form-control" maxlength="100">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Brand"> Marca </label>
+                                    <div class="col-sm-5">
+                                        <select id="Brand" class="form-control" name="Brand" ng-model="product.brand"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Supplier"> Fornecedor </label>
+                                    <div class="col-sm-5">
+                                        <select id="Supplier" name="Supplier" ng-model="product.supplier" class="form-control"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="step-pane" data-step="2">
+                        <div>
+                            <div class="alert alert-warning">
+                                <button type="button" class="close" data-dismiss="alert">
+                                    <i class="ace-icon fa fa-times"></i>
+                                </button>
+                                <strong> <i class="ace-icon fa fa-times"></i> Atenção!</strong>
+                                Essas informações serão vinculadas ao produto, sendo possível sua alteração posteriormente.
+                                <br>
+                            </div>
+
+                            <div id="edit-preco" class="tab-pane">
+                                <h4 class="header blue bolder smaller">Preço/Custo</h4>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Quantity"> Quantidade </label>
+                                    <div class="col-sm-2">
+                                        <input type="text" id="Quantity" name="Quantity" ng-model="product.quantity" class="form-control" required maxlength="4">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Cost"> Custo Unitário</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" id="Cost" class="form-control" name="Cost" ng-model="product.cost" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Price"> Preço Unitário</label>
+                                    <div class="col-sm-2">
+                                        <input type="text" id="Price" class="form-control" required name="Price" ng-model="product.price">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-pane" data-step="3">
+                        <div class="center">
+                            <div id="edit-upload" class="tab-pane">
+
+                                <div action="/Product/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzone" style="background: none; border: none; max-height:100px;">
+                                    <div class="fallback">
+                                        <input name="file" type="file" multiple />
+                                        <input type="submit" value="Upload" />
+                                    </div>
+                                    <div class="dz-default dz-message">
+                                        <span>
+                                            <span class="bigger-100 bolder">
+                                                <i class="ace-icon fa fa-caret-right red"></i> Arraste
+                                            </span> as fotos aqui
+                                            <br>
+                                            <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step-pane" data-step="4">
+                        <div class="center">
+                            <h3 class="green"><small>{{product.code}} -</small> {{product.title}} </h3>
+                            <p>{{product.description}}</p>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h3 class="header red bolder smaller"><i class="fa fa-caret-right"></i> Complementos</h3>
+                                <hr>
+                                <h4>Estilo  <small id="nome-estilo"></small></h4>
+                                <h4>Categoria <small id="nome-categoria"></small></h4>
+                                <h4>Tamanho <small>{{product.size}}</small></h4>
+                                <h4>Medida <small>{{product.measure}}</small></h4>
+                                <h4>Cor <small>{{product.color}}</small></h4>
+                                <h4>Modelo <small>{{product.model}}</small></h4>
+                                <h4>Marca <small id="nome-marca"></small></h4>
+                                <h4>Fornecedor <small id="nome-fornecedor"></small></h4>
+                                <hr>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="panel panel-success panel-colorful text-center">
+                                    <div class="panel-body">
+                                        <h2 class="mar-no text-thin">{{product.quantity}}</h2>
+                                    </div>
+                                    <div class="bg-light pad-ver">
+                                        <h5 class="mar-no text-thin"><i class="fa fa-eye"></i> Quantidade</h5>
+                                    </div>
+                                </div>
+                                <div class="panel panel-success panel-colorful text-center">
+                                    <div class="panel-body">
+                                        <h2 class="mar-no text-thin">R$ {{product.price}}</h2>
+                                    </div>
+                                    <div class="bg-light pad-ver">
+                                        <h5 class="mar-no text-thin"><i class="fa fa-barcode"></i> Preço Unitário</h5>
+                                    </div>
+                                </div>
+                                <div class="panel panel-success panel-colorful text-center">
+                                    <div class="panel-body">
+                                        <h2 class="mar-no text-thin">R$ {{product.cost}}</h2>
+                                    </div>
+                                    <div class="bg-light pad-ver">
+                                        <h5 class="mar-no text-thin"><i class="fa fa-asterisk"></i> Custo Unitário</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <h4 class="header blue bolder smaller">Galeria de fotos</h4>
+                            <div class="row">
+                                <div class="col-sm-8 col-sm-offset-2">
+                                    <div>
+                                        <ul class="ace-thumbnails clearfix">
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-1.jpg" title="Photo Title" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-1.jpg">
+                                                </a>
+
+                                                <div class="tags">
+                                                    <span class="label-holder">
+                                                        <span class="label label-info">breakfast</span>
+                                                    </span>
+
+                                                    <span class="label-holder">
+                                                        <span class="label label-danger">fruits</span>
+                                                    </span>
+
+                                                    <span class="label-holder">
+                                                        <span class="label label-success">toast</span>
+                                                    </span>
+
+                                                    <span class="label-holder">
+                                                        <span class="label label-warning arrowed-in">diet</span>
+                                                    </span>
+                                                </div>
+
+                                                <div class="tools">
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-link"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-paperclip"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-times red"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-2.jpg" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-2.jpg">
+                                                    <div class="text">
+                                                        <div class="inner">Sample Caption on Hover</div>
+                                                    </div>
+                                                </a>
+                                            </li>
+
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-3.jpg" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-3.jpg">
+                                                    <div class="text">
+                                                        <div class="inner">Sample Caption on Hover</div>
+                                                    </div>
+                                                </a>
+
+                                                <div class="tools tools-bottom">
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-link"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-paperclip"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-times red"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-4.jpg" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-4.jpg">
+                                                    <div class="tags">
+                                                        <span class="label-holder">
+                                                            <span class="label label-info arrowed">fountain</span>
+                                                        </span>
+
+                                                        <span class="label-holder">
+                                                            <span class="label label-danger">recreation</span>
+                                                        </span>
+                                                    </div>
+                                                </a>
+
+                                                <div class="tools tools-top">
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-link"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-paperclip"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-times red"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <div>
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-5.jpg">
+                                                    <div class="text">
+                                                        <div class="inner">
+                                                            <span>Some Title!</span>
+
+                                                            <br>
+                                                            <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-5.jpg" data-rel="colorbox" class="cboxElement">
+                                                                <i class="ace-icon fa fa-search-plus"></i>
+                                                            </a>
+
+                                                            <a href="#">
+                                                                <i class="ace-icon fa fa-user"></i>
+                                                            </a>
+
+                                                            <a href="#">
+                                                                <i class="ace-icon fa fa-share"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-6.jpg" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-6.jpg">
+                                                </a>
+
+                                                <div class="tools tools-right">
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-link"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-paperclip"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-times red"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-1.jpg" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-1.jpg">
+                                                </a>
+
+                                                <div class="tools">
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-link"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-paperclip"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-times red"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-2.jpg" data-rel="colorbox" class="cboxElement">
+                                                    <img width="150" height="150" alt="150x150" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-2.jpg">
+                                                </a>
+
+                                                <div class="tools tools-top in">
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-link"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-paperclip"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-pencil"></i>
+                                                    </a>
+
+                                                    <a href="#">
+                                                        <i class="ace-icon fa fa-times red"></i>
+                                                    </a>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="wizard-actions">
+                <button class="btn btn-prev" disabled="disabled">
+                    <i class="ace-icon fa fa-arrow-left"></i>
+                    Anterior
+                </button>
+
+                <button class="btn btn-success btn-next" data-last="Concluir">
+                    Proximo
+                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../../../Scripts/dropzone/dropzone.js"></script>

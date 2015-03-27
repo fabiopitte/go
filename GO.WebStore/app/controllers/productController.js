@@ -1,65 +1,248 @@
 ﻿'use strict';
 
-app.controller('categoryCtrl', ['$scope', 'gostoFactory', function ($scope, gostoFactory) {
+app.controller('productController', ['$scope', '$location', '$routeParams', 'gostoFactory', function ($scope, $location, $routeParams, gostoFactory) {
 
-    $scope.status;
-    $scope.categorias;
+    var produtoAterado = false;
 
-    $scope.pesquisarCategorias = function () {
-
-        gostoFactory.pesquisarCategorias()
-            .success(function (data) {
-                var template = $("#template-listagem").clone().html();
-
-                angular.forEach(data, function (value, key) {
-
-                    var html = template.replace("{{Title}}", value.title)
-                                       .replace("{{Edicao}}", value.id).replace("{{Exclusao}}", value.id)
-                                       .replace("{{Edicao-m}}", value.id).replace("{{Exclusao-m}}", value.id)
-
-                    $("#corpo").append(html);
-                });
-
-                $scope.categorias = data;
-
-            }).error(function (error) {
-                $scope.status = 'Aconteceu algum erro ao carregar os dados';
-            });
+    var $overflow = '';
+    var colorbox_params = {
+        rel: 'colorbox',
+        reposition: true,
+        scalePhotos: true,
+        scrolling: false,
+        previous: '<i class="ace-icon fa fa-arrow-left"></i>',
+        next: '<i class="ace-icon fa fa-arrow-right"></i>',
+        close: '&times;',
+        current: '{current} of {total}',
+        maxWidth: '100%',
+        maxHeight: '100%',
+        onOpen: function () {
+            $overflow = document.body.style.overflow;
+            document.body.style.overflow = 'hidden';
+        },
+        onClosed: function () {
+            document.body.style.overflow = $overflow;
+        },
+        onComplete: function () {
+            $.colorbox.resize();
+        }
     };
 
-    $scope.atualizaCategoria = function (id) {
-        var cat;
-        for (var i = 0; i < $scope.categorias.length; i++) {
-            var currCat = $scope.categorias[i];
-            if (currCat.ID === id) {
-                cat = currCat;
-                break;
+    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+    $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");
+
+    $(document).one('ajaxloadstart.page', function (e) {
+        $('#colorbox, #cboxOverlay').remove();
+    });
+
+    $('#fuelux-wizard-container')
+    .ace_wizard()
+    .on('actionclicked.fu.wizard', function (e, info) {
+
+        if (info.step == 1) {
+            if ($('#Code').val() == '') {
+                $('#Code').closest('.form-group').addClass('has-error');
+                $('#Code').focus();
+
+                e.preventDefault();
+
+                return;
+            }
+            else {
+                $('#Code').closest('.form-group').removeClass('has-error');
+            }
+
+            if ($('#Title').val() == '') {
+                $('#Title').closest('.form-group').addClass('has-error');
+                $('#Title').focus();
+
+                e.preventDefault();
+
+                return;
+            }
+            else {
+                $('#Title').closest('.form-group').removeClass('has-error');
             }
         }
+        else if (info.step == 2) {
+            $('#nome-estilo').text($('#Style').data('title'));
+            $('#nome-categoria').text($('#Category').data('title'));
+            $('#nome-marca').text($('#Brand').data('title'));
+            $('#nome-fornecedor').text($('#Supplier').data('title'));
 
-        dataFactory.updateCustomer(cat)
-          .success(function () {
-              $scope.status = 'Updated Category! Refreshing customer list.';
-          })
-          .error(function (error) {
-              $scope.status = 'Unable to update category: ' + error.message;
-          });
-    };
+            salvar();
+        }
+    })
+    .on('finished.fu.wizard', function (e) {
 
-    $scope.inserirCategoria = function () {
-        //Fake customer data
-        var cust = {
-            ID: 10,
-            FirstName: 'JoJo',
-            LastName: 'Pikidily'
-        };
-        dataFactory.insertCustomer(cust)
-            .success(function () {
-                $scope.status = 'Inserted Customer! Refreshing customer list.';
-                $scope.categorias.push(cust);
-            }).
-            error(function (error) {
-                $scope.status = 'Unable to insert customer: ' + error.message;
+        if (!produtoAterado) {
+            mensagem('Mensagem de sucesso', 'Parabéns, produto inserido com sucesso!!', 'sucesso');
+        }
+        else {
+            mensagem('Mensagem de sucesso', 'Parabéns, produto alterado com sucesso!!', 'sucesso');
+        }
+
+        window.location.href = '#/products';
+
+    }).on('stepclick.fu.wizard', function (e) {
+        //e.preventDefault();//this will prevent clicking and selecting steps
+    });
+
+    if ($location.path() !== '/products') {
+        pesquisarEstilos();
+        pesquisarCategorias();
+        pesquisarFornecedores();
+        pesquisarMarcas();
+    }
+
+    $scope.product = {};
+    $scope.products = {};
+    $scope.totalRegistros = 0;
+
+    $scope.pesquisar = function () {
+        gostoFactory.pesquisarProdutos()
+            .success(function (data) {
+                $scope.products = data;
+                $scope.totalRegistros = data.length;
+            }).error(function (error) {
+                $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
     };
+
+    $scope.abrirModalUpload = function () {
+        $('#upload').modal('show');
+    }
+
+    $scope.editar = function (item) {
+        $scope.product = item;
+        window.product = $scope.product;
+    };
+
+    $scope.excluir = function (item) {
+
+        $scope.product = item;
+
+        $scope.CorpoMensagem = "Deseja mesmo excluir o produto " + item.title + "?";
+        $scope.BtnOk = "Excluir";
+        $scope.BtnCancelar = "Cancelar";
+        $('#mensagem').modal('show');
+    };
+
+    $scope.clickExcluir = function () {
+
+        var productId = $scope.product.id;
+
+        gostoFactory.excluirProduto(productId)
+            .success(function (data) {
+
+                $scope.products.splice($scope.index, 1);
+                $scope.totalRegistros = $scope.products.length;
+
+                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+
+                $('#mensagem').modal('hide');
+
+            }).error(function (error) {
+                mensagem('Aconteceu algum erro', error, 'erro');
+            });
+    };
+
+    if ($routeParams.code != null && window.product != null) {
+        $scope.product = window.product;
+    }
+    else {
+        $scope.urlModal = "/app/views/modalExclusao.html";
+        window.product = null;
+    }
+
+    $scope.resetar = function () {
+        $scope.product = null;
+        window.product = null;
+    }
+
+    function salvar() {
+
+        var id = $scope.product.id;
+        if (id == undefined) { inserir(); } else { atualizar(); }
+    };
+
+    function inserir() {
+
+        var cat = $scope.product;
+
+        gostoFactory.inserirProduto(cat)
+            .success(function (data) {
+                $scope.product.id = data.id;
+            }).error(function (error) {
+                mensagem('Erro no cadastro', error, 'erro');
+            });
+    };
+
+    function atualizar() {
+        produtoAterado = true;
+
+        var cat = $scope.product;
+
+        gostoFactory.atualizarProduto(cat).error(function (error) {
+            mensagem('Erro no cadastro', error, 'erro');
+        });
+
+        $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+    };
+
+    function pesquisarEstilos() {
+        gostoFactory.pesquisarEstilos()
+            .success(function (data) {
+                $('#Style').empty();
+                $('#Style').append($('<option/>').attr("value", "").text(""));
+                $.each(data, function (i, option) {
+                    $('#Style').append($('<option/>').attr("value", option.id).text(option.title)).data("title", option.title);
+                });
+
+            }).error(function (error) {
+                $scope.status = 'Aconteceu algum erro ao pesquisar';
+            });
+    }
+
+    function pesquisarMarcas() {
+        gostoFactory.pesquisarMarcas()
+            .success(function (data) {
+                $('#Brand').empty();
+                $('#Brand').append($('<option/>').attr("value", "").text(""));
+                $.each(data, function (i, option) {
+                    $('#Brand').append($('<option/>').attr("value", option.id).text(option.title)).data("title", option.title);
+                });
+
+            }).error(function (error) {
+                $scope.status = 'Aconteceu algum erro ao pesquisar';
+            });
+    }
+
+    function pesquisarCategorias() {
+        gostoFactory.pesquisarCategorias()
+            .success(function (data) {
+                $('#Category').empty();
+                $('#Category').append($('<option/>').attr("value", "").text(""));
+                $.each(data, function (i, option) {
+                    $('#Category').append($('<option/>').attr("value", option.id).text(option.title)).data("title", option.title);
+                });
+
+            }).error(function (error) {
+                $scope.status = 'Aconteceu algum erro ao pesquisar';
+            });
+    }
+
+    function pesquisarFornecedores() {
+        gostoFactory.pesquisarFornecedores()
+            .success(function (data) {
+                $('#Supplier').empty();
+                $('#Supplier').append($('<option/>').attr("value", "").text(""));
+                $.each(data, function (i, option) {
+                    $('#Supplier').append($('<option/>').attr("value", option.id).text(option.nome)).data("title", option.title);
+                });
+
+            }).error(function (error) {
+                $scope.status = 'Aconteceu algum erro ao pesquisar';
+            });
+    }
 }]);

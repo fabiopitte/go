@@ -1,14 +1,17 @@
 ﻿'use strict';
 
 app.controller('categoryController', ['$scope', '$location', '$routeParams', 'gostoFactory', function ($scope, $location, $routeParams, gostoFactory) {
-
+    $scope.index = null;
     $scope.category = {};
     $scope.categorias = {};
+    $scope.totalRegistros = 0;
 
     $scope.pesquisar = function () {
         gostoFactory.pesquisarCategorias()
             .success(function (data) {
                 $scope.categorias = data;
+                $scope.totalRegistros = data.length;
+
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
@@ -31,9 +34,10 @@ app.controller('categoryController', ['$scope', '$location', '$routeParams', 'go
         window.category = $scope.category;
     };
 
-    $scope.excluir = function (item) {
+    $scope.excluir = function (item, index) {
 
         $scope.category = item;
+        $scope.index = index;
 
         $scope.CorpoMensagem = "Deseja mesmo excluir a categoria " + item.title + "?";
         $scope.BtnOk = "Excluir";
@@ -45,14 +49,12 @@ app.controller('categoryController', ['$scope', '$location', '$routeParams', 'go
 
         var categoryId = $scope.category.id;
 
-        angular.forEach($scope.categorias, function (item, v) {
-            if (item.id === categoryId) {
-
-            }
-        });
-
         gostoFactory.excluirCategoria(categoryId)
             .success(function (data) {
+
+                $scope.categorias.splice($scope.index, 1);
+                $scope.totalRegistros = $scope.categorias.length;
+
                 mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
 
                 $('#mensagem').modal('hide');
@@ -67,6 +69,11 @@ app.controller('categoryController', ['$scope', '$location', '$routeParams', 'go
     }
     else {
         $scope.urlModal = "/app/views/modalExclusao.html";
+        window.category = null;
+    }
+
+    $scope.resetar = function () {
+        $scope.category = null;
         window.category = null;
     }
 

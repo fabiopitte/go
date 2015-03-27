@@ -24,6 +24,18 @@
 
         public string Celular { get; set; }
 
+        public byte TipoPessoa { get; set; }
+
+        public string NomeContato { get; set; }
+
+        public string EmailContato { get; set; }
+
+        public string TelefoneContato { get; set; }
+
+        public int? AddressId { get; set; }
+
+        public virtual Address Endereco { get; set; }
+
         public Response Response { get; set; }
     }
 }
