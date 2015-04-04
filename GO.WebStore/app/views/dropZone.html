@@ -1,0 +1,15 @@
+﻿<div class="center">
+    <div id="edit-upload" class="tab-pane">
+        <div action="/Product/SaveUploadedFile" method="post" enctype="multipart/form-data" class="dropzone dz-clickable" id="dropzone" style="background: none; border: none; max-height:100px;">
+            <div class="fallback">
+                <input name="file" type="file" multiple class="hide" />
+                <input type="submit" value="Upload" class="hide" />
+            </div>
+            <div class="dz-default dz-message">
+                <span>
+                    <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

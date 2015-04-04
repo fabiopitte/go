@@ -5,13 +5,15 @@ app.controller('brandController', ['$scope', '$location', '$routeParams', 'gosto
     $scope.brand = {};
     $scope.brandies = {};
     $scope.totalRegistros = 0;
+    $scope.loading = false;
 
     $scope.pesquisar = function () {
+        $scope.loading = true;
         gostoFactory.pesquisarMarcas()
             .success(function (data) {
                 $scope.brandies = data;
                 $scope.totalRegistros = data.length;
-
+                $scope.loading = false;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });

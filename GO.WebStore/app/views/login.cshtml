@@ -1,0 +1,19 @@
+﻿@using System.Threading
+@{
+    Layout = null;
+    Response.ContentType = "application/javascript";
+
+    string currentCultureName = Thread.CurrentThread.CurrentUICulture.Name;
+
+    HttpCookie langCookie = Request.Cookies["lang"];
+    if (null != langCookie && false == string.IsNullOrEmpty(langCookie.Value))
+    {
+        currentCultureName = langCookie.Value;
+    }
+}
+var config = {
+  baseRoute: '@(Request.ApplicationPath.TrimEnd('/'))',
+  baseUrl: '@(Url.Action("Index", "Home", null, Request.Url.Scheme).TrimEnd('/'))',
+  cultureName: '@(currentCultureName)'
+};
+config.apiBaseUrl = config.baseUrl + '/api';

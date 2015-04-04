@@ -5,13 +5,15 @@ app.controller('categoryController', ['$scope', '$location', '$routeParams', 'go
     $scope.category = {};
     $scope.categorias = {};
     $scope.totalRegistros = 0;
+    $scope.loading = false;
 
     $scope.pesquisar = function () {
+        $scope.loading = true;
         gostoFactory.pesquisarCategorias()
             .success(function (data) {
                 $scope.categorias = data;
                 $scope.totalRegistros = data.length;
-
+                $scope.loading = false;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });

@@ -4,53 +4,45 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
 
     var produtoAterado = false;
 
-    var $overflow = '';
-    var colorbox_params = {
-        rel: 'colorbox',
-        reposition: true,
-        scalePhotos: true,
-        scrolling: false,
-        previous: '<i class="ace-icon fa fa-arrow-left"></i>',
-        next: '<i class="ace-icon fa fa-arrow-right"></i>',
-        close: '&times;',
-        current: '{current} of {total}',
-        maxWidth: '100%',
-        maxHeight: '100%',
-        onOpen: function () {
-            $overflow = document.body.style.overflow;
-            document.body.style.overflow = 'hidden';
-        },
-        onClosed: function () {
-            document.body.style.overflow = $overflow;
-        },
-        onComplete: function () {
-            $.colorbox.resize();
-        }
-    };
+    //var $overflow = '';
+    //var colorbox_params = {
+    //    rel: 'colorbox',
+    //    reposition: true,
+    //    scalePhotos: true,
+    //    scrolling: false,
+    //    previous: '<i class="ace-icon fa fa-arrow-left"></i>',
+    //    next: '<i class="ace-icon fa fa-arrow-right"></i>',
+    //    close: '&times;',
+    //    current: '{current} de {total}',
+    //    maxWidth: '100%',
+    //    maxHeight: '100%',
+    //    onOpen: function () {
+    //        $overflow = document.body.style.overflow;
+    //        document.body.style.overflow = 'hidden';
+    //    },
+    //    onClosed: function () {
+    //        document.body.style.overflow = $overflow;
+    //    },
+    //    onComplete: function () {
+    //        $.colorbox.resize();
+    //    }
+    //};
 
-    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-    $("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");
+    //$('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
+    //$("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");
 
-    $(document).one('ajaxloadstart.page', function (e) {
-        $('#colorbox, #cboxOverlay').remove();
-    });
+    //$(document).one('ajaxloadstart.page', function (e) {
+    //    $('#colorbox, #cboxOverlay').remove();
+    //});
 
     $('#fuelux-wizard-container')
-    .ace_wizard()
+    .ace_wizard({
+
+    })
     .on('actionclicked.fu.wizard', function (e, info) {
 
+        var formInvalido = true;
         if (info.step == 1) {
-            if ($('#Code').val() == '') {
-                $('#Code').closest('.form-group').addClass('has-error');
-                $('#Code').focus();
-
-                e.preventDefault();
-
-                return;
-            }
-            else {
-                $('#Code').closest('.form-group').removeClass('has-error');
-            }
 
             if ($('#Title').val() == '') {
                 $('#Title').closest('.form-group').addClass('has-error');
@@ -58,10 +50,26 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
 
                 e.preventDefault();
 
-                return;
+                formInvalido = false;
             }
             else {
                 $('#Title').closest('.form-group').removeClass('has-error');
+            }
+
+            if ($('#Code').val() == '') {
+                $('#Code').closest('.form-group').addClass('has-error');
+                $('#Code').focus();
+
+                e.preventDefault();
+
+                formInvalido = false;
+            }
+            else {
+                $('#Code').closest('.form-group').removeClass('has-error');
+            }
+
+            if (formInvalido) {
+                return;
             }
         }
         else if (info.step == 2) {
@@ -98,12 +106,15 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     $scope.product = {};
     $scope.products = {};
     $scope.totalRegistros = 0;
+    $scope.loading = false;
 
     $scope.pesquisar = function () {
+        $scope.loading = true;
         gostoFactory.pesquisarProdutos()
             .success(function (data) {
                 $scope.products = data;
                 $scope.totalRegistros = data.length;
+                $scope.loading = false;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });

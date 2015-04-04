@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\controllers\appController.js" />
-    <Content Include="app\controllers\clienteTypeaheadController.js" />
     <Content Include="app\controllers\styleController.js" />
     <Content Include="app\controllers\dashboardController.js" />
     <Content Include="app\controllers\userController.js" />
@@ -68,16 +67,17 @@
     <Content Include="app\controllers\customerController.js" />
     <Content Include="app\controllers\supplierController.js" />
     <Content Include="app\controllers\brandController.js" />
-    <Content Include="app\directives\autoCompleteAhead.js" />
+    <Content Include="app\directives\productTypeAhead.js" />
+    <Content Include="app\directives\customerTypeAhead.js" />
     <Content Include="app\directives\sidebarSide.js" />
     <Content Include="app\directives\sidebarTop.js" />
     <Content Include="app\directives\navbar.js" />
     <Content Include="app\directives\validation.js" />
+    <Content Include="app\views\dropZone.html" />
     <Content Include="app\views\style\index.html" />
     <Content Include="app\views\style\list.html" />
     <Content Include="app\views\brand\index.html" />
     <Content Include="app\views\brand\list.html" />
-    <Content Include="app\views\dashboard\index.html" />
     <Content Include="app\views\endereco.html" />
     <Content Include="app\views\product\index.html" />
     <Content Include="app\views\product\list.html" />
@@ -90,7 +90,6 @@
     <Content Include="app\views\sidebarTop.html" />
     <Content Include="app\views\supplier\index.html" />
     <Content Include="app\views\supplier\list.html" />
-    <Content Include="app\views\autoCompleteAhead.html" />
     <Content Include="app\views\user\index.html" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
@@ -114,6 +113,7 @@
     <Content Include="Scripts\angular-chart.min.js.map" />
     <Content Include="Content\angular-chart.min.js.map" />
     <Content Include="Content\angular-chart.css.map" />
+    <Content Include="app\views\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -925,13 +925,31 @@
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\images\ui-bg_diagonals-small_40_db4865_40x40.png" />
+    <Content Include="Scripts\images\ui-bg_diagonals-small_50_93c3cd_40x40.png" />
+    <Content Include="Scripts\images\ui-bg_diagonals-small_50_ff3853_40x40.png" />
+    <Content Include="Scripts\images\ui-bg_diagonals-small_75_ccd232_40x40.png" />
+    <Content Include="Scripts\images\ui-bg_dots-medium_80_ffff38_4x4.png" />
+    <Content Include="Scripts\images\ui-bg_dots-small_35_35414f_2x2.png" />
+    <Content Include="Scripts\images\ui-bg_flat_75_ba9217_40x100.png" />
+    <Content Include="Scripts\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Scripts\images\ui-bg_white-lines_85_f7f7ba_40x100.png" />
+    <Content Include="Scripts\images\ui-icons_454545_256x240.png" />
+    <Content Include="Scripts\images\ui-icons_88a206_256x240.png" />
+    <Content Include="Scripts\images\ui-icons_c02669_256x240.png" />
+    <Content Include="Scripts\images\ui-icons_e1e463_256x240.png" />
+    <Content Include="Scripts\images\ui-icons_ffeb33_256x240.png" />
+    <Content Include="Scripts\images\ui-icons_ffffff_256x240.png" />
     <Content Include="Scripts\jquery-1.9.1.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-ui.css" />
     <Content Include="Scripts\jquery-ui.custom.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
     <Content Include="Scripts\jquery.colorbox.min.js" />
     <Content Include="Scripts\jquery.dataTables.bootstrap.min.js" />
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.gritter.min.js" />
+    <Content Include="Scripts\jquery.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

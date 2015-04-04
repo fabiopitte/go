@@ -5,6 +5,7 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
     $scope.supplier = {};
     $scope.suppliers = {};
     $scope.endereco = {};
+    $scope.loading = false;
 
     $scope.totalRegistros = 0;
     $scope.urlEndereco = '/app/views/endereco.html';
@@ -22,10 +23,12 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
     }
 
     $scope.pesquisar = function () {
+        $scope.loading = true;
         gostoFactory.pesquisarFornecedores()
             .success(function (data) {
                 $scope.suppliers = data;
                 $scope.totalRegistros = data.length;
+                $scope.loading = false;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });

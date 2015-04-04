@@ -5,12 +5,15 @@ app.controller('styleController', ['$scope', '$location', '$routeParams', 'gosto
     $scope.style = {};
     $scope.styles = {};
     $scope.totalRegistros = 0;
+    $scope.loading = false;
 
     $scope.pesquisar = function () {
+        $scope.loading = true;
         gostoFactory.pesquisarEstilos()
             .success(function (data) {
                 $scope.styles = data;
                 $scope.totalRegistros = data.length;
+                $scope.loading = false;
 
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';

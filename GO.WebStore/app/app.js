@@ -2,8 +2,6 @@
 
 app.config(function ($routeProvider, $locationProvider) {
 
-    $routeProvider.when("/", { controller: 'dashboardController', templateUrl: "/app/views/dashboard/index.html" });
-
     $routeProvider.when("/dashboard", { controller: 'dashboardController', templateUrl: "/app/views/dashboard/index.html" });
 
     $routeProvider.when("/user", { controller: 'userController', templateUrl: "/app/views/user/index.html" });
@@ -35,12 +33,6 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/products", { controller: "productController", templateUrl: "/app/views/product/list.html" });
 
     $routeProvider.when("/tokens", { controller: "tokensManagerController", templateUrl: "/app/views/tokens.html" });
-
-    //$routeProvider.otherwise(function () {
-    //    return window.location.href = "/login.html";
-    //});
-
-    //$locationProvider.html5Mode(true);
 });
 
 var serviceBase = 'http://localhost:60629/';
@@ -56,3 +48,10 @@ app.config(function ($httpProvider) {
 app.run(['authService', function (authService) {
     authService.fillAuthData();
 }]);
+
+var config = {
+    baseUrl: 'http://localhost:65368/',
+    baseRoute: window.location.href
+};
+
+angular.element('#loading').remove();

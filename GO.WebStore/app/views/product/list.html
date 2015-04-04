@@ -24,18 +24,18 @@
                 <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed" ng-init="pesquisar()">
                     <thead>
                         <tr>
-                            <th>Codigo</th>
+                            <th class="hidden-xs">Codigo</th>
                             <th>Produto</th>
                             <th class="hidden-xs">Cor</th>
                             <th>Qtd</th>
-                            <th>Custo</th>
+                            <th class="hidden-xs">Custo</th>
                             <th>Preço</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-repeat="item in products | filter:q">
-                            <td>{{item.code}}</td>
+                            <td class="hidden-xs"><b>{{item.code}}</b></td>
                             <td>{{item.title}}</td>
                             <td class="hidden-xs">{{item.color}}</td>
                             <td>
@@ -49,7 +49,7 @@
                                     </span>
                                 </div>
                             </td>
-                            <td>
+                            <td class="hidden-xs">
                                 <small>
                                     <span class="red">R$ {{item.cost}}</span>
                                 </small>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="hidden-md hidden-lg">
                                     <div class="inline pos-rel">
-                                        <button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+                                        <button class="btn btn-minier btn-default dropdown-toggle" data-toggle="dropdown" data-position="auto">
                                             <i class="ace-icon fa fa-cog icon-only bigger-110"></i>
                                         </button>
 
@@ -95,4 +95,9 @@
             </div>
         </div>
     </div>
+</div>
+<div class="col-xs-12 text-center" ng-show="loading==true">
+    <h3 class="lighter grey">
+        <i class="ace-icon fa fa-spinner fa-spin green bigger-260"></i>
+    </h3>
 </div>

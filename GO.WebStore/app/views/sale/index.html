@@ -1,24 +1,86 @@
-﻿<link href="../../../Content/typeahead.css" rel="stylesheet" />
+﻿<script src="Scripts/jquery-ui.js"></script>
+
+<script id="template-produtos" type="application/html-template">
+    <div class="widget-body">
+        <div class="widget-main no-padding-left no-padding-right">
+            <div class="well well-sm">
+                <div class="widget-toolbar no-border">
+                    <a data-action="close" class="btn btn-danger btn-link">
+                        <i class="ace-icon fa fa-times text-danger"></i>
+                    </a>
+                </div>
+                <div class="form-group" show-errors>
+                    <label for="title" class="col-sm-2 control-label">Produto</label>
+                    <div class="col-sm-5">
+                        <input type="hidden" id="id-produto-||indice-id||"
+                               ng-model="sale.product[||indice-id-model||].id" />
+                        <input type="text"
+                               name="nome-produto-||indice-nome||"
+                               ng-model="sale.product[||indice-nome-model||].title"
+                               id="nome-produto-||indice-nome-id||"
+                               class="form-control">
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label for="title" class="col-sm-2 control-label">Valor</label>
+                    <div class="col-sm-2">
+                        <input type="text"
+                               ng-required="true"
+                               class="form-control valor-produtos"
+                               name="nome-produto-||indice-price||"
+                               ng-model="sale.product[||indice-price-model||].price"
+                               id="preco-produto-||indice-price-id||"
+                               maxlength="4">
+                    </div>
+                </div>
+                <div class="form-group" show-errors>
+                    <label for="title" class="col-sm-2 control-label">Quantidade</label>
+                    <div class="col-sm-2">
+                        <input type="text"
+                               ng-required="true"
+                               class="form-control  quantidade-produto"
+                               name="nome-produto-||indice-quantity||"
+                               ng-model="sale.product[||indice-quantity-model||].quantity"
+                               id="quantidade-produto-||indice-quantity-id||"
+                               maxlength="4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</script>
+
 <div class="page-header">
-    <h1>Venda de Produto</h1>
+    <h1>Saída de Produto</h1>
 </div>
 
 <div class="col-xs-12">
-    <form class="form-horizontal" action="#" role="form" id="form-marca">
+    <form class="form-horizontal" action="#" role="form" id="form-venda">
         <input type="hidden" id="idVenda" value="1" />
 
         <div class="form-group" show-errors>
 
             <label for="title" class="col-sm-2 control-label">Cliente</label>
             <div class="col-sm-5">
-                <input id="typeahead" ng-required="true" class="form-control" autofocus />
+                <input type="hidden" id="id-customer" />
+                <input id="customer" ng-required="true" class="form-control" autofocus />
             </div>
         </div>
         <div class="form-group" show-errors>
 
-            <label for="title" class="col-sm-2 control-label">Data de Emissão</label>
+            <label for="title" class="col-sm-2 control-label">Natureza</label>
+            <div class="col-sm-5">
+                <select id="payType" name="payType" ng-model="product.payType" class="form-control">
+                    <option value="1">Aluguel</option>
+                    <option value="2">Venda</option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group" show-errors>
+
+            <label for="title" class="col-sm-2 control-label">Data</label>
             <div class="col-sm-2">
-                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                <input type="text" ng-required="true" class="form-control" name="dataVenda" id="dataVenda" ng-model="sale.dataVenda" maxlength="100">
             </div>
         </div>
         <div class="hr hr-16 hr-dotted"></div>
@@ -29,38 +91,15 @@
                     <h4 class="widget-title lighter">Itens</h4>
                 </div>
 
-                <div class="widget-body">
-                    <div class="widget-main no-padding-left no-padding-right">
-                        <div class="form-group" show-errors>
-                            <label for="title" class="col-sm-2 control-label">Produto</label>
-                            <div class="col-sm-5">
-                                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
-                            </div>
-                        </div>
-                        <div class="form-group" show-errors>
-                            <label for="title" class="col-sm-2 control-label">Quantidade</label>
-                            <div class="col-sm-2">
-                                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
-                            </div>
-                        </div>
-                        <div class="form-group" show-errors>
-                            <label for="title" class="col-sm-2 control-label">Valor</label>
-                            <div class="col-sm-2">
-                                <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
-                            </div>
-                        </div>
-                        <a class="btn btn-link pull-left">
-                            Adicionar mais item
-                        </a>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
+                <div id="tag-produto"></div>
+                <a class='btn btn-link pull-left' ng-click="novoProduto()">Adicionar mais item</a><div class='clearfix'></div>
+                <div class="clearfix"></div>
             </div>
             <div class="hr hr-16 hr-dotted"></div>
             <div class="form-group">
                 <label class="col-sm-2 control-label" for="Observacoes"> Observações </label>
                 <div class="col-sm-5">
-                    <textarea type="text" ng-model="customer.observacoes" id="Observacoes" class="form-control" maxlength="255"></textarea>
+                    <textarea type="text" ng-model="sale.observacoes" id="Observacoes" rows="4" class="form-control" maxlength="255"></textarea>
                 </div>
             </div>
             <div class="hr hr-16 hr-dotted"></div>
@@ -71,61 +110,79 @@
                 <div class="col-xs-12 col-sm-5">
                     <div>
                         <label class="line-height-1">
-                            <input name="tipoPessoa" value="1" type="radio" checked class="ace" aria-required="true" aria-describedby="gender-error">
+                            <input name="pay" ng-model="sale.pay" value="1" type="radio" checked class="ace" aria-required="true" aria-describedby="gender-error">
                             <span class="lbl"> A vista</span>
                         </label>
                     </div>
 
                     <div>
                         <label class="line-height-1">
-                            <input name="tipoPessoa" value="2" type="radio" class="ace">
+                            <input name="pay" ng-model="sale.pay" value="2" type="radio" class="ace">
                             <span class="lbl"> Parcelado</span>
                         </label>
                     </div>
 
                 </div>
             </div>
-            <div class="form-group" show-errors>
+            <div class="form-group" ng-hide="sale.pay==1">
                 <label for="title" class="col-sm-2 control-label">Parcelas</label>
                 <div class="col-sm-2">
-                    <input type="text" ng-required="true" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+                    <input type="text" class="form-control" name="amount" id="amount" ng-model="product.amount" maxlength="100">
                 </div>
             </div>
             <div class="form-group" show-errors>
                 <label for="title" class="col-sm-2 control-label">Tipo pagamento</label>
                 <div class="col-sm-5">
-                    <select id="Category" name="Category" ng-model="product.category" class="form-control">
-                        <option value="0"></option>
+                    <select id="payType" name="payType" ng-model="product.payType" class="form-control">
                         <option value="1">Cartão de Credito</option>
                         <option value="2">Cartão de Débito</option>
                         <option value="3">Dinheiro</option>
                     </select>
                 </div>
             </div>
-            <div class="hr hr-16 hr-dotted"></div>
-            <div class="col-sm-6 col-sm-offset-2">
-                <div class="well well-sm">
-                    <h4 class="blue">Total da venda</h4>
-                    <i class="ace-icon fa fa-asterisk bigger-160"></i> Valor total dos produtos
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <input type="text" readonly class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+
+            <div class="col-sm-12">
+                <h4 class="header blue">Resumo</h4>
+
+                <div class="widget-box widget-color-green">
+                    <div class="widget-header widget-header-small">
+                        <div class="wysiwyg-toolbar btn-toolbar center inline">
+                            <h4>Total da venda</h4>
                         </div>
                     </div>
-                    <i class="ace-icon fa fa-pencil-square-o bigger-160"></i> Desconto
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <input type="text" class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
-                        </div>
-                    </div>
-                    <i class="ace-icon fa fa-shopping-cart bigger-160"></i> Valor total da venda
-                    <div class="form-group">
-                        <div class="col-sm-6">
-                            <input type="text" readonly class="form-control" name="codigo" id="codigo" ng-model="product.cod" maxlength="100" autofocus>
+
+                    <div class="widget-body">
+                        <div class="widget-main">
+                            <div class="form-group" show-errors>
+                                <label for="title" class="col-sm-2 control-label">Total Produtos</label>
+                                <div class="col-sm-5">
+                                    <input type="text" disabled class="form-control" name="sale-amount" id="sale-amount" ng-model="sale.amount" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="title" class="col-sm-2 control-label">Quantidade</label>
+                                <div class="col-sm-5">
+                                    <input type="text" disabled class="form-control" name="sale-quantity" id="sale-quantity" ng-model="sale.quantity" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="form-group" show-errors>
+                                <label for="title" class="col-sm-2 control-label">Desconto</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control input-lg" name="sale-discount" id="sale-discount" ng-model="sale.discount" maxlength="100">
+                                </div>
+                            </div>
+                            <div class="form-group" show-errors>
+                                <label for="title" class="col-sm-2 control-label">Total venda</label>
+                                <div class="col-sm-5">
+                                    <input type="text" disabled class="form-control input-lg" name="sale-total" id="sale-total" ng-model="sale.total" maxlength="100">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <div class="hr hr-16 hr-dotted"></div>
         </div>
         <br />
         <div class="clearfix"></div>
