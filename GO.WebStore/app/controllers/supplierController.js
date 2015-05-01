@@ -5,6 +5,7 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
     $scope.supplier = {};
     $scope.suppliers = {};
     $scope.endereco = {};
+    $scope.supplier.tipoPessoa = 0;
     $scope.loading = false;
 
     $scope.totalRegistros = 0;

@@ -2,56 +2,73 @@
 
 app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
 
-    $("#customer").autocomplete({
+    $("#listaCliente").autocomplete({
         minLength: 2,
         source: function (request, response) {
-            $.getJSON("http://localhost:60629/api/v1/public/customers", {
-                q: request.term,
-                page_limit: 10
-            }, function (data) {
-                var array = data.error ? [] : $.map(data, function (m) {
-                    return {
-                        label: m.nome,
-                        nome: m.nome,
-                        id: m.id,
-                    };
+            $("#spinner-customer").removeClass('hide');
+            $.getJSON("http://localhost:60629/api/v1/public/customers/" + request.term + '/' + 10,
+                function (data) {
+                    var array = data.error ? [] : $.map(data, function (m) {
+                        return {
+                            label: m.nome,
+                            nome: m.nome,
+                            cpf: m.cnpj,
+                            telefone: m.dddCelular + '-' + m.celular,
+                            email: m.email,
+                            id: m.id,
+                        };
+                    });
+                    response(array);
+                }).complete(function () {
+                    $("#spinner-customer").addClass('hide');
                 });
-                response(array);
-            });
         },
         focus: function (event, ui) {
             event.preventDefault();
         },
         select: function (event, ui) {
 
-            console.log(ui.item);
-
             event.preventDefault();
+
+            $scope.sale.customerId = ui.item.id;
+
             $("#id-customer").val(ui.item.id);
-            $("#customer").val(ui.item.nome);
+            $("#listaCliente").val(ui.item.nome);
+            $("#customer-cpf").text('CPF: ' + ui.item.cpf);
+            $("#customer-telefone").text('Celular: ' + ui.item.telefone);
+            $("#customer-email").text('Email: ' + ui.item.email);
         }
     });
 
-    $('.valor-produtos, .quantidade-produto, #sale-discount').on('change', function () {
+    $('#sale-discount').on('change', function () {
         calcularTotal();
     });
 
+    $('#sale-amount').maskMoney({ thousands: '.', decimal: ',' });
+    $('#sale-discount').maskMoney({ thousands: '.', decimal: ',' });
+    $('#sale-total').maskMoney({ thousands: '.', decimal: ',' });
+
     $scope.sale = {};
-    $scope.sale.product = [];
-    $scope.sale.pay = 1;
-    $scope.sale.dataVenda = dateFilter(new Date(), 'dd/MM/yyyy');
+    $scope.sale.itens = [];
+    $scope.sale.customerId = 0;
+    $scope.sale.payment = 1;
+    $scope.sale.date = dateFilter(new Date(), 'dd/MM/yyyy');
 
-    var product = { id: '', price: '', quantity: '', excluir: false };
+    var novaData = new Date();
+    novaData.setDate(novaData.getDate() + 7);
+    $scope.sale.dateDispatch = dateFilter(novaData, 'dd/MM/yyyy');
 
-    $scope.sale.product.push(product);
+    var product = { productId: '', price: '', quantity: '' };
+
+    $scope.sale.itens.push(product);
 
     criarProduto();
 
     $scope.novoProduto = function () {
 
-        var product = { id: '', price: '', quantity: '', excluir: true };
+        var product = { productId: '', price: '', quantity: '' };
 
-        $scope.sale.product.push(product);
+        $scope.sale.itens.push(product);
 
         criarProduto();
     }
@@ -61,20 +78,19 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
         var amount = 0;
         var quantity = 0;
 
-        $.each($scope.sale.product, function (index, produto) {
-            //obtem o valor de cada produto vezes a quantidade
+        $.each($scope.sale.itens, function (index, produto) {
             var preco_produto = $('#preco-produto-' + index).val();
             var quantidade_produto = $('#quantidade-produto-' + index).val();
 
-            amount += preco_produto * quantidade_produto;
+            amount += parseFloat(preco_produto) * parseInt(quantidade_produto);
             quantity += parseInt(quantidade_produto);
         });
 
         $('#sale-amount').val(amount);
-        $('#sale-quantity').val(quantity);
+        $('#sale-quantity').val(parseInt(quantity));
 
         var discount = $('#sale-discount').val();
-        var totalVenda = parseInt(amount - discount);
+        var totalVenda = discount == '' ? parseFloat(amount) : parseFloat(amount) - parseFloat(discount);
         $('#sale-total').val(totalVenda);
     }
 
@@ -82,26 +98,58 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
 
         var template = $("#template-produtos").clone().html();
 
-        var indice = $scope.sale.product.length - 1;
+        var indice = $scope.sale.itens.length - 1;
 
         var html = template.replace("||indice-id||", indice)
                            .replace("||indice-id-model||", indice)
                            .replace("||indice-nome||", indice)
+                           .replace("||indice-label-nome||", indice)
                            .replace("||indice-nome-model||", indice)
                            .replace("||indice-nome-id||", indice)
                            .replace("||indice-price||", indice)
+                           .replace("||indice-label-price||", indice)
                            .replace("||indice-price-model||", indice)
                            .replace("||indice-price-id||", indice)
                            .replace("||indice-quantity||", indice)
+                           .replace("||indice-label-quantity||", indice)
                            .replace("||indice-quantity-model||", indice)
                            .replace("||indice-quantity-id||", indice)
+                           .replace("||indice-spinner||", indice)
                            .replace("||indice-excluir||", indice)
+                           .replace("||exibe-botao||", indice == 0 ? 'hide' : '')
 
         $("#tag-produto").append(html);
 
         $("#nome-produto-" + indice).bind("autocomplete", addAautoCompleteEvent(indice));
-        $("#preco-produto-" + indice).bind("change", calcularTotal);
-        $("#quantidade-produto-" + indice).bind("change", calcularTotal);
+
+        $("#preco-produto-" + indice).bind("change", function () {
+
+            $scope.sale.itens[indice].price = $(this).val();
+
+            calcularTotal();
+        });
+
+        $("#preco-produto-" + indice).bind("maskMoney", $("#preco-produto-" + indice).maskMoney({ thousands: '.', decimal: ',' }));
+
+        $("#quantidade-produto-" + indice).bind("change", function () {
+
+            $scope.sale.itens[indice].quantity = $(this).val();
+
+            calcularTotal();
+        });
+
+        $("#excluir-produto-" + indice).bind("click", function (event) {
+
+            //remover o objeto no DOM
+            $scope.sale.itens.splice(indice, 1);
+
+            //remover o dom da tela
+            $(this).closest('#widget-produto').fadeOut("slow");
+            $(this).closest('#widget-produto').remove();
+
+            //recalcular o valor total
+            calcularTotal();
+        });
     }
 
     function addAautoCompleteEvent(indice) {
@@ -109,20 +157,22 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
         $("#nome-produto-" + indice).autocomplete({
             minLength: 2,
             source: function (request, response) {
-                $.getJSON("http://localhost:60629/api/v1/public/products", {
-                    q: request.term,
-                    page_limit: 10
-                }, function (data) {
-                    var array = data.error ? [] : $.map(data, function (m) {
-                        return {
-                            label: '(' + m.code + ') ' + m.title + ' R$ ' + m.price,
-                            price: m.price,
-                            id: m.id,
-                            title: m.title
-                        };
+                $("#spinner-" + indice).removeClass('hide');
+
+                $.getJSON("http://localhost:60629/api/v1/public/products/" + request.term + '/' + request.term + '/' + 10,
+                    function (data) {
+                        var array = data.error ? [] : $.map(data, function (m) {
+                            return {
+                                label: '(' + m.code + ') ' + m.title + ' R$ ' + m.price,
+                                price: m.price,
+                                id: m.id,
+                                title: m.title
+                            };
+                        });
+                        response(array);
+                    }).complete(function () {
+                        $("#spinner-" + indice).addClass('hide');
                     });
-                    response(array);
-                });
             },
             focus: function (event, ui) {
 
@@ -131,6 +181,11 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
             select: function (event, ui) {
 
                 event.preventDefault();
+
+                $scope.sale.itens[indice].productId = ui.item.id;
+                $scope.sale.itens[indice].title = ui.item.title;
+                $scope.sale.itens[indice].price = ui.item.price;
+                $scope.sale.itens[indice].quantity = 1;
 
                 $("#id-produto-" + indice).val(ui.item.id);
                 $("#nome-produto-" + indice).val(ui.item.title);
@@ -141,4 +196,61 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
             }
         });
     }
+
+    $scope.salvar = function () {
+
+        $('#salvar').text('').prepend('Processando ...');
+
+        $scope.$broadcast('show-errors-event');
+
+        if ($scope.formVenda.$invalid) {
+           //return;
+        }
+
+        var id = $scope.sale.id;
+        if (id == undefined) { inserir(); } else { atualizar(); }
+    };
+
+    function inserir() {
+
+        var sale = $scope.sale;
+
+        sale.amount = parseFloat($('#sale-amount').val());
+        sale.quantity = $('#sale-quantity').val();
+        sale.total = parseFloat($('#sale-total').val());
+
+        gostoFactory.inserirVenda(sale)
+            .success(function (data) {
+                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+
+                setInterval(function () {
+                    $scope.$apply();
+                    $('#loading-nota-fiscal').removeClass('hide');
+                }, 2000);
+
+                setInterval(function () {
+                    $scope.$apply();
+                    window.location = '#/invoice'
+                }, 4000);
+
+                $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+
+            }).error(function (error) {
+                mensagem('Erro no cadastro', error, 'erro');
+
+                $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+            });
+    };
+
+    function atualizar() {
+
+        var sale = $scope.sale;
+        gostoFactory.atualizarVenda(sale)
+            .success(function (data) {
+                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+
+            }).error(function (error) {
+                mensagem('Erro no cadastro', error, 'erro');
+            });
+    };
 });

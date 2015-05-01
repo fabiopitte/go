@@ -1,4 +1,4 @@
-﻿var app = angular.module('gostoWebStore', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'chart.js', 'ui.bootstrap']);
+﻿var app = angular.module('gostoWebStore', ['ngRoute', 'LocalStorageModule', 'angular-loading-bar', 'chart.js', 'ui.bootstrap', 'dropzone']);
 
 app.config(function ($routeProvider, $locationProvider) {
 
@@ -6,7 +6,12 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when("/user", { controller: 'userController', templateUrl: "/app/views/user/index.html" });
 
+    $routeProvider.when("/invoice", { controller: "saleController", templateUrl: "/app/views/sale/invoice.html" });
     $routeProvider.when("/sale", { controller: "saleController", templateUrl: "/app/views/sale/index.html" });
+    $routeProvider.when("/sale/:code", { controller: "saleController", templateUrl: "/app/views/sale/index.html" });
+
+    $routeProvider.when("/dispatch", { controller: "dispatchController", templateUrl: "/app/views/dispatch/index.html" });
+    $routeProvider.when("/dispatch/:code", { controller: "dispatchController", templateUrl: "/app/views/dispatch/index.html" });
 
     $routeProvider.when("/category", { controller: "categoryController", templateUrl: "/app/views/category/index.html" });
     $routeProvider.when("/category/:code", { controller: "categoryController", templateUrl: "/app/views/category/index.html" });

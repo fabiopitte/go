@@ -57,9 +57,15 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\avatar3.png" />
+    <Content Include="app\directives\dropzoneDirective.js" />
+    <Content Include="app\views\dispatch\index.html" />
+    <Content Include="app\views\sale\invoice.html" />
+    <Content Include="Content\bootstrap-datepicker3.css" />
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="app\controllers\appController.js" />
     <Content Include="app\controllers\styleController.js" />
-    <Content Include="app\controllers\dashboardController.js" />
+    <Content Include="app\controllers\dispatchController.js" />
     <Content Include="app\controllers\userController.js" />
     <Content Include="app\controllers\navigationController.js" />
     <Content Include="app\controllers\saleController.js" />
@@ -950,6 +956,7 @@
     <Content Include="Scripts\jquery.dataTables.min.js" />
     <Content Include="Scripts\jquery.gritter.min.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\jquery.maskMoney.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\loading-bar.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />

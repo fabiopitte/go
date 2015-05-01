@@ -35,6 +35,20 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     //    $('#colorbox, #cboxOverlay').remove();
     //});
 
+    $scope.dropzoneConfig = {
+        'options': { // passed into the Dropzone constructor
+            'url': 'http://localhost:60629/api/v1/public/PostFormData/1'
+        },
+        'eventHandlers': {
+            'sending': function (file, xhr, formData) {
+
+            },
+            'success': function (file, response) {
+
+            }
+        }
+    };
+
     $('#fuelux-wizard-container')
     .ace_wizard({
 
@@ -80,6 +94,9 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
 
             salvar();
         }
+        else if (info.step == 3) {
+            obterFotosDoProduto();
+        }
     })
     .on('finished.fu.wizard', function (e) {
 
@@ -108,6 +125,23 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     $scope.totalRegistros = 0;
     $scope.loading = false;
 
+    function obterFotosDoProduto() {
+
+        var id = $scope.product.id;
+
+        console.log(id);
+
+        if (id !== undefined) {
+            gostoFactory.obterFotosDoProduto(id)
+            .success(function (data) {
+
+                $scope.product.photos = data;
+            }).error(function (error) {
+                mensagem('Erro ao pesquisar por fotos', error, 'erro');
+            });
+        }
+    }
+
     $scope.pesquisar = function () {
         $scope.loading = true;
         gostoFactory.pesquisarProdutos()
@@ -120,8 +154,8 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
             });
     };
 
-    $scope.abrirModalUpload = function () {
-        $('#upload').modal('show');
+    $scope.abrirModalGaleria = function () {
+        $('#galeria').modal('show');
     }
 
     $scope.editar = function (item) {
@@ -146,7 +180,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
         gostoFactory.excluirProduto(productId)
             .success(function (data) {
 
-                $scope.products.splice($scope.index, 1);
+                $scope.products.splice($scope.index - 1, 1);
                 $scope.totalRegistros = $scope.products.length;
 
                 mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');

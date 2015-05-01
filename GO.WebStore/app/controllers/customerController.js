@@ -5,6 +5,7 @@ app.controller('customerController', ['$scope', '$location', '$routeParams', 'go
     $scope.customer = {};
     $scope.customers = {};
     $scope.endereco = {};
+    $scope.customer.tipoPessoa = 0;
     $scope.loading = false;
 
     $scope.totalRegistros = 0;

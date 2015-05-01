@@ -933,6 +933,7 @@
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\npm.js" />
     <Content Include="Views\Error.html" />
+    <Content Include="Views\Sale\Invoice.html" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

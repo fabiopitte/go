@@ -74,7 +74,7 @@ app.factory('gostoFactory', ['$http', function ($http) {
     }
 
     //Produto
-    dataFactory.pesquisarProdutos= function () {
+    dataFactory.pesquisarProdutos = function () {
         return $http.get(urlBase + '/products');
     };
 
@@ -89,6 +89,10 @@ app.factory('gostoFactory', ['$http', function ($http) {
     dataFactory.excluirProduto = function (productId) {
         return $http.delete(urlBase + '/product/' + productId);
     }
+
+    dataFactory.obterFotosDoProduto = function (id) {
+        return $http.get(urlBase + '/product/photos/' + id);
+    };
 
     //usuario
     dataFactory.obterUsuario = function (userId) {
@@ -116,5 +120,21 @@ app.factory('gostoFactory', ['$http', function ($http) {
         return $http.delete(urlBase + '/style/' + styleId);
     }
 
+    //venda
+    dataFactory.pesquisarVendas = function () {
+        return $http.get(urlBase + '/sales');
+    };
+
+    dataFactory.inserirVenda = function (sale) {
+        return $http.post(urlBase + '/sale', JSON.stringify(sale));
+    }
+
+    dataFactory.atualizarVenda = function (sale) {
+        return $http.put(urlBase + '/sale', JSON.stringify(sale));
+    }
+
+    dataFactory.excluirVenda = function (saleId) {
+        return $http.delete(urlBase + '/sale/' + saleId);
+    }
     return dataFactory;
 }]);

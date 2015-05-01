@@ -1,5 +1,4 @@
-﻿
-namespace GO.Domain
+﻿namespace GO.Domain
 {
     public class Item
     {
@@ -8,6 +7,10 @@ namespace GO.Domain
         public int ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        public decimal Price { get; set; }
+
+        public int  Quantity { get; set; }
 
         public int SaleId { get; set; }
 

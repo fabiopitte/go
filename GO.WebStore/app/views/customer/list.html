@@ -38,16 +38,19 @@
                             <td class="hidden-xs">{{item.email}}</td>
                             <td class="hidden-xs">{{item.dddTelefone}}-{{item.telefone}}</td>
                             <td class="hidden-xs">{{item.dddCelular}}-{{item.celular}}</td>
-                            <td width="95px">
+                            <td width="125px">
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <a ng-href="#/customer/{{item.id}}" ng-click="vender(item)" class="btn btn-xs btn-warning">
+                                    <a ng-href="#/dispatch/{{item.id}}" class="btn btn-xs btn-primary">
+                                        <i class="ace-icon fa fa-download bigger-120"></i>
+                                    </a>
+                                    <a ng-href="#/sale/{{item.id}}" class="btn btn-xs btn-warning">
                                         <i class="ace-icon fa fa-shopping-cart bigger-120"></i>
                                     </a>
                                     <a ng-href="#/customer/{{item.id}}" ng-click="editar(item)" class="btn btn-xs btn-success">
-                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                        <i class="ace-icon fa fa-search-plus bigger-120"></i>
                                     </a>
                                     <button ng-click="excluir(item, $index)" class="btn btn-xs btn-danger">
-                                        <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                                        <i class="ace-icon fa fa-remove bigger-120"></i>
                                     </button>
                                 </div>
                                 <div class="hidden-md hidden-lg">

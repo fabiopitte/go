@@ -79,5 +79,44 @@ namespace GO.Infra.SqlServer
             }
             catch (Exception ex) { throw ex; }
         }
+
+        public List<GO.Domain.Customer> Search(GO.Domain.Customer customer, int limit)
+        {
+            try
+            {
+                var consulta = db.Customer.Where(cust => cust.Nome.Contains(customer.Nome)).Take(limit).ToList();
+
+                return consulta;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public List<GO.Domain.Product> Search(GO.Domain.Product product, int limit)
+        {
+            try
+            {
+                var consulta = db.Products
+                    .Where(cust => cust.Code.Contains(product.Code) || cust.Title.Contains(product.Title))
+                    .Where(cust => cust.Quantity > 0)
+                    .Take(limit)
+                    .ToList();
+
+                return consulta;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public List<GO.Domain.Photo> Search(int productId)
+        {
+            try
+            {
+                var consulta = db.Photo.Where(p => p.Id == productId);
+
+                return consulta.ToList();
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
     }
+
 }
