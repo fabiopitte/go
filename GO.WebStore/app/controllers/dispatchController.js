@@ -50,19 +50,20 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
         select: function (event, ui) {
 
             event.preventDefault();
+
             $("#id-customer").val(ui.item.id);
             $("#customer").val(ui.item.nome);
             $("#customer-cpf").text('CPF: ' + ui.item.cpf);
             $("#customer-telefone").text('Celular: ' + ui.item.telefone);
             $("#customer-email").text('Email: ' + ui.item.email);
 
-            pesquisar();
+            pesquisarProdutosDoCliente(ui.item.id);
         }
     });
 
-    function pesquisar() {
+    function pesquisarProdutosDoCliente(customerId) {
         $scope.loading = true;
-        gostoFactory.pesquisarProdutos()
+        gostoFactory.pesquisarProdutosDoCliente(customerId)
             .success(function (data) {
                 $scope.products = data;
                 $scope.totalRegistros = data.length;

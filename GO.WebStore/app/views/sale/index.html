@@ -38,7 +38,7 @@
         <div class="form-group" ng-show="sale.type==1">
             <label for="sale-datedispatch" class="col-sm-2 control-label">Devolução</label>
             <div class="col-sm-2">
-                <input type="text" class="form-control" name="sale-datedispatch" id="sale-datedispatch" ng-model="sale.dateDispatch" maxlength="10">
+                <input type="text" class="form-control" name="datedispatch" id="datedispatch" ng-model="sale.dateDispatch" maxlength="10">
             </div>
         </div>
         <div class="hr hr-16 hr-dotted"></div>
@@ -150,7 +150,7 @@
                 <i class="ace-icon fa fa-undo bigger-110"></i>
                 Cancelar
             </button>
-            <button type="submit" id="salvar" class="btn btn-sm btn-success">
+            <button ng-disabled="processando" type="submit" id="salvar" class="btn btn-sm btn-success">
                 Salvar
                 <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
             </button>
@@ -217,7 +217,6 @@
         </div>
     </div>
 </script>
-
 
 <div id="loading-nota-fiscal" class="hide" style="height: 20%; width: 40%; position: fixed; top: 32%; left: 32%; bottom: 0; right: 25%; background-color: #fff; border:1px solid; z-index: 10000; text-align: center; font-size: 18px; color: #858585;">
     <div style="height: 60px; margin: auto; position: absolute; top: 0; left: 0; bottom: 0; right: 0;">

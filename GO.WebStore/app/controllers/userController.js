@@ -38,7 +38,7 @@ app.controller('userController', ['$scope', '$location', '$routeParams', 'gostoF
     }
 
     $scope.obterUsuario = function () {
-        var id = 2;
+        var id = 1;
         gostoFactory.obterUsuario(id)
             .success(function (data) {
                 $scope.user = data;

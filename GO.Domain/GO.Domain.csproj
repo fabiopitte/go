@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
-    <Compile Include="Dispatch.cs" />
     <Compile Include="Style.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Sale.cs" />

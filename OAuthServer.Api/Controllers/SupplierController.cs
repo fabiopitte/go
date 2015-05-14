@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace OAuthServer.Api.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/v1/public")]
     public class SupplierController : ApiController
     {
@@ -15,7 +16,7 @@ namespace OAuthServer.Api.Controllers
         [HttpGet]
         public HttpResponseMessage Search()
         {
-            var suppliers = new Repository<Supplier>().Search(new Supplier());
+            var suppliers = new Repository<Supplier>().SearchWithInclude(new Supplier(), "Endereco");
 
             return Request.CreateResponse(HttpStatusCode.OK, suppliers);
         }
@@ -66,7 +67,7 @@ namespace OAuthServer.Api.Controllers
 
             try
             {
-                new Repository<Address>().Update(supplier.Endereco);
+                if (null != supplier.Endereco) new Repository<Address>().Update(supplier.Endereco);
 
                 var supplierAlterado = new Repository<Supplier>().Update(supplier);
 

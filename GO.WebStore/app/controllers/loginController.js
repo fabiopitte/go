@@ -2,6 +2,10 @@
 app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuthSettings', function ($scope, $location, authService, ngAuthSettings) {
 
     $scope.message = "";
+    $scope.loginInvalido = false;
+    $scope.authentication = {};
+
+    authService.logOut();
 
     $scope.login = function () {
 
@@ -9,11 +13,12 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
 
             authService.login($scope.user).then(function (response) {
 
-                $scope.token = response.access_token
-
-                window.location.href = config.baseUrl;
+                $scope.authentication.isAuth = authService.authentication.isAuth;
+                $scope.token = response.access_token;
+                $location.path('/products');
             },
              function (err) {
+                 $scope.loginInvalido = true;
                  $scope.message = err.error_description;
              });
         }
@@ -64,57 +69,3 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
         });
     }
 }]);
-
-//angular.module('gostoWebStoreLogin', ['ngRoute', 'ngCookies','LocalStorageModule', 'angular-loading-bar', 'chart.js', 'ui.bootstrap'])
-//    .factory('loginFactory', ['$http',
-//  function ($http) {
-//      var urlBase = 'http://localhost:60629/api/v1/public';
-
-//      return {
-//          postLogin: function (user) {
-//              return $http.post(urlBase + "/login", user);
-//          }
-//      };
-//  }]).controller('loginController', ['$scope', '$cookies', '$location', 'loginFactory', function ($scope, $cookies, $location, loginFactory) {
-//      $scope.user = {};
-//      $scope.executandoLogin = false;
-//      $scope.loginInvalido = false;
-
-//      $scope.login = function () {
-
-//          $scope.executandoLogin = true;
-//          loginFactory.postLogin($scope.user)
-//            .success(function (result, status) {
-
-//                if (status == 200) {
-
-//                    $cookies.usuario = result;
-//                    var returnUrl = $location.search().ReturnUrl;
-//                    if (returnUrl) {
-//                        window.location.href = config.baseUrl.replace(config.baseRoute, '') + $location.search().ReturnUrl;
-//                    } else {
-//                        window.location.href = config.baseUrl;
-//                    }
-//                } else {
-//                    $scope.executandoLogin = false;
-//                    delete $scope.user.senha;
-//                    angular.element('#Login').focus();
-//                    $scope.loginInvalido = true;
-//                }
-//            })
-//            .error(function (request, status, headers, config) {
-//                $scope.executandoLogin = false;
-//                $scope.loginInvalido = true;
-//                angular.element('#Login').focus();
-//                $scope.message = request;
-//                console.error(status + ", " + request);
-//            });
-//      };
-//      $scope.$watch(
-//        'usuario.login',
-//        function (newValue, oldValue) {
-//            $scope.loginInvalido = false;
-//        });
-
-//      angular.element('#loading').remove();
-//  }]);

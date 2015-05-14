@@ -1,4 +1,4 @@
-﻿<div class="bootbox modal fade in" id="galeria" tabindex="-1" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
+﻿<!--<div class="bootbox modal fade in" id="galeria" tabindex="-1" role="dialog" aria-hidden="false" style="display: none; padding-right: 17px;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -225,7 +225,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 
 <div class="page-header">
     <h1>Produtos em Estoque</h1>
@@ -241,14 +241,14 @@
     <div class="col-xs-12">
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <div class="nav-search" id="nav-search">
+                <!--<div class="nav-search" id="nav-search">
                     <form class="form-search pull-right">
                         <span class="input-icon">
                             <input type="text" placeholder="Pesquisar ..." ng-model="q" class="nav-search-input" id="nav-search-input" autocomplete="off">
                             <i class="ace-icon fa fa-search nav-search-icon"></i>
                         </span>
                     </form>
-                </div>
+                </div>-->
                 <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed" ng-init="pesquisar()">
                     <thead>
                         <tr>
@@ -285,10 +285,10 @@
                             <td><b class="label label-info arrowed-right arrowed-in">{{item.price}}</b></td>
                             <td width="105px">
                                 <div class="hidden-sm hidden-xs btn-group">
-                                    <a ng-click="abrirModalGaleria()" class="btn btn-xs btn-success">
+                                    <!--<a ng-click="abrirModalGaleria()" class="btn btn-xs btn-success">
                                         <i class="ace-icon fa fa-photo bigger-120"></i>
-                                    </a>
-                                    <a ng-href="#/product/{{item.id}}" ng-click="editar(item)" class="btn btn-xs btn-default">
+                                    </a>-->
+                                    <a ng-href="#/product/{{item.id}}" ng-click="editar(item)" class="btn btn-xs btn-success">
                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                     </a>
                                     <a ng-click="excluir(item, $index)" class="btn btn-xs btn-danger">

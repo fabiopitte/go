@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace OAuthServer.Api.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/v1/public")]
     public class SaleController : ApiController
     {
@@ -20,7 +21,7 @@ namespace OAuthServer.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, sales);
         }
 
-        [Route("sales/{id}")]
+        //[Route("sale/{id}")]
         [HttpGet]
         public HttpResponseMessage Get(string id)
         {
@@ -38,6 +39,22 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Route("sale/{id}")]
+        [HttpGet]
+        public HttpResponseMessage GetSaleWithItems(string id)
+        {
+            try
+            {
+                var sale = new Repository<Sale>().SearchSaleItemsBySale(int.Parse(id));
+
+                return Request.CreateResponse(HttpStatusCode.OK, sale);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao obter a Venda.");
+            }
+        }
+
         [HttpPost]
         [Route("sale")]
         public HttpResponseMessage Post(Sale sale)
@@ -46,17 +63,15 @@ namespace OAuthServer.Api.Controllers
 
             try
             {
-                //var novo = new Repository<Sale>().Add(sale);
+                var s = new Repository<Sale>().Add(sale);
 
-                var novo = sale;
-
-                novo.Response = new Response { Titulo = "Sucesso", Mensagem = "Venda realizada com sucesso!" };
+                var novo = new Sale { Id = s.Id, Response = new Response { Titulo = "Sucesso", Mensagem = "Venda realizada com sucesso!" } };
 
                 return Request.CreateResponse(HttpStatusCode.Created, novo);
             }
             catch
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, "OOoops deu um probleminha, tente novamente.");
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "OOoops deu um probleminha, verifique os dados e tente novamente.");
             }
         }
 

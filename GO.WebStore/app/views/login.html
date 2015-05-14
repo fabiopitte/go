@@ -1,0 +1,63 @@
+﻿<div class="col-sm-10 col-sm-offset-1">
+    <div class="login-container">
+        <div class="center">
+            <h1>
+                <i class="ace-icon fa fa-leaf green"></i>
+                <span class="red">G.O</span>
+                <span class="blue" id="id-text2">Estoque</span>
+            </h1>
+            <h4 class="blue" id="id-company-text">© La Mariée</h4>
+        </div>
+        <div class="space-6"></div>
+
+        <div class="position-relative">
+            <div id="login-box" class="login-box visible widget-box no-border">
+                <div class="widget-body">
+                    <div class="widget-main">
+                        <h4 class="header blue lighter bigger">
+                            <i class="ace-icon fa fa-coffee green"></i>
+                            Entre com o login
+                        </h4>
+                        <div class="space-6"></div>
+                        <form ng-controller="loginController" name="loginForm" novalidate ng-submit="login()">
+                            <fieldset>
+                                <label class="block clearfix" ng-class="{'has-error':loginForm.Login.$invalid && loginForm.Login.$dirty}">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="text" name="userName" class="form-control" placeholder="E-mail" data-ng-model="user.userName" required autofocus>
+                                        <i class="ace-icon fa fa-user"></i>
+                                    </span>
+                                </label>
+
+                                <label class="block clearfix">
+                                    <span class="block input-icon input-icon-right">
+                                        <input type="password" name="Password" class="form-control" placeholder="Senha" data-ng-model="user.password" required>
+                                        <i class="ace-icon fa fa-lock"></i>
+                                    </span>
+                                </label>
+
+                                <div class="space"></div>
+
+                                <div class="clearfix">
+                                    <label class="inline">
+                                    </label>
+
+                                    <button id="btn-logar" type="submit" class="width-35 pull-right btn btn-sm btn-primary" ng-disabled="loginForm.$invalid">
+                                        <i class="ace-icon fa fa-key"></i>
+                                        <span class="bigger-110" ng-show="!executandoLogin">Login</span>
+                                        <span class="bigger-110" ng-show="executandoLogin">Aguarde...</span>
+                                    </button>
+                                </div>
+
+                                <div class="space-4"></div>
+                                <div ng-show="loginInvalido" class="alert alert-danger">
+                                    {{message}}
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

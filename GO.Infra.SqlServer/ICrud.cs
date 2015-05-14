@@ -9,6 +9,8 @@ namespace GO.Infra.SqlServer
 
         IQueryable<T> Search(T t);
 
+        IQueryable<T> SearchWithInclude(T t, string include);
+
         T Update(T t);
 
         T Add(T t);

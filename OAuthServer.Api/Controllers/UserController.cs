@@ -31,6 +31,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [Route("users")]
         [HttpGet]
         public HttpResponseMessage Search()
@@ -40,6 +41,7 @@ namespace OAuthServer.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, users);
         }
 
+        [Authorize]
         [Route("users/{id}")]
         [HttpGet]
         public HttpResponseMessage Get(string id)
@@ -58,6 +60,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         [Route("user")]
         public HttpResponseMessage Post(User user)
@@ -78,6 +81,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         [Route("user", Name = "user")]
         public HttpResponseMessage Put([FromBody]User user)
@@ -98,6 +102,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("user/{id}")]
         public HttpResponseMessage Delete(string id)

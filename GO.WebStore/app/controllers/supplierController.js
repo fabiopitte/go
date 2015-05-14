@@ -43,8 +43,6 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
             return;
         }
 
-        $scope.supplier.endereco = $scope.endereco;
-
         var id = $scope.supplier.id;
         if (id == undefined) { inserir(); } else { atualizar(); }
     };

@@ -11,11 +11,9 @@ namespace OAuthServer.Api
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        public override System.Threading.Tasks.Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
+        public override async System.Threading.Tasks.Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
             context.Validated();
-
-            return Task.FromResult<object>(null);
         }
 
         public override async System.Threading.Tasks.Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)

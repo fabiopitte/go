@@ -8,6 +8,7 @@ using System.Web.Http;
 
 namespace OAuthServer.Api.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/v1/public")]
     public class BrandController : ApiController
     {

@@ -73,6 +73,10 @@ app.factory('gostoFactory', ['$http', function ($http) {
         return $http.delete(urlBase + '/customer/' + customerId);
     }
 
+    dataFactory.pesquisarProdutosDoCliente = function (customerId) {
+        return $http.get(urlBase + '/customer/products/' + customerId);
+    };
+
     //Produto
     dataFactory.pesquisarProdutos = function () {
         return $http.get(urlBase + '/products');
@@ -92,6 +96,10 @@ app.factory('gostoFactory', ['$http', function ($http) {
 
     dataFactory.obterFotosDoProduto = function (id) {
         return $http.get(urlBase + '/product/photos/' + id);
+    };
+
+    dataFactory.obterFoto = function (url) {
+        return $http.get('product/photo/' + url);
     };
 
     //usuario
@@ -136,5 +144,11 @@ app.factory('gostoFactory', ['$http', function ($http) {
     dataFactory.excluirVenda = function (saleId) {
         return $http.delete(urlBase + '/sale/' + saleId);
     }
+
+    dataFactory.obterVenda = function (id) {
+
+        return $http.get(urlBase + '/sale/' + id);
+    };
+
     return dataFactory;
 }]);

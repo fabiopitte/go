@@ -11,11 +11,12 @@ namespace OAuthServer.Api.Controllers
     [RoutePrefix("api/v1/public")]
     public class CustomerController : ApiController
     {
+        [Authorize]
         [Route("customers")]
         [HttpGet]
         public HttpResponseMessage Search()
         {
-            var customers = new Repository<Customer>().Search(new Customer());
+            var customers = new Repository<Customer>().SearchWithInclude(new Customer(), "Endereco");
 
             return Request.CreateResponse(HttpStatusCode.OK, customers);
         }
@@ -29,6 +30,7 @@ namespace OAuthServer.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, customers);
         }
 
+        [Authorize]
         [Route("customers/{id}")]
         [HttpGet]
         public HttpResponseMessage Get(string id)
@@ -37,7 +39,7 @@ namespace OAuthServer.Api.Controllers
             {
                 var customer = new Repository<Customer>().Get(int.Parse(id));
 
-                customer.Response = new Response { Titulo = "Sucesso", Mensagem = "Cliente salvo com sucesso!" };
+                customer.Response = new Response { Titulo = "Sucesso", Mensagem = "Cliente obtido com sucesso!" };
 
                 return Request.CreateResponse(HttpStatusCode.OK, customer);
             }
@@ -47,6 +49,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost]
         [Route("customer")]
         public HttpResponseMessage Post(Customer customers)
@@ -67,6 +70,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpPut]
         [Route("customer", Name = "customer")]
         public HttpResponseMessage Put([FromBody]Customer customer)
@@ -75,7 +79,7 @@ namespace OAuthServer.Api.Controllers
 
             try
             {
-                new Repository<Address>().Update(customer.Endereco);
+                if (null != customer.Endereco) new Repository<Address>().Update(customer.Endereco);
 
                 var alterado = new Repository<Customer>().Update(customer);
 
@@ -89,6 +93,7 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         [Route("customer/{id}")]
         public HttpResponseMessage Delete(string id)
@@ -110,6 +115,23 @@ namespace OAuthServer.Api.Controllers
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, "Este Cliente não pode ser excluido.");
                 }
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao excluir o Cliente.");
+            }
+        }
+
+        [Authorize]
+        [Route("customer/products/{customerId}")]
+        [HttpGet]
+        public HttpResponseMessage pesquisarProdutosDoCliente(string customerId)
+        {
+            try
+            {
+                var customer = new Repository<Item>().SearchSaleItemsByCustomer(int.Parse(customerId));
+
+                return Request.CreateResponse(HttpStatusCode.OK, customer);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao obter o cliente.");
             }
         }
 

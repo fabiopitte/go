@@ -17,13 +17,12 @@ namespace GO.Infra.SqlServer.DataContext
         public DbSet<Item> Item { get; set; }
         public DbSet<Address> Endereco { get; set; }
         public DbSet<Style> Style { get; set; }
-        public DbSet<Dispatch> Dispatch { get; set; }
 
         public GoStoreDataContext()
             : base("name=GOStoreConnectionString")
         {
             this.Configuration.ProxyCreationEnabled = false;
-            //Database.SetInitializer<GoStoreDataContext>(new GostoreDataContextInitializer());
+            Database.SetInitializer<GoStoreDataContext>(new GostoreDataContextInitializer());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -34,14 +33,11 @@ namespace GO.Infra.SqlServer.DataContext
             modelBuilder.Configurations.Add(new CustomerMapping());
             modelBuilder.Configurations.Add(new PhotoMapping());
             modelBuilder.Configurations.Add(new UserMapping());
-            modelBuilder.Configurations.Add(new DispatchMapping());
             modelBuilder.Configurations.Add(new SaleMapping());
             modelBuilder.Configurations.Add(new ItemMapping());
             modelBuilder.Configurations.Add(new AddressMapping());
             modelBuilder.Configurations.Add(new StyleMapping());
             modelBuilder.Configurations.Add(new BrandMapping());
-
-            modelBuilder.Entity<Product>().HasMany(c => c.Photos).WithMany(p => p.Product);
 
             base.OnModelCreating(modelBuilder);
         }

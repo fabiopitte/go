@@ -163,7 +163,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -198,11 +200,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Documents\Visual Studio 2013\Projects\GO\GO.Domain\GO.Domain.csproj">
+    <ProjectReference Include="..\GO.Domain\GO.Domain.csproj">
       <Project>{7223ae94-57f7-4fd9-a15a-eb9d89d344ff}</Project>
       <Name>GO.Domain</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\Documents\Visual Studio 2013\Projects\GO\GO.Infra.SqlServer\GO.Infra.SqlServer.csproj">
+    <ProjectReference Include="..\GO.Infra.SqlServer\GO.Infra.SqlServer.csproj">
       <Project>{c5fbe147-bc7d-4a41-9f01-f5eab11ed75b}</Project>
       <Name>GO.Infra.SqlServer</Name>
     </ProjectReference>
@@ -210,7 +212,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Images\" />
-    <Folder Include="uploads\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

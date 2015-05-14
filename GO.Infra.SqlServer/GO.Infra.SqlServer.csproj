@@ -52,7 +52,6 @@
     <Compile Include="DataContext\StyleMapping.cs" />
     <Compile Include="DataContext\ItemMapping.cs" />
     <Compile Include="DataContext\SaleMapping.cs" />
-    <Compile Include="DataContext\DispatchMapping.cs" />
     <Compile Include="DataContext\UserMapping.cs" />
     <Compile Include="DataContext\PhotoMapping.cs" />
     <Compile Include="DataContext\CategoryMapping.cs" />
@@ -61,13 +60,33 @@
     <Compile Include="DataContext\ProductMapping.cs" />
     <Compile Include="ICrud.cs" />
     <Compile Include="DataContext\GoStoreDataContext.cs" />
-    <Compile Include="Migrations\201504290200066_a.cs" />
-    <Compile Include="Migrations\201504290200066_a.Designer.cs">
-      <DependentUpon>201504290200066_a.cs</DependentUpon>
+    <Compile Include="Migrations\201505091428337_a.cs" />
+    <Compile Include="Migrations\201505091428337_a.Designer.cs">
+      <DependentUpon>201505091428337_a.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201504300032432_b.cs" />
-    <Compile Include="Migrations\201504300032432_b.Designer.cs">
-      <DependentUpon>201504300032432_b.cs</DependentUpon>
+    <Compile Include="Migrations\201505100243322_d.cs" />
+    <Compile Include="Migrations\201505100243322_d.Designer.cs">
+      <DependentUpon>201505100243322_d.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505100314052_e.cs" />
+    <Compile Include="Migrations\201505100314052_e.Designer.cs">
+      <DependentUpon>201505100314052_e.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505100441357_f.cs" />
+    <Compile Include="Migrations\201505100441357_f.Designer.cs">
+      <DependentUpon>201505100441357_f.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505100446136_e1.cs" />
+    <Compile Include="Migrations\201505100446136_e1.Designer.cs">
+      <DependentUpon>201505100446136_e1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505101304160_g.cs" />
+    <Compile Include="Migrations\201505101304160_g.Designer.cs">
+      <DependentUpon>201505101304160_g.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201505101744110_g1.cs" />
+    <Compile Include="Migrations\201505101744110_g1.Designer.cs">
+      <DependentUpon>201505101744110_g1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,11 +103,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504290200066_a.resx">
-      <DependentUpon>201504290200066_a.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505091428337_a.resx">
+      <DependentUpon>201505091428337_a.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201504300032432_b.resx">
-      <DependentUpon>201504300032432_b.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505100243322_d.resx">
+      <DependentUpon>201505100243322_d.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100314052_e.resx">
+      <DependentUpon>201505100314052_e.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100441357_f.resx">
+      <DependentUpon>201505100441357_f.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505100446136_e1.resx">
+      <DependentUpon>201505100446136_e1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505101304160_g.resx">
+      <DependentUpon>201505101304160_g.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201505101744110_g1.resx">
+      <DependentUpon>201505101744110_g1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

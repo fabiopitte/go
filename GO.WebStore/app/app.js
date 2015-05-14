@@ -6,7 +6,22 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when("/user", { controller: 'userController', templateUrl: "/app/views/user/index.html" });
 
-    $routeProvider.when("/invoice", { controller: "saleController", templateUrl: "/app/views/sale/invoice.html" });
+    $routeProvider.when("/invoice/:code", {
+        controller: function ($scope, $routeParams, gostoFactory) {
+            if ($routeParams.code !== null) {
+                var sale = $routeParams.code;
+                getInvoice(sale);
+            }
+
+            function getInvoice(sale) {
+                gostoFactory.obterVenda(sale).success(function (results) {
+                    $scope.sale = results;
+                });
+            }
+        },
+        templateUrl: "/app/views/sale/invoice.html"
+    });
+
     $routeProvider.when("/sale", { controller: "saleController", templateUrl: "/app/views/sale/index.html" });
     $routeProvider.when("/sale/:code", { controller: "saleController", templateUrl: "/app/views/sale/index.html" });
 
@@ -38,6 +53,10 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.when("/products", { controller: "productController", templateUrl: "/app/views/product/list.html" });
 
     $routeProvider.when("/tokens", { controller: "tokensManagerController", templateUrl: "/app/views/tokens.html" });
+
+    $routeProvider.when("/login", { controller: "loginController", templateUrl: "/app/views/login.html" });
+
+    $routeProvider.otherwise('/login');
 });
 
 var serviceBase = 'http://localhost:60629/';

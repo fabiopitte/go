@@ -14,7 +14,7 @@ namespace GO.Infra.SqlServer.DataContext
             Property(c => c.CEP).HasMaxLength(10).HasColumnType("varchar");
             Property(c => c.District).HasMaxLength(50).HasColumnType("varchar");
             Property(c => c.City).HasMaxLength(50).HasColumnType("varchar");
-            Property(c => c.Estate).HasMaxLength(50).HasColumnType("varchar");
+            Property(c => c.State).HasMaxLength(50).HasColumnType("varchar");
             Property(c => c.Complement).HasMaxLength(100).HasColumnType("varchar");
 
             HasKey(c => c.Id);

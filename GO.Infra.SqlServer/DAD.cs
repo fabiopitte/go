@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GO.Domain;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -30,6 +31,17 @@ namespace GO.Infra.SqlServer
             try
             {
                 var consulta = db.Set(typeof(T)).AsQueryable();
+
+                return (IQueryable<T>)consulta;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public virtual IQueryable<T> SearchWithInclude(T t, string include)
+        {
+            try
+            {
+                var consulta = db.Set(typeof(T)).Include(include).AsQueryable();
 
                 return (IQueryable<T>)consulta;
             }
@@ -106,17 +118,49 @@ namespace GO.Infra.SqlServer
             catch (Exception ex) { throw ex; }
         }
 
+        public virtual IQueryable<Item> SearchSaleItemsByCustomer(int customerId)
+        {
+            try
+            {
+                var consulta = db.Item.Where(v => v.Sale.CustomerId == customerId).AsQueryable();
+
+                return consulta;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
+        public virtual IQueryable<object> SearchSaleItemsBySale(int saleId)
+        {
+            try
+            {
+                var consulta = from sale in db.Sale
+                               join item in db.Item on sale.Id equals item.SaleId
+                               join product in db.Products on item.ProductId equals product.Id
+                               where sale.Id == saleId
+                               select new
+                               {
+                                   SaleId = sale.Id,
+                                   Date = sale.Date,
+                                   Cnpj = sale.Customer.CNPJ,
+                                   Endereco = sale.Customer.Endereco.Street,
+                                   Item = item,
+                                   Products = product
+                               };
+
+                return consulta;
+            }
+            catch (Exception ex) { throw ex; }
+        }
+
         public List<GO.Domain.Photo> Search(int productId)
         {
             try
             {
-                var consulta = db.Photo.Where(p => p.Id == productId);
+                var consulta = db.Photo.Where(p => p.ProductId == productId);
 
                 return consulta.ToList();
             }
             catch (Exception ex) { throw ex; }
         }
-
     }
-
 }

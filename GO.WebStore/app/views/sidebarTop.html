@@ -1,81 +1,83 @@
-﻿<div class="sidebar-shortcuts" id="sidebar-shortcuts">
-    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-        <button class="btn btn-success">
-            <i class="ace-icon fa fa-signal"></i>
-        </button>
+﻿<div ng-hide="!authentication.isAuth">
+    <div class="sidebar-shortcuts hidden" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <button class="btn btn-success">
+                <i class="ace-icon fa fa-signal"></i>
+            </button>
 
-        <button class="btn btn-info">
-            <i class="ace-icon fa fa-pencil"></i>
-        </button>
+            <button class="btn btn-info">
+                <i class="ace-icon fa fa-pencil"></i>
+            </button>
 
-        <button class="btn btn-warning">
-            <i class="ace-icon fa fa-users"></i>
-        </button>
+            <button class="btn btn-warning">
+                <i class="ace-icon fa fa-users"></i>
+            </button>
 
-        <button class="btn btn-danger">
-            <i class="ace-icon fa fa-cogs"></i>
-        </button>
+            <button class="btn btn-danger">
+                <i class="ace-icon fa fa-cogs"></i>
+            </button>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn btn-success"></span>
+
+            <span class="btn btn-info"></span>
+
+            <span class="btn btn-warning"></span>
+
+            <span class="btn btn-danger"></span>
+        </div>
     </div>
-
-    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
-        <span class="btn btn-success"></span>
-
-        <span class="btn btn-info"></span>
-
-        <span class="btn btn-warning"></span>
-
-        <span class="btn btn-danger"></span>
-    </div>
+    <ul class="nav nav-list" style="top: 0px;">
+        <li ng-class="{'active open hover':isActive('/customer')}">
+            <a href="#/customer">
+                <i class="menu-icon fa fa-user"></i>
+                <span class="menu-text"> Cliente </span>
+            </a>
+        </li>
+        <li ng-class="{'active open hover':isActive('/product')}">
+            <a href="#/product">
+                <i class="menu-icon fa fa-barcode"></i>
+                <span class="menu-text"> Entrada </span>
+            </a>
+        </li>
+        <li ng-class="{'active open hover':isActive('/sale')}">
+            <a href="#/sale">
+                <i class="menu-icon fa fa-shopping-cart"></i>
+                <span class="menu-text"> Saida </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <li ng-class="{'active open hover':isActive('/dispatch')}">
+            <a href="#/dispatch">
+                <i class="menu-icon fa fa-download"></i>
+                <span class="menu-text"> Devolução </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        <!--<li ng-class="{'active open hover':isActive('/customer')}">
+            <a href="/customer">
+                <i class="menu-icon fa fa-pencil-square-o"></i>
+                <span class="menu-text"> Cliente </span>
+            </a>
+        </li>
+        <li ng-class="{'active open hover':isActive('/supplier')}">
+                <a href="/supplier">
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                    <span class="menu-text"> Fornecedor </span>
+                </a>
+            </li>
+            <li ng-class="{'active open hover':isActive('/brand')}">
+                <a href="/brand">
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                    <span class="menu-text"> Marca </span>
+                </a>
+            </li>
+            <li ng-class="{'active open hover':isActive('/category')}">
+                <a href="/category">
+                    <i class="menu-icon fa fa-pencil-square-o"></i>
+                    <span class="menu-text"> Categoria </span>
+                </a>
+            </li>-->
+    </ul>
 </div>
-<ul class="nav nav-list" style="top: 0px;">
-    <li ng-class="{'active open hover':isActive('/customer')}">
-        <a href="#/customer">
-            <i class="menu-icon fa fa-user"></i>
-            <span class="menu-text"> Cliente </span>
-        </a>
-    </li>
-    <li ng-class="{'active open hover':isActive('/product')}">
-        <a href="#/product">
-            <i class="menu-icon fa fa-barcode"></i>
-            <span class="menu-text"> Entrada </span>
-        </a>
-    </li>
-    <li ng-class="{'active open hover':isActive('/sale')}">
-        <a href="#/sale">
-            <i class="menu-icon fa fa-shopping-cart"></i>
-            <span class="menu-text"> Saida </span>
-        </a>
-        <b class="arrow"></b>
-    </li>
-    <li ng-class="{'active open hover':isActive('/dispatch')}">
-        <a href="#/dispatch">
-            <i class="menu-icon fa fa-download"></i>
-            <span class="menu-text"> Devolução </span>
-        </a>
-        <b class="arrow"></b>
-    </li>
-    <!--<li ng-class="{'active open hover':isActive('/customer')}">
-        <a href="/customer">
-            <i class="menu-icon fa fa-pencil-square-o"></i>
-            <span class="menu-text"> Cliente </span>
-        </a>
-    </li>
-    <li ng-class="{'active open hover':isActive('/supplier')}">
-            <a href="/supplier">
-                <i class="menu-icon fa fa-pencil-square-o"></i>
-                <span class="menu-text"> Fornecedor </span>
-            </a>
-        </li>
-        <li ng-class="{'active open hover':isActive('/brand')}">
-            <a href="/brand">
-                <i class="menu-icon fa fa-pencil-square-o"></i>
-                <span class="menu-text"> Marca </span>
-            </a>
-        </li>
-        <li ng-class="{'active open hover':isActive('/category')}">
-            <a href="/category">
-                <i class="menu-icon fa fa-pencil-square-o"></i>
-                <span class="menu-text"> Categoria </span>
-            </a>
-        </li>-->
-</ul>

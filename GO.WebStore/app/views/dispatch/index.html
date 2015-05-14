@@ -1,6 +1,6 @@
 <script src="Scripts/jquery-ui.js"></script>
 <div class="page-header">
-    <h1>Retorno de mercadoria</h1>
+    <h1>Devolucao de produto</h1>
 </div>
 <div class="row">
     <div class="col-xs-12">
@@ -15,18 +15,17 @@
                         <i id="spinner-customer" class="hide ace-icon fa fa-spinner fa-spin green bigger-60"></i>
                     </span>
                     <div class="clearfix"></div>
-                    <h4 class="text-primary" id="customer-cpf"></h4>
                     <h5 class="text-warning" id="customer-telefone"></h5>
                     <h6 class="text-success" id="customer-email"></h6>
                 </div>
             </div>
 
             <div class="row" ng-show="totalRegistros>0">
-                <div class="col-sm-10 col-sm-offset-1">
+                <div class="col-sm-8 col-sm-offset-2">
                     <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
                         <thead>
                             <tr>
-                                <th class="center">
+                                <th style="width:10px;" class="center">
                                     <label class="pos-rel">
                                         <input type="checkbox" class="ace">
                                         <span class="lbl"></span>
@@ -34,13 +33,13 @@
                                 </th>
                                 <th class="hidden-xs">Codigo</th>
                                 <th>Produto</th>
-                                <th>Preço</th>
+                                <th>Valor</th>
                                 <th>Qtd</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr ng-repeat="item in products | filter:q">
-                                <td>
+                                <td class="center" style="width:10px;">
                                     <label class="pos-rel">
                                         <input type="checkbox" class="ace">
                                         <span class="lbl"></span>
@@ -48,7 +47,7 @@
                                 </td>
                                 <td class="hidden-xs"><b>{{item.code}}</b></td>
                                 <td>{{item.title}}</td>
-                                <td><b class="label label-default arrowed-in">{{item.price}}</b></td>
+                                <td><b class="label label-danger arrowed-in">{{item.price}}</b></td>
                                 <td width="50px"><input type="text" class="col-sm-12" name="name" value="{{item.quantity}}" /></td>
                             </tr>
                         </tbody>
@@ -56,25 +55,28 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="hr hr-16 hr-dotted"></div>
-                <div class="form-group" show-errors>
-                    <label for="title" class="col-sm-2 control-label">Data</label>
-                    <div class="col-sm-2">
-                        <input type="text" ng-required="true" class="form-control" name="dataDevolucao" id="dataDevolucao" ng-model="dataDevolucao" maxlength="10">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="col-sm-2 control-label" for="Observacoes"> Observações </label>
-                    <div class="col-sm-8">
-                        <textarea type="text" ng-model="sale.observacoes" id="Observacoes" rows="6" class="form-control" maxlength="255"></textarea>
-                    </div>
-                </div>
             </div>
+
             <div class="col-xs-12 text-center" ng-show="loading==true">
                 <h3 class="lighter grey">
                     <i class="ace-icon fa fa-spinner fa-spin green bigger-260"></i>
                 </h3>
             </div>
+
             <div class="form-actions center" ng-show="totalRegistros>0">
+                <div class="form-group" show-errors>
+                    <label for="title" class="col-sm-2 control-label">Data</label>
+                    <div class="col-sm-3">
+                        <input type="text" ng-required="true" class="form-control" name="dataDevolucao" id="dataDevolucao" ng-model="dataDevolucao" maxlength="10">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="Observacoes"> Obs </label>
+                    <div class="col-sm-8">
+                        <textarea type="text" ng-model="sale.observacoes" id="Observacoes" rows="6" class="form-control" maxlength="255"></textarea>
+                    </div>
+                </div>
+
                 <button class="btn btn-sm" type="reset" ng-click="resetar()">
                     <i class="ace-icon fa fa-undo bigger-110"></i>
                     Cancelar
@@ -84,8 +86,11 @@
                     <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                 </button>
             </div>
-
-
+            <div class="col-sm-offset-1 col-sm-10">
+                <div class="alert alert-danger" ng-show="totalRegistros==0">
+                    Nao existem produtos locados para este cliente
+                </div>
+            </div>
         </form>
     </div>
 </div>

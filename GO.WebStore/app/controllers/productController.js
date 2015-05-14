@@ -4,37 +4,6 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
 
     var produtoAterado = false;
 
-    //var $overflow = '';
-    //var colorbox_params = {
-    //    rel: 'colorbox',
-    //    reposition: true,
-    //    scalePhotos: true,
-    //    scrolling: false,
-    //    previous: '<i class="ace-icon fa fa-arrow-left"></i>',
-    //    next: '<i class="ace-icon fa fa-arrow-right"></i>',
-    //    close: '&times;',
-    //    current: '{current} de {total}',
-    //    maxWidth: '100%',
-    //    maxHeight: '100%',
-    //    onOpen: function () {
-    //        $overflow = document.body.style.overflow;
-    //        document.body.style.overflow = 'hidden';
-    //    },
-    //    onClosed: function () {
-    //        document.body.style.overflow = $overflow;
-    //    },
-    //    onComplete: function () {
-    //        $.colorbox.resize();
-    //    }
-    //};
-
-    //$('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-    //$("#cboxLoadingGraphic").html("<i class='ace-icon fa fa-spinner orange fa-spin'></i>");
-
-    //$(document).one('ajaxloadstart.page', function (e) {
-    //    $('#colorbox, #cboxOverlay').remove();
-    //});
-
     $scope.dropzoneConfig = {
         'options': { // passed into the Dropzone constructor
             'url': 'http://localhost:60629/api/v1/public/PostFormData/1'
@@ -113,13 +82,6 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
         //e.preventDefault();//this will prevent clicking and selecting steps
     });
 
-    if ($location.path() !== '/products') {
-        pesquisarEstilos();
-        pesquisarCategorias();
-        pesquisarFornecedores();
-        pesquisarMarcas();
-    }
-
     $scope.product = {};
     $scope.products = {};
     $scope.totalRegistros = 0;
@@ -129,17 +91,20 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
 
         var id = $scope.product.id;
 
-        console.log(id);
-
         if (id !== undefined) {
             gostoFactory.obterFotosDoProduto(id)
             .success(function (data) {
-
                 $scope.product.photos = data;
             }).error(function (error) {
                 mensagem('Erro ao pesquisar por fotos', error, 'erro');
             });
         }
+    }
+
+    $scope.obterFoto = function (url) {
+        gostoFactory.obterFoto(url).success(function (results) {
+            $scope.urlImagem = results;
+        });
     }
 
     $scope.pesquisar = function () {
@@ -200,6 +165,13 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
         window.product = null;
     }
 
+    if ($location.path() !== '/products') {
+        pesquisarEstilos();
+        pesquisarCategorias();
+        pesquisarFornecedores();
+        pesquisarMarcas();
+    }
+
     $scope.resetar = function () {
         $scope.product = null;
         window.product = null;
@@ -238,12 +210,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     function pesquisarEstilos() {
         gostoFactory.pesquisarEstilos()
             .success(function (data) {
-                $('#Style').empty();
-                $('#Style').append($('<option/>').attr("value", "").text(""));
-                $.each(data, function (i, option) {
-                    $('#Style').append($('<option/>').attr("value", option.id).text(option.title)).data("title", option.title);
-                });
-
+                $scope.styles = data;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
@@ -252,12 +219,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     function pesquisarMarcas() {
         gostoFactory.pesquisarMarcas()
             .success(function (data) {
-                $('#Brand').empty();
-                $('#Brand').append($('<option/>').attr("value", "").text(""));
-                $.each(data, function (i, option) {
-                    $('#Brand').append($('<option/>').attr("value", option.id).text(option.title)).data("title", option.title);
-                });
-
+                $scope.brandies = data;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
@@ -266,12 +228,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     function pesquisarCategorias() {
         gostoFactory.pesquisarCategorias()
             .success(function (data) {
-                $('#Category').empty();
-                $('#Category').append($('<option/>').attr("value", "").text(""));
-                $.each(data, function (i, option) {
-                    $('#Category').append($('<option/>').attr("value", option.id).text(option.title)).data("title", option.title);
-                });
-
+                $scope.categories = data;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });
@@ -280,12 +237,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     function pesquisarFornecedores() {
         gostoFactory.pesquisarFornecedores()
             .success(function (data) {
-                $('#Supplier').empty();
-                $('#Supplier').append($('<option/>').attr("value", "").text(""));
-                $.each(data, function (i, option) {
-                    $('#Supplier').append($('<option/>').attr("value", option.id).text(option.nome)).data("title", option.title);
-                });
-
+                $scope.suppliers = data;
             }).error(function (error) {
                 $scope.status = 'Aconteceu algum erro ao pesquisar';
             });

@@ -52,11 +52,13 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
     $scope.sale.itens = [];
     $scope.sale.customerId = 0;
     $scope.sale.payment = 1;
+    $scope.sale.userId = 1;
+
     $scope.sale.date = dateFilter(new Date(), 'dd/MM/yyyy');
 
     var novaData = new Date();
     novaData.setDate(novaData.getDate() + 7);
-    $scope.sale.dateDispatch = dateFilter(novaData, 'dd/MM/yyyy');
+    $scope.sale.dateDispatch = dateFilter(new Date(), 'dd/MM/yyyy'); //dateFilter(novaData, 'dd/MM/yyyy');
 
     var product = { productId: '', price: '', quantity: '' };
 
@@ -199,13 +201,14 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
 
     $scope.salvar = function () {
 
-        $('#salvar').text('').prepend('Processando ...');
-
         $scope.$broadcast('show-errors-event');
 
         if ($scope.formVenda.$invalid) {
-           //return;
+            return;
         }
+
+        $scope.processando = true;
+        $('#salvar').text('').prepend('Processando ...');
 
         var id = $scope.sale.id;
         if (id == undefined) { inserir(); } else { atualizar(); }
@@ -221,23 +224,22 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
 
         gostoFactory.inserirVenda(sale)
             .success(function (data) {
-                mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
+                mensagem('Processando...', data.response.mensagem + ' AGUARDE...', 'sucesso');
 
-                setInterval(function () {
+                setTimeout(function () {
                     $scope.$apply();
                     $('#loading-nota-fiscal').removeClass('hide');
-                }, 2000);
-
-                setInterval(function () {
-                    $scope.$apply();
-                    window.location = '#/invoice'
                 }, 4000);
 
-                $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+                setTimeout(function () {
+                    $scope.processando = false;
+                    $scope.$apply();
+                    window.location = '#/invoice/' + data.id;
+                }, 8000);
 
             }).error(function (error) {
-                mensagem('Erro no cadastro', error, 'erro');
-
+                $scope.processando = false;
+                mensagem('Aconteceu algum Erro', error, 'erro');
                 $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
             });
     };
