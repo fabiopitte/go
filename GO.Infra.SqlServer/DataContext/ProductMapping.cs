@@ -15,8 +15,6 @@ namespace GO.Infra.SqlServer.DataContext
 
             Property(c => c.Title).HasColumnType("varchar").HasMaxLength(100).IsRequired();
 
-            Property(c => c.Cost).IsOptional();
-
             Property(c => c.Price).IsOptional();
 
             Property(c => c.Quantity).IsOptional();

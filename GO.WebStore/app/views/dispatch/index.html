@@ -17,41 +17,45 @@
                     <div class="clearfix"></div>
                     <h5 class="text-warning" id="customer-telefone"></h5>
                     <h6 class="text-success" id="customer-email"></h6>
+                    <span class="text-primary" id="customer-cpf"></span>
                 </div>
             </div>
-
             <div class="row" ng-show="totalRegistros>0">
                 <div class="col-sm-8 col-sm-offset-2">
-                    <table id="simple-table" class="table table-striped table-bordered table-hover table-condensed">
+                    <table id="simple-table" class="table table-bordered">
                         <thead>
                             <tr>
-                                <th style="width:10px;" class="center">
-                                    <label class="pos-rel">
-                                        <input type="checkbox" class="ace">
-                                        <span class="lbl"></span>
-                                    </label>
-                                </th>
-                                <th class="hidden-xs">Codigo</th>
+                                <th>#</th>
+                                <th>Codigo</th>
                                 <th>Produto</th>
-                                <th>Valor</th>
+                                <th class="hidden-xs">Cor</th>
+                                <th class="hidden-xs">Marca</th>
+                                <th class="hidden-xs">Valor</th>
+                                <th>Entrega</th>
                                 <th>Qtd</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr ng-repeat="item in products | filter:q">
+                            <tr ng-repeat="s in sale">
                                 <td class="center" style="width:10px;">
                                     <label class="pos-rel">
-                                        <input type="checkbox" class="ace">
+                                        <input type="checkbox" class="ace" ng-model="s.checkado">
                                         <span class="lbl"></span>
                                     </label>
                                 </td>
-                                <td class="hidden-xs"><b>{{item.code}}</b></td>
-                                <td>{{item.title}}</td>
-                                <td><b class="label label-danger arrowed-in">{{item.price}}</b></td>
-                                <td width="50px"><input type="text" class="col-sm-12" name="name" value="{{item.quantity}}" /></td>
+                                <td>
+                                    <b>{{s.itens[0].productCode}}</b>
+                                </td>
+                                <td>{{s.itens[0].productTitle}}</td>
+                                <td class="hidden-xs">{{s.itens[0].productColor}}</td>
+                                <td class="hidden-xs">{{s.itens[0].productBrand}}</td>
+                                <td class="hidden-xs"><b class="label label-warning arrowed">{{s.itens[0].price}}</b></td>
+                                <td><b>{{s.dateDispatch | date:'dd/MM/yyyy'}}</b></td>
+                                <td width="50px"><input type="text" class="col-xs-12" name="name" ng-model="s.itens[0].quantity" /></td>
                             </tr>
                         </tbody>
                     </table>
+                    <h3 class="pull-right lighter block">{{dataDevolucao| date:'dd/MM/yyyy'}}</h3>
                 </div>
                 <div class="clearfix"></div>
                 <div class="hr hr-16 hr-dotted"></div>
@@ -64,25 +68,25 @@
             </div>
 
             <div class="form-actions center" ng-show="totalRegistros>0">
-                <div class="form-group" show-errors>
+                <!--<div class="form-group" show-errors>
                     <label for="title" class="col-sm-2 control-label">Data</label>
                     <div class="col-sm-3">
                         <input type="text" ng-required="true" class="form-control" name="dataDevolucao" id="dataDevolucao" ng-model="dataDevolucao" maxlength="10">
                     </div>
-                </div>
-                <div class="form-group">
+                </div>-->
+                <!--<div class="form-group">
                     <label class="col-sm-2 control-label" for="Observacoes"> Obs </label>
                     <div class="col-sm-8">
                         <textarea type="text" ng-model="sale.observacoes" id="Observacoes" rows="6" class="form-control" maxlength="255"></textarea>
                     </div>
-                </div>
+                </div>-->
 
                 <button class="btn btn-sm" type="reset" ng-click="resetar()">
                     <i class="ace-icon fa fa-undo bigger-110"></i>
                     Cancelar
                 </button>
-                <button type="submit" class="btn btn-sm btn-success">
-                    Salvar
+                <button type="button" ng-click="salvar(sale)" class="btn btn-sm btn-success">
+                    Realizar Baixa
                     <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
                 </button>
             </div>

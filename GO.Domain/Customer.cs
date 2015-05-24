@@ -8,7 +8,7 @@
 
         public string Email { get; set; }
 
-        public string CNPJ { get; set; }
+        public string CPF { get; set; }
 
         public string RG { get; set; }
 

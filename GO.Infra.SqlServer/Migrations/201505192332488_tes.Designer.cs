@@ -7,13 +7,13 @@ namespace GO.Infra.SqlServer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.2-31219")]
-    public sealed partial class e : IMigrationMetadata
+    public sealed partial class tes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(e));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(tes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201505100314052_e"; }
+            get { return "201505192332488_tes"; }
         }
         
         string IMigrationMetadata.Source

@@ -83,15 +83,21 @@ app.factory('gostoFactory', ['$http', function ($http) {
     };
 
     dataFactory.inserirProduto = function (product) {
-        return $http.post(urlBase + '/product', JSON.stringify(product));
+
+        return $http.post(urlBase + '/product', product);
     }
 
     dataFactory.atualizarProduto = function (product) {
-        return $http.put(urlBase + '/product', JSON.stringify(product));
+
+        return $http.put(urlBase + '/product', product);
     }
 
     dataFactory.excluirProduto = function (productId) {
         return $http.delete(urlBase + '/product/' + productId);
+    }
+
+    dataFactory.excluirPhoto = function (id) {
+        return $http.delete(urlBase + '/product/photo/' + id);
     }
 
     dataFactory.obterFotosDoProduto = function (id) {
@@ -149,6 +155,10 @@ app.factory('gostoFactory', ['$http', function ($http) {
 
         return $http.get(urlBase + '/sale/' + id);
     };
+
+    dataFactory.realizarDevolucao = function (sale) {
+        return $http.post(urlBase + '/sale/dispatch', JSON.stringify(sale));
+    }
 
     return dataFactory;
 }]);

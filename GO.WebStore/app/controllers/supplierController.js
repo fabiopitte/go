@@ -36,13 +36,6 @@ app.controller('supplierController', ['$scope', '$location', '$routeParams', 'go
     };
 
     $scope.salvar = function () {
-
-        $scope.$broadcast('show-errors-event');
-
-        if ($scope.formSupplier.$invalid) {
-            return;
-        }
-
         var id = $scope.supplier.id;
         if (id == undefined) { inserir(); } else { atualizar(); }
     };

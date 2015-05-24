@@ -56,13 +56,25 @@
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="Style"> Estilo </label>
                                     <div class="col-sm-5">
-                                        <select ng-model="product.style.id" class="form-control" data-ng-options="style.title for style in styles track by style.id"></select>
+                                        <select ng-model="product.styleId" id="Style" class="form-control" data-ng-options="style.id as style.title for style in styles"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Brand"> Marca </label>
+                                    <div class="col-sm-5">
+                                        <select ng-model="product.brandId" class="form-control" data-ng-options="brand.id as brand.title for brand in brandies"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label" for="Category"> Categoria </label>
                                     <div class="col-sm-5">
-                                        <select ng-model="product.category.id" name="categoria" id="categoria" class="form-control" data-ng-options="category.title for category in categories track by category.id"></select>
+                                        <select ng-model="product.categoryId" name="categoria" id="categoria" class="form-control" data-ng-options="category.id as category.title for category in categories"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label" for="Supplier"> Fornecedor </label>
+                                    <div class="col-sm-5">
+                                        <select ng-model="product.supplierId" class="form-control" data-ng-options="supplier.id as supplier.nome for supplier in suppliers"></select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -89,29 +101,18 @@
                                         <input type="text" id="Model" name="Model" ng-model="product.model" class="form-control" maxlength="100">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Brand"> Marca </label>
-                                    <div class="col-sm-5">
-                                        <select ng-model="product.brand.id" class="form-control" data-ng-options="brand.title for brand in brandies track by brand.id"></select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-sm-2 control-label" for="Supplier"> Fornecedor </label>
-                                    <div class="col-sm-5">
-                                        <select ng-model="product.supplier.id" class="form-control" data-ng-options="supplier.nome for supplier in suppliers track by supplier.id"></select>
-                                    </div>
-                                </div>
+
                             </div>
                         </form>
                     </div>
 
                     <div class="step-pane" data-step="2">
-                        <div class="alert alert-info">
+                        <div class="alert alert-warning">
                             <button type="button" class="close" data-dismiss="alert">
                                 <i class="ace-icon fa fa-times"></i>
                             </button>
                             <strong> <i class="ace-icon fa fa-times"></i> Atenção!</strong>
-                            Essas informações serão vinculadas ao produto, sendo possível sua alteração posteriormente.
+                            Ao clicar no botao PROXIMO voce estara salvando o produto com as informacoes que foram preenchidas ate agora.
                             <br>
                         </div>
                         <br />
@@ -140,19 +141,10 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="step-pane" data-step="3">
                         <div class="row">
                             <div class="col-sm-10 col-sm-offset-1">
-                                <div class="dropzone dz-clickable" dropzone="dropzoneConfig" id="dropzone" style="background: none; border: 2px dashed #2168d8; border-top-left-radius:80px; border-bottom-right-radius:80px;">
-                                    <div class="fallback">
-                                    </div>
-                                    <div class="dz-default dz-message">
-                                        <span>
-                                            <i class="upload-icon ace-icon fa fa-cloud-upload blue fa-3x"></i>
-                                        </span>
-                                    </div>
-                                </div>
+                                <div ng-include src="urlDropZone"></div>
                             </div>
                         </div>
                     </div>
@@ -161,24 +153,16 @@
                         <div class="row">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <ul class="ace-thumbnails clearfix">
-
-                                    <li ng-repeat="photo in product.photos">
-                                        <!--<a href="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/image-1.jpg" title="Photo Title" data-rel="colorbox" class="cboxElement">
-                                            <img width="200" height="300" alt="200x200" src="http://responsiweb.com/themes/preview/ace/1.3.3/dist/images/gallery/thumb-1.jpg">
-                                        </a>-->
-
-                                        <img width="200" height="300" alt="200x300" ng-init="obterFoto(photo.url)" ng-src="{{urlImagem}}">
-
-                                        <!--<a ng-href="{{urlImagem}}" title="Photo Title" data-rel="colorbox" class="cboxElement">
-                                            <img width="200" height="300" alt="200x200" ng-init="obterFoto(photo.url)" ng-src="{{urlImagem}}">
-                                        </a>-->
-
-                                        <div class="tools">
-                                            <a href="#">
-                                                <i class="ace-icon fa fa-times red"></i>
+                                    <li ng-repeat="photo in pega">
+                                        <img width="200" height="300" alt="200x300" ng-src="{{photo.url}}">
+                                        <div class="tools tools-top">
+                                            <a style="cursor:pointer;" class="red pull-right" ng-click="excluirFoto(photo)">
+                                                <i class="ace-icon fa fa-times"></i>
+                                            </a>
+                                            <a style="cursor:pointer;" class="blue pull-left" ng-click="openWindow(photo);">
+                                                <i class="ace-icon fa fa-eye"></i>
                                             </a>
                                         </div>
-
                                     </li>
                                 </ul>
                             </div>

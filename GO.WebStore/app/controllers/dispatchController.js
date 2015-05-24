@@ -4,10 +4,9 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
 
     $scope.dataDevolucao = dateFilter(new Date(), 'dd/MM/yyyy');
 
-    //select/deselect all rows according to table header checkbox
     var active_class = 'active';
     $('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
-        var th_checked = this.checked;//checkbox inside "TH" table header
+        var th_checked = this.checked;
 
         $(this).closest('table').find('tbody > tr').each(function () {
             var row = this;
@@ -16,7 +15,6 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
         });
     });
 
-    //select/deselect a row when the checkbox is checked/unchecked
     $('#simple-table').on('click', 'td input[type=checkbox]', function () {
         var $row = $(this).closest('tr');
         if (this.checked) $row.addClass(active_class);
@@ -33,7 +31,7 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
                         return {
                             label: m.nome,
                             nome: m.nome,
-                            cpf: m.cnpj,
+                            cpf: m.cpf,
                             telefone: m.dddCelular + '-' + m.celular,
                             email: m.email,
                             id: m.id,
@@ -53,11 +51,12 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
 
             $("#id-customer").val(ui.item.id);
             $("#customer").val(ui.item.nome);
-            $("#customer-cpf").text('CPF: ' + ui.item.cpf);
-            $("#customer-telefone").text('Celular: ' + ui.item.telefone);
-            $("#customer-email").text('Email: ' + ui.item.email);
+            $("#customer-cpf").text(ui.item.cpf != null ? 'CPF: ' + ui.item.cpf : '');
+            $("#customer-telefone").text(ui.item.telefone != 'null-null' ? 'Celular: ' + ui.item.telefone : '');
+            $("#customer-email").text(ui.item.email != null ? 'Email: ' + ui.item.email : '');
 
             pesquisarProdutosDoCliente(ui.item.id);
+            $scope.customerId = ui.item.id;
         }
     });
 
@@ -65,7 +64,7 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
         $scope.loading = true;
         gostoFactory.pesquisarProdutosDoCliente(customerId)
             .success(function (data) {
-                $scope.products = data;
+                $scope.sale = data;
                 $scope.totalRegistros = data.length;
                 $scope.loading = false;
             }).error(function (error) {
@@ -73,4 +72,46 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
             });
     };
 
+    $scope.salvar = function (dispatch) {
+        $scope.processando = true;
+        $('#salvar').text('').prepend('Processando ...');
+        inserir(dispatch);
+    };
+
+    function inserir(dispatch) {
+
+        var sale = [];
+
+        angular.forEach(dispatch, function (key, value) {
+
+            if (key.checkado !== undefined && key.checkado !== false) {
+                sale.push({
+                    Id: key.id,
+                    itens: [{
+                        id: key.itens[0].id,
+                        productId: key.itens[0].productId,
+                        quantity: key.itens[0].quantity
+                    }]
+                });
+            }
+        });
+
+        if (sale[0] !== undefined) {
+            gostoFactory.realizarDevolucao(sale)
+            .success(function (data) {
+                mensagem('Parabens', data.response.mensagem, 'sucesso');
+
+                pesquisarProdutosDoCliente($scope.customerId);
+
+            }).error(function (error) {
+                $scope.processando = false;
+                mensagem('Aconteceu algum Erro', error, 'erro');
+                $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+            });
+        } else {
+            $scope.processando = false;
+            mensagem('Oooops. Faltou alguma coisa hein', 'Acho que voce esta esquecendo de algo, o que acha de checar o item que deseja realizar a baixa?', 'error');
+            $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');
+        }
+    };
 });

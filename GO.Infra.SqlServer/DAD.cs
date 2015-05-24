@@ -118,11 +118,42 @@ namespace GO.Infra.SqlServer
             catch (Exception ex) { throw ex; }
         }
 
-        public virtual IQueryable<Item> SearchSaleItemsByCustomer(int customerId)
+        public virtual IQueryable<object> SearchSaleItemsByCustomer(int customerId)
         {
             try
             {
-                var consulta = db.Item.Where(v => v.Sale.CustomerId == customerId).AsQueryable();
+                var consulta = from sale in db.Sale
+                               join item in db.Item on sale.Id equals item.SaleId
+                               join product in db.Products on item.ProductId equals product.Id
+                               join brand in db.Brand on product.BrandId equals brand.Id
+                               where sale.CustomerId == customerId && item.ProductDispatched == false
+                               select new
+                               {
+                                   SaleId = sale.Id,
+                                   Date = sale.Date,
+                                   DateDispatch = sale.DateDispatch,
+                                   Observacao = sale.Observations,
+                                   Nome = sale.Customer.Nome,
+                                   Cpf = sale.Customer.CPF,
+                                   Rg = sale.Customer.RG,
+                                   Telefone = sale.Customer.Telefone,
+                                   Endereco = sale.Customer.Endereco.Street,
+                                   Numero = sale.Customer.Endereco.Number,
+                                   CEP = sale.Customer.Endereco.CEP,
+                                   Cidade = sale.Customer.Endereco.City,
+                                   Estado = sale.Customer.Endereco.State,
+                                   Item = new
+                                   {
+                                       ItemId = item.Id,
+                                       ProductCode = product.Code,
+                                       ProductTitle = product.Title,
+                                       ProductColor = product.Color,
+                                       ProductBrand = brand.Title,
+                                       Price = item.Price,
+                                       ProductId = product.Id,
+                                       Quantity = item.Quantity
+                                   }
+                               };
 
                 return consulta;
             }
@@ -141,10 +172,25 @@ namespace GO.Infra.SqlServer
                                {
                                    SaleId = sale.Id,
                                    Date = sale.Date,
-                                   Cnpj = sale.Customer.CNPJ,
+                                   Observacao = sale.Observations,
+                                   Nome = sale.Customer.Nome,
+                                   Cpf = sale.Customer.CPF,
+                                   Rg = sale.Customer.RG,
+                                   Telefone = sale.Customer.Telefone,
                                    Endereco = sale.Customer.Endereco.Street,
-                                   Item = item,
-                                   Products = product
+                                   Numero = sale.Customer.Endereco.Number,
+                                   CEP = sale.Customer.Endereco.CEP,
+                                   Cidade = sale.Customer.Endereco.City,
+                                   Estado = sale.Customer.Endereco.State,
+                                   Item = new
+                                   {
+                                       ProductCode = product.Code,
+                                       ProductTitle = product.Title,
+                                       ProductColor = product.Color,
+                                       Price = item.Price,
+                                       ProductId = product.Id,
+                                       Quantity = item.Quantity
+                                   }
                                };
 
                 return consulta;

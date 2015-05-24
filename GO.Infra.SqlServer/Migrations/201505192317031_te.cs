@@ -3,7 +3,7 @@ namespace GO.Infra.SqlServer.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class e1 : DbMigration
+    public partial class te : DbMigration
     {
         public override void Up()
         {

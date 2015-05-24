@@ -74,12 +74,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\avatar3.png" />
-    <Content Include="app\controllers\invoiceController.js" />
     <Content Include="app\directives\dropzoneDirective.js" />
     <Content Include="app\directives\photoDirective.js" />
     <Content Include="app\views\dispatch\index.html" />
     <Content Include="app\views\sale\invoice.html" />
     <Content Include="Content\bootstrap-datepicker3.css" />
+    <None Include="Content\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts.googleapis.css" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="app\controllers\styleController.js" />

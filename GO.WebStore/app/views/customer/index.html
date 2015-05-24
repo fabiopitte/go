@@ -53,24 +53,24 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="CNPJ"> CPF/CNPJ </label>
+                <label class="col-sm-2 control-label" for="CNPJ">{{customer.tipoPessoa==0?"CPF":"CNPJ"}}</label>
                 <div class="col-sm-5">
-                    <input type="text" id="CNPJ" ng-model="customer.cnpj" class="form-control" maxlength="14">
+                    <input type="text" id="CPF" ng-model="customer.cpf" class="form-control" maxlength="14">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="customer.tipoPessoa==1">
                 <label class="col-sm-2 control-label" for="RG"> RG </label>
                 <div class="col-sm-5">
                     <input type="text" id="RG" ng-model="customer.rg" class="form-control" maxlength="14">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="customer.tipoPessoa==0">
                 <label for="nome" class="col-sm-2 control-label">Razão Social</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="RazaoSocial" id="RazaoSocial" ng-model="customer.razaoSocial" maxlength="100">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="customer.tipoPessoa==0">
                 <label class="col-sm-2 control-label" for="Ie"> I.E </label>
                 <div class="col-sm-5">
                     <input type="text" id="Ie" ng-model="customer.ie" class="form-control" maxlength="10">

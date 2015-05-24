@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Linq;
 
 namespace OAuthServer.Api.Controllers
 {
@@ -61,11 +62,30 @@ namespace OAuthServer.Api.Controllers
         {
             if (null == sale) return Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao realizar a venda.");
 
+            sale.Date = System.DateTime.Now;
+            sale.DateDispatch = System.DateTime.Now;
+
             try
             {
-                var s = new Repository<Sale>().Add(sale);
+                //primeiro realiza a venda
+                var saled = new Repository<Sale>().Add(sale);
 
-                var novo = new Sale { Id = s.Id, Response = new Response { Titulo = "Sucesso", Mensagem = "Venda realizada com sucesso!" } };
+                var novo = new Sale { Id = saled.Id, Response = new Response { Titulo = "Sucesso", Mensagem = "Venda realizada com sucesso!" } };
+
+                //percorre os itens da venda
+                saled.Itens.ToList().ForEach(i =>
+                {
+                    //obtem o produto
+                    var product = new Repository<Product>().Get(i.ProductId);
+
+                    //realiza a subtracao do item
+                    var quantity = product.Quantity - i.Quantity;
+
+                    product.Quantity = quantity;
+
+                    //segundo retira a quantidade vendida do estoque
+                    new Repository<Product>().Update(product);
+                });
 
                 return Request.CreateResponse(HttpStatusCode.Created, novo);
             }
@@ -116,6 +136,59 @@ namespace OAuthServer.Api.Controllers
                     return Request.CreateResponse(HttpStatusCode.InternalServerError, "Esta venda não pode ser excluida.");
                 }
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao excluir a venda.");
+            }
+        }
+
+        [HttpPost]
+        [Route("sale/dispatch")]
+        public HttpResponseMessage RealizarDevolucao(List<Sale> sale)
+        {
+            if (null == sale) return Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao realizar a devolucao dos produtos.");
+
+            try
+            {
+                sale.ToList().ForEach(s =>
+                {
+                    //percorre os itens da venda e realiza a devolucao dos produtos
+                    s.Itens.ToList().ForEach(i =>
+                    {
+                        //obtem o produto
+                        var product = new Repository<Product>().Get(i.ProductId);
+
+                        //realiza a soma do item
+                        var quantity = product.Quantity + i.Quantity;
+
+                        product.Quantity = quantity;
+
+                        //segundo adiciona a quantidade que estava locada no estoque
+                        new Repository<Product>().Update(product);
+
+                        //obtem a venda do cliente para comparativo
+                        var ItemDoCliente = new Repository<Item>().Get(i.Id);
+
+                        //realiza a devolucao do produto nos itens do cliente
+                        if (ItemDoCliente.Quantity == i.Quantity)
+                        {
+                            ItemDoCliente.DateDispatched = System.DateTime.Now;
+                            ItemDoCliente.ProductDispatched = true;
+                        }
+                        else
+                        {
+                            ItemDoCliente.Quantity = (ItemDoCliente.Quantity - i.Quantity);
+                        }
+
+                        //Realiza a baixa do item 
+                        new Repository<Item>().Update(ItemDoCliente);
+                    });
+                });
+
+                var venda = new Sale { Response = new Response { Titulo = "Sucesso", Mensagem = "Baixa dos itens realizada com sucesso!" } };
+
+                return Request.CreateResponse(HttpStatusCode.Created, venda);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "OOoops ocorreu um probleminha, verifique os dados e tente novamente.");
             }
         }
 

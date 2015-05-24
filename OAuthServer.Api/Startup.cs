@@ -32,7 +32,7 @@ namespace OAuthServer.Api
             {
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/api/security/token"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
+                AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(480),
                 Provider = new AuthorizationServerProvider()
             };
 

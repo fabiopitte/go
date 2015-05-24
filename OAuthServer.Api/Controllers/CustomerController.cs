@@ -58,6 +58,8 @@ namespace OAuthServer.Api.Controllers
 
             try
             {
+                customers.Nome = customers.Nome.ToUpper();
+
                 var novo = new Repository<Customer>().Add(customers);
 
                 novo.Response = new Response { Titulo = "Sucesso", Mensagem = "Cliente salvo com sucesso!" };
@@ -80,6 +82,8 @@ namespace OAuthServer.Api.Controllers
             try
             {
                 if (null != customer.Endereco) new Repository<Address>().Update(customer.Endereco);
+
+                customer.Nome = customer.Nome.ToUpper();
 
                 var alterado = new Repository<Customer>().Update(customer);
 
@@ -125,7 +129,7 @@ namespace OAuthServer.Api.Controllers
         {
             try
             {
-                var customer = new Repository<Item>().SearchSaleItemsByCustomer(int.Parse(customerId));
+                var customer = new Repository<Customer>().SearchSaleItemsByCustomer(int.Parse(customerId));
 
                 return Request.CreateResponse(HttpStatusCode.OK, customer);
             }

@@ -2,6 +2,10 @@
 
 app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
 
+    $('#sale-amount').maskMoney({ thousands: '.', decimal: ',' });
+    $('#sale-discount').maskMoney({ thousands: '.', decimal: ',' });
+    $('#sale-total').maskMoney({ thousands: '.', decimal: ',' });
+
     $("#listaCliente").autocomplete({
         minLength: 2,
         source: function (request, response) {
@@ -12,7 +16,7 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
                         return {
                             label: m.nome,
                             nome: m.nome,
-                            cpf: m.cnpj,
+                            cpf: m.cpf,
                             telefone: m.dddCelular + '-' + m.celular,
                             email: m.email,
                             id: m.id,
@@ -34,19 +38,15 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
 
             $("#id-customer").val(ui.item.id);
             $("#listaCliente").val(ui.item.nome);
-            $("#customer-cpf").text('CPF: ' + ui.item.cpf);
-            $("#customer-telefone").text('Celular: ' + ui.item.telefone);
-            $("#customer-email").text('Email: ' + ui.item.email);
+            $("#customer-cpf").text(ui.item.cpf != null ? 'CPF: ' + ui.item.cpf : '');
+            $("#customer-telefone").text(ui.item.telefone != 'null-null' ? 'Celular: ' + ui.item.telefone : '');
+            $("#customer-email").text(ui.item.email != null ? 'Email: ' + ui.item.email : '');
         }
     });
 
     $('#sale-discount').on('change', function () {
         calcularTotal();
     });
-
-    $('#sale-amount').maskMoney({ thousands: '.', decimal: ',' });
-    $('#sale-discount').maskMoney({ thousands: '.', decimal: ',' });
-    $('#sale-total').maskMoney({ thousands: '.', decimal: ',' });
 
     $scope.sale = {};
     $scope.sale.itens = [];
@@ -89,11 +89,11 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
         });
 
         $('#sale-amount').val(amount);
-        $('#sale-quantity').val(parseInt(quantity));
+        $('#sale-quantity').val(quantity);
 
         var discount = $('#sale-discount').val();
         var totalVenda = discount == '' ? parseFloat(amount) : parseFloat(amount) - parseFloat(discount);
-        $('#sale-total').val(totalVenda);
+        $('#sale-total').val(parseFloat(totalVenda));
     }
 
     function criarProduto() {
@@ -165,7 +165,7 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
                     function (data) {
                         var array = data.error ? [] : $.map(data, function (m) {
                             return {
-                                label: '(' + m.code + ') ' + m.title + ' R$ ' + m.price,
+                                label: m.code + ' - ' + m.title + ' R$ ' + m.price,
                                 price: m.price,
                                 id: m.id,
                                 title: m.title

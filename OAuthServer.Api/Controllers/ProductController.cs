@@ -26,7 +26,7 @@ namespace OAuthServer.Api.Controllers
         [HttpGet]
         public HttpResponseMessage Search()
         {
-            var products = new Repository<Product>().Search(new Product());
+            var products = new Repository<Product>().SearchWithInclude(new Product(), "Brand");
 
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
@@ -77,7 +77,7 @@ namespace OAuthServer.Api.Controllers
         [Authorize]
         [Route("product/photos/{id}")]
         [HttpGet]
-        public HttpResponseMessage GetTotalPhotos(string id)
+        public async Task<HttpResponseMessage> GetTotalPhotos(string id)
         {
             try
             {
@@ -213,10 +213,10 @@ namespace OAuthServer.Api.Controllers
         {
             if (null == product) return Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao incluir o produto.");
 
+            AnularReferencias(product);
+
             try
             {
-                Validar(product);
-
                 product.InsertDate = System.DateTime.Now;
 
                 var novo = new Repository<Product>().Add(product);
@@ -236,14 +236,12 @@ namespace OAuthServer.Api.Controllers
         [Route("product", Name = "product")]
         public HttpResponseMessage Put([FromBody]Product product)
         {
+            AnularReferencias(product);
+
             if (null == product) return Request.CreateResponse(HttpStatusCode.BadRequest);
 
             try
             {
-                Validar(product);
-
-                product.InsertDate = null;
-
                 var alterado = new Repository<Product>().Update(product);
 
                 alterado.Response = new Response { Titulo = "Sucesso", Mensagem = "Produto alterado com sucesso!" };
@@ -254,6 +252,14 @@ namespace OAuthServer.Api.Controllers
             {
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao alterar o produto.");
             }
+        }
+
+        private void AnularReferencias(Product product)
+        {
+            product.Brand = null;
+            product.Style = null;
+            product.Supplier = null;
+            product.Category = null;
         }
 
         [Authorize]
@@ -281,12 +287,23 @@ namespace OAuthServer.Api.Controllers
             }
         }
 
-        private static void Validar(Product product)
+        [Authorize]
+        [HttpDelete]
+        [Route("product/photo/{id}")]
+        public HttpResponseMessage DeletePhoto(string id)
         {
-            product.Supplier = null;
-            product.Brand = null;
-            product.Category = null;
-            product.Style = null;
+            if (id == "0") return Request.CreateResponse(HttpStatusCode.BadRequest);
+
+            try
+            {
+                new Repository<Photo>().Delete(int.Parse(id));
+
+                return Request.CreateResponse(HttpStatusCode.OK);
+            }
+            catch
+            {
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao excluir a foto.");
+            }
         }
 
         protected override void Dispose(bool disposing)

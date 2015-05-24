@@ -19,7 +19,7 @@ namespace GO.Domain
 
         public System.DateTime Date { get; set; }
 
-        public System.DateTime DateDispatch { get; set; }
+        public System.DateTime? DateDispatch { get; set; }
 
         public string Observations { get; set; }
 
@@ -29,13 +29,13 @@ namespace GO.Domain
 
         public byte Times { get; set; }
 
-        public decimal Amount { get; set; }
+        public string Amount { get; set; }
 
-        public int Quantity { get; set; }        
-        
-        public decimal Discount { get; set; }
+        public int Quantity { get; set; }
 
-        public decimal Total { get; set; }
+        public string Discount { get; set; }
+
+        public string Total { get; set; }
 
         public virtual ICollection<Item> Itens { get; set; }
 

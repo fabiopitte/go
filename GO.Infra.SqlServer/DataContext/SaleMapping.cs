@@ -35,8 +35,6 @@ namespace GO.Infra.SqlServer.DataContext
 
             Property(c => c.UserId).IsRequired();
 
-            //Property(c => c.Itens).IsRequired();
-
             Ignore(c => c.Response);
         }
     }

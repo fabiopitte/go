@@ -16,9 +16,9 @@ namespace GO.Domain
 
         public string Title { get; set; }
 
-        public decimal Price { get; set; }
+        public string Price { get; set; }
 
-        public decimal Cost { get; set; }
+        public string Cost { get; set; }
 
         public DateTime? InsertDate { get; set; }
 

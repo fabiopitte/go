@@ -39,11 +39,11 @@ app.controller('userController', ['$scope', '$location', '$routeParams', 'gostoF
 
     $scope.obterUsuario = function () {
         var id = 1;
+
         gostoFactory.obterUsuario(id)
             .success(function (data) {
                 $scope.user = data;
             }).error(function (error) {
-                mensagem('Erro ao pesquisar o usuário', error, 'erro');
             });
     }
 

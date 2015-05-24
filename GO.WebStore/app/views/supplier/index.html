@@ -5,6 +5,7 @@
     <div class="col-xs-12">
         <form class="form-horizontal" role="form" name="formSupplier" novalidate ng-submit="salvar()">
             <input type="hidden" ng-model="supplier.id" />
+
             <div class="form-group" show-errors>
                 <label for="nome" class="col-sm-2 control-label">Nome</label>
                 <div class="col-sm-5">
@@ -17,13 +18,14 @@
                     <input type="email" class="form-control" name="Email" id="Email" ng-model="supplier.email" maxlength="100">
                 </div>
             </div>
+
             <div class="form-group">
                 <label class="control-label col-xs-12 col-sm-2 no-padding-right">Tipo</label>
 
                 <div class="col-xs-12 col-sm-5">
                     <div>
                         <label class="line-height-1">
-                            <input name="tipoPessoa" value="0" type="radio" class="ace" aria-required="true" ng-model="supplier.tipoPessoa">
+                            <input name="tipoPessoa" value="0" type="radio" class="ace" ng-model="supplier.tipoPessoa">
                             <span class="lbl"> Pessoa Fisica</span>
                         </label>
                     </div>
@@ -51,18 +53,18 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="col-sm-2 control-label" for="CNPJ"> CPF/CNPJ </label>
+                <label class="col-sm-2 control-label" for="CNPJ">{{supplier.tipoPessoa==0?"CPF":"CNPJ"}}</label>
                 <div class="col-sm-5">
                     <input type="text" id="CNPJ" ng-model="supplier.cnpj" class="form-control" maxlength="14">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="supplier.tipoPessoa==0">
                 <label for="nome" class="col-sm-2 control-label">Razão Social</label>
                 <div class="col-sm-5">
                     <input type="text" class="form-control" name="RazaoSocial" id="RazaoSocial" ng-model="supplier.razaoSocial" maxlength="100">
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-hide="supplier.tipoPessoa==0">
                 <label class="col-sm-2 control-label" for="Ie"> I.E </label>
                 <div class="col-sm-5">
                     <input type="text" id="Ie" ng-model="supplier.ie" class="form-control" maxlength="10">

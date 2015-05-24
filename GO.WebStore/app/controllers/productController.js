@@ -2,37 +2,24 @@
 
 app.controller('productController', ['$scope', '$location', '$routeParams', 'gostoFactory', function ($scope, $location, $routeParams, gostoFactory) {
 
+    $scope.urlDropZone = '';
+    $scope.dropzoneConfig = null;
     var produtoAterado = false;
 
-    $scope.dropzoneConfig = {
-        'options': { // passed into the Dropzone constructor
-            'url': 'http://localhost:60629/api/v1/public/PostFormData/1'
-        },
-        'eventHandlers': {
-            'sending': function (file, xhr, formData) {
-
-            },
-            'success': function (file, response) {
-
-            }
-        }
-    };
+    $('#Cost').maskMoney({ thousands: '.', decimal: ',' });
+    $('#Price').maskMoney({ thousands: '.', decimal: ',' });
 
     $('#fuelux-wizard-container')
     .ace_wizard({
 
     })
     .on('actionclicked.fu.wizard', function (e, info) {
-
         var formInvalido = true;
         if (info.step == 1) {
-
             if ($('#Title').val() == '') {
                 $('#Title').closest('.form-group').addClass('has-error');
                 $('#Title').focus();
-
                 e.preventDefault();
-
                 formInvalido = false;
             }
             else {
@@ -42,26 +29,40 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
             if ($('#Code').val() == '') {
                 $('#Code').closest('.form-group').addClass('has-error');
                 $('#Code').focus();
-
                 e.preventDefault();
-
                 formInvalido = false;
             }
             else {
                 $('#Code').closest('.form-group').removeClass('has-error');
             }
 
-            if (formInvalido) {
-                return;
-            }
+            if (formInvalido) return;
         }
         else if (info.step == 2) {
-            $('#nome-estilo').text($('#Style').data('title'));
-            $('#nome-categoria').text($('#Category').data('title'));
-            $('#nome-marca').text($('#Brand').data('title'));
-            $('#nome-fornecedor').text($('#Supplier').data('title'));
+
+            $scope.styles.filter(function (obj) { if (obj.id === $scope.product.styleId) { $('#nome-estilo').text(obj.title); } });
+            $scope.categories.filter(function (obj) { if (obj.id === $scope.product.categoryId) { $('#nome-categoria').text(obj.title); } });
+            $scope.brandies.filter(function (obj) { if (obj.id === $scope.product.brandId) { $('#nome-marca').text(obj.title); } });
+            $scope.suppliers.filter(function (obj) { if (obj.id === $scope.product.supplierId) { $('#nome-fornecedor').text(obj.nome); } });
 
             salvar();
+
+            $scope.urlDropZone = '/app/views/dropZone.html';
+
+            $scope.dropzoneConfig = {
+                'options': {
+                    'url': function () {
+                        return 'http://localhost:60629/api/v1/public/PostFormData/' + sessionStorage.getItem('productID')
+                    }
+                },
+                'eventHandlers': {
+                    'sending': function (file, xhr, formData) {
+
+                    },
+                    'success': function (file, response) {
+                    }
+                }
+            };
         }
         else if (info.step == 3) {
             obterFotosDoProduto();
@@ -70,16 +71,16 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     .on('finished.fu.wizard', function (e) {
 
         if (!produtoAterado) {
-            mensagem('Mensagem de sucesso', 'Parabéns, produto inserido com sucesso!!', 'sucesso');
+            mensagem('Mensagem de sucesso', 'Ai sim, produto inserido com sucesso!!', 'sucesso');
         }
         else {
-            mensagem('Mensagem de sucesso', 'Parabéns, produto alterado com sucesso!!', 'sucesso');
+            mensagem('Mensagem de sucesso', 'Ai sim, produto alterado com sucesso!!', 'sucesso');
         }
 
         window.location.href = '#/products';
 
     }).on('stepclick.fu.wizard', function (e) {
-        //e.preventDefault();//this will prevent clicking and selecting steps
+        //e.preventDefault();
     });
 
     $scope.product = {};
@@ -90,20 +91,28 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     function obterFotosDoProduto() {
 
         var id = $scope.product.id;
+        var fotinha = [];
 
         if (id !== undefined) {
             gostoFactory.obterFotosDoProduto(id)
-            .success(function (data) {
-                $scope.product.photos = data;
+            .success(function (fotos) {
+                angular.forEach(fotos, function (value, key) {
+                    gostoFactory.obterFoto(value.url).success(function (results) {
+                        fotinha.push({ url: results, id: value.id });
+                    });
+                });
+
+                $scope.pega = fotinha;
+
             }).error(function (error) {
                 mensagem('Erro ao pesquisar por fotos', error, 'erro');
             });
         }
     }
 
-    $scope.obterFoto = function (url) {
+    function obterFoto(url) {
         gostoFactory.obterFoto(url).success(function (results) {
-            $scope.urlImagem = results;
+            return results;
         });
     }
 
@@ -138,6 +147,23 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
         $('#mensagem').modal('show');
     };
 
+    $scope.openWindow = function (item) {
+        window.open(item.url, '_blank');
+    }
+
+    $scope.excluirFoto = function (item) {
+        angular.forEach($scope.pega, function (ele, i) {
+            if (ele.id == item.id) {
+                gostoFactory.excluirPhoto(ele.id).success(function (data) {
+                    $scope.pega.splice($scope.pega.indexOf(ele), 1);
+                    mensagem('Mensagem de sucesso', 'Foto excluida!', 'sucesso');
+                }).error(function (error) {
+                    mensagem('Aconteceu algum erro', error, 'erro');
+                });
+            };
+        });
+    };
+
     $scope.clickExcluir = function () {
 
         var productId = $scope.product.id;
@@ -145,7 +171,8 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
         gostoFactory.excluirProduto(productId)
             .success(function (data) {
 
-                $scope.products.splice($scope.index - 1, 1);
+                $scope.products.splice($scope.products.indexOf($scope.product), 1);
+
                 $scope.totalRegistros = $scope.products.length;
 
                 mensagem('Mensagem de sucesso', data.response.mensagem, 'sucesso');
@@ -180,16 +207,18 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
     function salvar() {
 
         var id = $scope.product.id;
-        if (id == undefined) { inserir(); } else { atualizar(); }
+
+        if (id == undefined) { id = inserir($scope); } else { atualizar(); }
     };
 
-    function inserir() {
+    function inserir($scope) {
 
         var cat = $scope.product;
 
         gostoFactory.inserirProduto(cat)
             .success(function (data) {
                 $scope.product.id = data.id;
+                sessionStorage.setItem('productID', $scope.product.id);
             }).error(function (error) {
                 mensagem('Erro no cadastro', error, 'erro');
             });
@@ -199,9 +228,10 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
         produtoAterado = true;
 
         var cat = $scope.product;
+        sessionStorage.setItem('productID', $scope.product.id);
 
         gostoFactory.atualizarProduto(cat).error(function (error) {
-            mensagem('Erro no cadastro', error, 'erro');
+            mensagem('Erro na atualizacao do produto', error, 'erro');
         });
 
         $('#salvar').text('').prepend('Salvar <i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>');

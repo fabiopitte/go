@@ -60,40 +60,26 @@
     <Compile Include="DataContext\ProductMapping.cs" />
     <Compile Include="ICrud.cs" />
     <Compile Include="DataContext\GoStoreDataContext.cs" />
-    <Compile Include="Migrations\201505091428337_a.cs" />
-    <Compile Include="Migrations\201505091428337_a.Designer.cs">
-      <DependentUpon>201505091428337_a.cs</DependentUpon>
+    <Compile Include="Migrations\201505192316272_a.cs" />
+    <Compile Include="Migrations\201505192316272_a.Designer.cs">
+      <DependentUpon>201505192316272_a.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505100243322_d.cs" />
-    <Compile Include="Migrations\201505100243322_d.Designer.cs">
-      <DependentUpon>201505100243322_d.cs</DependentUpon>
+    <Compile Include="Migrations\201505192317031_te.cs" />
+    <Compile Include="Migrations\201505192317031_te.Designer.cs">
+      <DependentUpon>201505192317031_te.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201505100314052_e.cs" />
-    <Compile Include="Migrations\201505100314052_e.Designer.cs">
-      <DependentUpon>201505100314052_e.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505100441357_f.cs" />
-    <Compile Include="Migrations\201505100441357_f.Designer.cs">
-      <DependentUpon>201505100441357_f.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505100446136_e1.cs" />
-    <Compile Include="Migrations\201505100446136_e1.Designer.cs">
-      <DependentUpon>201505100446136_e1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505101304160_g.cs" />
-    <Compile Include="Migrations\201505101304160_g.Designer.cs">
-      <DependentUpon>201505101304160_g.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505101744110_g1.cs" />
-    <Compile Include="Migrations\201505101744110_g1.Designer.cs">
-      <DependentUpon>201505101744110_g1.cs</DependentUpon>
+    <Compile Include="Migrations\201505192332488_tes.cs" />
+    <Compile Include="Migrations\201505192332488_tes.Designer.cs">
+      <DependentUpon>201505192332488_tes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -103,26 +89,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505091428337_a.resx">
-      <DependentUpon>201505091428337_a.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505192316272_a.resx">
+      <DependentUpon>201505192316272_a.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505100243322_d.resx">
-      <DependentUpon>201505100243322_d.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505192317031_te.resx">
+      <DependentUpon>201505192317031_te.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505100314052_e.resx">
-      <DependentUpon>201505100314052_e.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505100441357_f.resx">
-      <DependentUpon>201505100441357_f.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505100446136_e1.resx">
-      <DependentUpon>201505100446136_e1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505101304160_g.resx">
-      <DependentUpon>201505101304160_g.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505101744110_g1.resx">
-      <DependentUpon>201505101744110_g1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201505192332488_tes.resx">
+      <DependentUpon>201505192332488_tes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
