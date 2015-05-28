@@ -123,7 +123,7 @@
                                             <td>{{item.productColor}}</td>
                                             <td class="hidden-480"> {{item.price}} </td>
                                             <td class="hidden-xs"> {{item.quantity}} </td>
-                                            <td>{{item.price * item.total}}</td>
+                                            <td>{{ getTotal(item, $index) }}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -133,7 +133,7 @@
                                 <div class="col-sm-5 pull-right">
                                     <h4 class="pull-right">
                                         Total :
-                                        <span class="red">R$ {{venda.total}}</span>
+                                        <span class="red">R$ {{ getTotalDaVenda(sale) }} </span>
                                     </h4>
                                 </div>
                             </div>

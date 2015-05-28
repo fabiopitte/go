@@ -8,6 +8,7 @@ app.config(function ($routeProvider, $locationProvider) {
 
     $routeProvider.when("/invoice/:code", {
         controller: function ($scope, $routeParams, gostoFactory) {
+
             if ($routeParams.code !== null) {
                 var sale = $routeParams.code;
                 getInvoice(sale);
@@ -17,6 +18,26 @@ app.config(function ($routeProvider, $locationProvider) {
                 gostoFactory.obterVenda(sale).success(function (results) {
                     $scope.sale = results;
                 });
+            }
+
+            $scope.getTotal = function (item, index) {
+                var total = parseFloat(item.price.replace(".", "").replace(",", "") * 1).toFixed(2) / 100 * parseFloat(item.quantity);
+
+                $scope.sale.itens[index].total = total;
+
+                return total.toFixed(2).toString().replace(".", ",");
+            }
+
+            $scope.getTotalDaVenda = function (venda) {
+                var t;
+
+                if (venda != undefined) {
+                    for (var i = 0; i < venda.itens.length; i++) {
+                        t =+ venda.itens[i].total;
+                    }
+
+                    return t;
+                }
             }
         },
         templateUrl: "/app/views/sale/invoice.html"

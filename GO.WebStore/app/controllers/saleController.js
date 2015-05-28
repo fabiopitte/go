@@ -76,23 +76,21 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
     }
 
     function calcularTotal() {
-
         var amount = 0;
         var quantity = 0;
 
         $.each($scope.sale.itens, function (index, produto) {
-            var preco_produto = $('#preco-produto-' + index).val();
             var quantidade_produto = $('#quantidade-produto-' + index).val();
-
-            amount += parseFloat(preco_produto) * parseInt(quantidade_produto);
+            amount += parseFloat($('#preco-produto-' + index).val().replace(".", "").replace(",", "") * 1).toFixed(2) / 100 * parseFloat(quantidade_produto);
             quantity += parseInt(quantidade_produto);
         });
 
         $('#sale-amount').val(amount);
         $('#sale-quantity').val(quantity);
 
-        var discount = $('#sale-discount').val();
-        var totalVenda = discount == '' ? parseFloat(amount) : parseFloat(amount) - parseFloat(discount);
+        var discount = parseFloat($('#sale-discount').val().replace(".", "").replace(",", "") * 1).toFixed(2) / 100;
+        var totalVenda = discount == '' ? parseFloat(amount) : parseFloat(amount) - discount;
+
         $('#sale-total').val(parseFloat(totalVenda));
     }
 
