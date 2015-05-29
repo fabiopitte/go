@@ -15,8 +15,12 @@ app.config(function ($routeProvider, $locationProvider) {
             }
 
             function getInvoice(sale) {
-                gostoFactory.obterVenda(sale).success(function (results) {
-                    $scope.sale = results;
+                gostoFactory.obterVenda(sale).success(function (venda) {
+                    $scope.sale = venda;
+                    var total = 0;
+
+                    for (var i = 0; i < venda.itens.length; i++) { total = parseFloat(total) + parseFloat(venda.itens[i].price.replace(".", "").replace(",", "") * 1).toFixed(2) / 100 * parseFloat(venda.itens[i].quantity); }
+                    $scope.totalDaVenda = total.toFixed(2);
                 });
             }
 
@@ -26,18 +30,6 @@ app.config(function ($routeProvider, $locationProvider) {
                 $scope.sale.itens[index].total = total;
 
                 return total.toFixed(2).toString().replace(".", ",");
-            }
-
-            $scope.getTotalDaVenda = function (venda) {
-                var t;
-
-                if (venda != undefined) {
-                    for (var i = 0; i < venda.itens.length; i++) {
-                        t =+ venda.itens[i].total;
-                    }
-
-                    return t;
-                }
             }
         },
         templateUrl: "/app/views/sale/invoice.html"
