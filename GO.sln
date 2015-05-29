@@ -5,19 +5,15 @@ VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Domain", "GO.Domain\GO.Domain.csproj", "{7223AE94-57F7-4FD9-A15A-EB9D89D344FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Infra.MongoDb", "GO.Infra\GO.Infra.MongoDb.csproj", "{13FEBE7F-EE23-4CB3-9813-C507D59AC575}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Infra.SqlServer", "GO.Infra.SqlServer\GO.Infra.SqlServer.csproj", "{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{D1E8A266-CC32-474F-8A79-C39E20824215}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Store", "GO.Store\GO.Store.csproj", "{FE5DA258-0D36-41F0-AB14-3CAD680D468D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.WebStore", "GO.WebStore\GO.WebStore.csproj", "{9ABCB902-C6AE-46C9-BF04-B74A8D73D475}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuthServer.Api", "OAuthServer.Api\OAuthServer.Api.csproj", "{FF06D656-E758-43C6-AB04-33BB6BBAC452}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.GoStore", "GO.GoStore\GO.GoStore.csproj", "{6A534AFE-0279-4F58-A0F3-78204BCEA0C4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GO.Infra.MongoDb", "GO.Infra.MongoDb\GO.Infra.MongoDb.csproj", "{13FEBE7F-EE23-4CB3-9813-C507D59AC575}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,18 +25,10 @@ Global
 		{7223AE94-57F7-4FD9-A15A-EB9D89D344FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7223AE94-57F7-4FD9-A15A-EB9D89D344FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7223AE94-57F7-4FD9-A15A-EB9D89D344FF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5FBE147-BC7D-4A41-9F01-F5EAB11ED75B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FE5DA258-0D36-41F0-AB14-3CAD680D468D}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9ABCB902-C6AE-46C9-BF04-B74A8D73D475}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9ABCB902-C6AE-46C9-BF04-B74A8D73D475}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9ABCB902-C6AE-46C9-BF04-B74A8D73D475}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,10 +37,10 @@ Global
 		{FF06D656-E758-43C6-AB04-33BB6BBAC452}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FF06D656-E758-43C6-AB04-33BB6BBAC452}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FF06D656-E758-43C6-AB04-33BB6BBAC452}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A534AFE-0279-4F58-A0F3-78204BCEA0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A534AFE-0279-4F58-A0F3-78204BCEA0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A534AFE-0279-4F58-A0F3-78204BCEA0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A534AFE-0279-4F58-A0F3-78204BCEA0C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13FEBE7F-EE23-4CB3-9813-C507D59AC575}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
