@@ -76,6 +76,7 @@
     <Content Include="app\avatar3.png" />
     <Content Include="app\directives\dropzoneDirective.js" />
     <Content Include="app\directives\photoDirective.js" />
+    <Content Include="app\values\configValues.js" />
     <Content Include="app\views\dispatch\index.html" />
     <Content Include="app\views\sale\invoice.html" />
     <Content Include="Content\bootstrap-datepicker3.css" />
@@ -985,7 +986,9 @@
     <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\ui-bootstrap-0.12.1.js" />
     <Content Include="Scripts\ui-bootstrap-tpls-0.12.1.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jquery-1.9.1.min.map" />
     <Content Include="Scripts\version.json" />
   </ItemGroup>

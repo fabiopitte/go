@@ -72,7 +72,7 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.otherwise('/login');
 });
 
-var serviceBase = 'http://localhost:60629/';
+var serviceBase =  'http://localhost:60629/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'

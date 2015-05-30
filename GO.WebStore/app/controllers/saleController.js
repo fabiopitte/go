@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
+app.controller('saleController', function ($scope, gostoFactory, dateFilter, config) {
 
     $('#sale-amount').maskMoney({ thousands: '.', decimal: ',' });
     $('#sale-discount').maskMoney({ thousands: '.', decimal: ',' });
@@ -10,7 +10,7 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
         minLength: 2,
         source: function (request, response) {
             $("#spinner-customer").removeClass('hide');
-            $.getJSON("http://localhost:60629/api/v1/public/customers/" + request.term + '/' + 10,
+            $.getJSON(config.baseServiceUrl + "/customers/" + request.term + '/' + 10,
                 function (data) {
                     var array = data.error ? [] : $.map(data, function (m) {
                         return {
@@ -159,7 +159,7 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter) {
             source: function (request, response) {
                 $("#spinner-" + indice).removeClass('hide');
 
-                $.getJSON("http://localhost:60629/api/v1/public/products/" + request.term + '/' + request.term + '/' + 10,
+                $.getJSON(config.baseServiceUrl + "/products/" + request.term + '/' + request.term + '/' + 10,
                     function (data) {
                         var array = data.error ? [] : $.map(data, function (m) {
                             return {

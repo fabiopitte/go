@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller("dispatchController", function ($scope, dateFilter, gostoFactory) {
+app.controller("dispatchController", function ($scope, dateFilter, gostoFactory, config) {
 
     $scope.dataDevolucao = dateFilter(new Date(), 'dd/MM/yyyy');
 
@@ -25,7 +25,7 @@ app.controller("dispatchController", function ($scope, dateFilter, gostoFactory)
         minLength: 2,
         source: function (request, response) {
             $("#spinner-customer").removeClass('hide');
-            $.getJSON("http://localhost:60629/api/v1/public/customers/" + request.term + '/' + 10,
+            $.getJSON(config.baseServiceUrl + "/customers/" + request.term + '/' + 10,
                 function (data) {
                     var array = data.error ? [] : $.map(data, function (m) {
                         return {

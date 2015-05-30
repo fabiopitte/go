@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('productController', ['$scope', '$location', '$routeParams', 'gostoFactory', function ($scope, $location, $routeParams, gostoFactory) {
+app.controller('productController', ['$scope', '$location', '$routeParams', 'gostoFactory', 'config', function ($scope, $location, $routeParams, gostoFactory, config) {
 
     $scope.urlDropZone = '';
     $scope.dropzoneConfig = null;
@@ -52,7 +52,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
             $scope.dropzoneConfig = {
                 'options': {
                     'url': function () {
-                        return 'http://localhost:60629/api/v1/public/PostFormData/' + sessionStorage.getItem('productID')
+                        return config.baseServiceUrl + '/PostFormData/' + sessionStorage.getItem('productID')
                     }
                 },
                 'eventHandlers': {

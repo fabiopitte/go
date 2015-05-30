@@ -1,8 +1,5 @@
 ﻿'use strict';
 
-
-
-
 //Directive for showing an alert on click
 app.directive("alert", function () {
     return function (scope, element, attrs) {
@@ -13,7 +10,7 @@ app.directive("alert", function () {
     };
 });
 
-app.directive('productTypeAhead', function ($compile) {
+app.directive('productTypeAhead', function ($compile, config) {
     return {
         restrict: 'E',
         template: '<input id="productTypeahead" ng-required="true" class="form-control" />',
@@ -29,7 +26,7 @@ app.directive('productTypeAhead', function ($compile) {
                     },
                     queryTokenizer: Bloodhound.tokenizers.whitespace,
                     remote: {
-                        url: 'http://localhost:60629/api/v1/public/products',
+                        url: config.baseServiceUrl + '/products',
                         filter: function (produtos) {
                             // Map the remote source JSON array to a JavaScript object array
                             return $.map(produtos, function (produto) {
