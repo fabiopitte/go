@@ -24,17 +24,7 @@
 
         private bool productDispatched = false;
 
-        public bool ProductDispatched
-        {
-            get
-            {
-                return productDispatched;
-            }
-            set
-            {
-                productDispatched = value;
-            }
-        }
+        public bool ProductDispatched { get { return productDispatched; } set { productDispatched = value; } }
 
         public System.DateTime? DateDispatched { get; set; }
     }

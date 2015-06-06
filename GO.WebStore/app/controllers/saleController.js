@@ -58,7 +58,7 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter, con
 
     var novaData = new Date();
     novaData.setDate(novaData.getDate() + 7);
-    $scope.sale.dateDispatch = dateFilter(new Date(), 'dd/MM/yyyy'); //dateFilter(novaData, 'dd/MM/yyyy');
+    $scope.sale.dateDispatch = dateFilter(novaData, 'dd/MM/yyyy');
 
     var product = { productId: '', price: '', quantity: '' };
 

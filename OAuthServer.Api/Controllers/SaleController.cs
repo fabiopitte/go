@@ -6,6 +6,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Linq;
+using System;
 
 namespace OAuthServer.Api.Controllers
 {
@@ -62,9 +63,11 @@ namespace OAuthServer.Api.Controllers
         {
             if (null == sale) return Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao realizar a venda.");
 
-            sale.Date = System.DateTime.Now;
-            sale.DateDispatch = System.DateTime.Now;
+            sale.Date = DateTime.Parse(DateTime.Parse(sale.Date.ToString()).ToString("MM/dd/yyyy"));
 
+            sale.DateDispatch = sale.DateDispatch.HasValue == true ?
+                DateTime.Parse(DateTime.Parse(sale.DateDispatch.ToString()).ToString("MM/dd/yyyy")) :
+                new System.Nullable<System.DateTime>();
             try
             {
                 //primeiro realiza a venda
@@ -89,9 +92,9 @@ namespace OAuthServer.Api.Controllers
 
                 return Request.CreateResponse(HttpStatusCode.Created, novo);
             }
-            catch
+            catch(Exception ex)
             {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, "OOoops deu um probleminha, verifique os dados e tente novamente.");
+                return Request.CreateResponse(HttpStatusCode.InternalServerError, "OOoops deu um probleminha, verifique os dados e tente novamente." + ex.InnerException.ToString());
             }
         }
 

@@ -18,7 +18,7 @@ app.config(function ($routeProvider, $locationProvider) {
                 gostoFactory.obterVenda(sale).success(function (venda) {
                     $scope.sale = venda;
                     var total = 0;
-
+                    console.log(venda);
                     for (var i = 0; i < venda.itens.length; i++) { total = parseFloat(total) + parseFloat(venda.itens[i].price.replace(".", "").replace(",", "") * 1).toFixed(2) / 100 * parseFloat(venda.itens[i].quantity); }
                     $scope.totalDaVenda = total.toFixed(2);
                 });
@@ -72,7 +72,7 @@ app.config(function ($routeProvider, $locationProvider) {
     $routeProvider.otherwise('/login');
 });
 
-var serviceBase =  'http://localhost:60629/';
+var serviceBase = 'http://sevicelamariee.azurewebsites.net/';
 app.constant('ngAuthSettings', {
     apiServiceBaseUri: serviceBase,
     clientId: 'ngAuthApp'

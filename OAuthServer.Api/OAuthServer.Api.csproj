@@ -191,6 +191,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\lamariee.pubxml" />
+    <None Include="Properties\PublishProfiles\servicelamariee - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\sevicelamariee.pubxml" />
     <None Include="Properties\PublishProfiles\smarterasp.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

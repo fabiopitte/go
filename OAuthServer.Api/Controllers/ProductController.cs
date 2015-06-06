@@ -2,7 +2,6 @@
 //using GO.Infra.MongoDb;
 using GO.Infra.SqlServer;
 using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -12,9 +11,6 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
-using System.Linq;
-using System.Web;
-using System.Collections.Generic;
 
 namespace OAuthServer.Api.Controllers
 {
@@ -31,15 +27,12 @@ namespace OAuthServer.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
-        //[Authorize]
+        [Authorize]
         [HttpPost]
         [Route("PostFormData/{id}")]
         public async Task<HttpResponseMessage> PostFormData(string id)
         {
-            if (!Request.Content.IsMimeMultipartContent())
-            {
-                throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-            }
+            if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
 
             string root = System.Web.HttpContext.Current.Server.MapPath("~/Images");
             var provider = new MultipartFormDataStreamProvider(root);
@@ -64,7 +57,7 @@ namespace OAuthServer.Api.Controllers
                     produto.Photos.Add(foto);
                 }
 
-                var pro = new Repository<Product>().Update(produto);
+                new Repository<Product>().Update(produto);
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
@@ -101,23 +94,20 @@ namespace OAuthServer.Api.Controllers
             try
             {
                 var bmp = Bitmap.FromFile(url);
-                //3
+
                 var Fs = new FileStream(HostingEnvironment.MapPath("~/Images") + @"\I" + new Guid().ToString() + ".png", FileMode.Create);
                 bmp.Save(Fs, ImageFormat.Png);
                 bmp.Dispose();
 
-                //4
                 Image img = Image.FromStream(Fs);
                 Fs.Close();
                 Fs.Dispose();
 
-                //5
                 MemoryStream ms = new MemoryStream();
                 img.Save(ms, ImageFormat.Png);
 
                 HttpResponseMessage response = new HttpResponseMessage();
 
-                //6
                 response.Content = new ByteArrayContent(ms.ToArray());
                 ms.Close();
                 ms.Dispose();
@@ -131,52 +121,6 @@ namespace OAuthServer.Api.Controllers
                 return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao obter as fotos.");
             }
         }
-
-        //[Authorize]
-        //[Route("product/photos/{id}")]
-        //[HttpGet]
-        //public HttpResponseMessage GetPhotos(string id)
-        //{
-        //    try
-        //    {
-        //        var photos = new Repository<Photo>().Search(int.Parse(id));
-
-        //        photos.ForEach(f =>
-        //        {
-        //            var bmp = Bitmap.FromFile(f.Url);
-        //            //3
-        //            var Fs = new FileStream(HostingEnvironment.MapPath("~/Images") + @"\I" + id + ".png", FileMode.Create);
-        //            bmp.Save(Fs, ImageFormat.Png);
-        //            bmp.Dispose();
-
-        //            //4
-        //            Image img = Image.FromStream(Fs);
-        //            Fs.Close();
-        //            Fs.Dispose();
-
-        //            //5
-        //            MemoryStream ms = new MemoryStream();
-        //            img.Save(ms, ImageFormat.Png);
-
-        //            HttpResponseMessage response = new HttpResponseMessage();
-
-        //            //6
-        //            response.Content = new ByteArrayContent(ms.ToArray());
-        //            ms.Close();
-        //            ms.Dispose();
-
-        //            response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-        //            response.StatusCode = HttpStatusCode.OK;
-        //            //return response;
-        //        });
-
-        //        return Request.CreateResponse(HttpStatusCode.Created, photos);
-        //    }
-        //    catch
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao obter as fotos.");
-        //    }
-        //}
 
         [Route("products/{title}/{code}/{limit}")]
         [HttpGet]
@@ -256,10 +200,7 @@ namespace OAuthServer.Api.Controllers
 
         private void AnularReferencias(Product product)
         {
-            product.Brand = null;
-            product.Style = null;
-            product.Supplier = null;
-            product.Category = null;
+            product.Brand = null; product.Style = null; product.Supplier = null; product.Category = null;
         }
 
         [Authorize]

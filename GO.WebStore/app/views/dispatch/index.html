@@ -1,6 +1,6 @@
 <script src="Scripts/jquery-ui.js"></script>
 <div class="page-header">
-    <h1>Devolucao de produto</h1>
+    <h1>Retorno de mercadoria</h1>
 </div>
 <div class="row">
     <div class="col-xs-12">
@@ -49,7 +49,7 @@
                                 <td>{{s.itens[0].productTitle}}</td>
                                 <td class="hidden-xs">{{s.itens[0].productColor}}</td>
                                 <td class="hidden-xs">{{s.itens[0].productBrand}}</td>
-                                <td class="hidden-xs"><b class="label label-warning arrowed">{{s.itens[0].price}}</b></td>
+                                <td class="hidden-xs"><b class="label label-primary arrowed">{{s.itens[0].price}}</b></td>
                                 <td><b>{{s.dateDispatch | date:'dd/MM/yyyy'}}</b></td>
                                 <td width="50px"><input type="text" class="col-xs-12" name="name" ng-model="s.itens[0].quantity" /></td>
                             </tr>

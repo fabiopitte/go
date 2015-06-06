@@ -1,4 +1,5 @@
 ﻿using GO.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -55,7 +56,8 @@ namespace GO.Infra.SqlServer
                 {
                     Id = int.Parse(e.GetType().GetProperty("SaleId").GetValue(e, new object[] { }).ToString()),
                     Date = System.DateTime.Parse(e.GetType().GetProperty("Date").GetValue(e, new object[] { }).ToString()),
-                    DateDispatch = System.DateTime.Parse(e.GetType().GetProperty("DateDispatch").GetValue(e, new object[] { }).ToString()),
+                    DateDispatch = e.GetType().GetProperty("DateDispatch").GetValue(e, new object[] { }) != null ?
+                        System.DateTime.Parse(e.GetType().GetProperty("DateDispatch").GetValue(e, new object[] { }).ToString()) : new Nullable<DateTime>(),
                     Observations = System.Convert.ToString(e.GetType().GetProperty("Observacao").GetValue(e, new object[] { })),
                     Customer = new Customer
                     {
@@ -104,6 +106,7 @@ namespace GO.Infra.SqlServer
             {
                 sale.Id = int.Parse(e.GetType().GetProperty("SaleId").GetValue(e, new object[] { }).ToString());
                 sale.Date = System.DateTime.Parse(e.GetType().GetProperty("Date").GetValue(e, new object[] { }).ToString());
+                sale.DateDispatch = System.DateTime.Parse(e.GetType().GetProperty("DateDispatch").GetValue(e, new object[] { }).ToString());
                 sale.Observations = System.Convert.ToString(e.GetType().GetProperty("Observacao").GetValue(e, new object[] { }));
 
                 sale.Customer = new Customer

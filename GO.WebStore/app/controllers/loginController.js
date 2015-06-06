@@ -4,22 +4,26 @@ app.controller('loginController', ['$scope', '$location', 'authService', 'ngAuth
     $scope.message = "";
     $scope.loginInvalido = false;
     $scope.authentication = {};
+    $scope.executandoLogin = false;
 
     authService.logOut();
 
     $scope.login = function () {
+        $scope.executandoLogin = true;
 
         if ($scope.loginForm.$valid) {
 
             authService.login($scope.user).then(function (response) {
-
                 $scope.authentication.isAuth = authService.authentication.isAuth;
                 $scope.token = response.access_token;
                 $location.path('/products');
+
+                $scope.executandoLogin = false;
             },
              function (err) {
                  $scope.loginInvalido = true;
                  $scope.message = err.error_description;
+                 $scope.executandoLogin = false;
              });
         }
     };

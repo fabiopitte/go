@@ -60,19 +60,6 @@
     <Compile Include="DataContext\ProductMapping.cs" />
     <Compile Include="ICrud.cs" />
     <Compile Include="DataContext\GoStoreDataContext.cs" />
-    <Compile Include="Migrations\201505192316272_a.cs" />
-    <Compile Include="Migrations\201505192316272_a.Designer.cs">
-      <DependentUpon>201505192316272_a.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505192317031_te.cs" />
-    <Compile Include="Migrations\201505192317031_te.Designer.cs">
-      <DependentUpon>201505192317031_te.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505192332488_tes.cs" />
-    <Compile Include="Migrations\201505192332488_tes.Designer.cs">
-      <DependentUpon>201505192332488_tes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
   </ItemGroup>
@@ -87,17 +74,6 @@
       <Project>{7223ae94-57f7-4fd9-a15a-eb9d89d344ff}</Project>
       <Name>GO.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505192316272_a.resx">
-      <DependentUpon>201505192316272_a.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505192317031_te.resx">
-      <DependentUpon>201505192317031_te.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505192332488_tes.resx">
-      <DependentUpon>201505192332488_tes.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

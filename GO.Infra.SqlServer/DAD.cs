@@ -126,7 +126,7 @@ namespace GO.Infra.SqlServer
                                join item in db.Item on sale.Id equals item.SaleId
                                join product in db.Products on item.ProductId equals product.Id
                                join brand in db.Brand on product.BrandId equals brand.Id
-                               where sale.CustomerId == customerId && item.ProductDispatched == false
+                               where sale.CustomerId == customerId && item.ProductDispatched == false && sale.Type == 1
                                select new
                                {
                                    SaleId = sale.Id,
@@ -172,6 +172,7 @@ namespace GO.Infra.SqlServer
                                {
                                    SaleId = sale.Id,
                                    Date = sale.Date,
+                                   DateDispatch = sale.DateDispatch,
                                    Observacao = sale.Observations,
                                    Nome = sale.Customer.Nome,
                                    Cpf = sale.Customer.CPF,

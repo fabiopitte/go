@@ -141,6 +141,8 @@
     <Content Include="Content\angular-chart.min.js.map" />
     <Content Include="Content\angular-chart.css.map" />
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\lamariee.pubxml" />
+    <None Include="Properties\PublishProfiles\servicelamariee.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

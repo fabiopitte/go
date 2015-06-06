@@ -50,9 +50,9 @@ namespace OAuthServer.Api
 
                 context.Validated(identity);
             }
-            catch (System.Exception)
+            catch (System.Exception ex)
             {
-                context.SetError("invalid_grant", "Falha ao autenticar");
+                context.SetError("invalid_grant", "Falha ao autenticar no sistema");
             }
         }
 

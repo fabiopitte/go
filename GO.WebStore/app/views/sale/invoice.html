@@ -137,6 +137,7 @@
                                 </div>
                             </div>
                             <div class="hr hr8 hr-double hr-dotted"></div>
+
                             <div class="row">
                                 <div class="col-sm-10 col-lg-offset-1">
                                     <p class="text-muted">
@@ -146,14 +147,15 @@
                             </div>
                             <div class="hr hr8 hr-double hr-dotted"></div>
                             <div class="row">
-                                <p>
-                                    <span class="text-danger">Horario de atendimento</span><br />
-                                    Seg - Sex: 09:00 - 18:00 | Sáb: 09:00 - 14:00
+                                <p class="text-center">
+                                    <span class="text-danger">Horario de atendimento </span>
                                     <br />
-                                    <span class="text-danger">
-                                        Telefone
-                                    </span>
-                                    (11) 2610-8330
+                                    Seg - Sex: 09:00 - 18:00 | Sáb: 09:00 - 14:00<br />
+                                    <span class="text-danger">Telefone </span>
+                                    <br />(11) 2610-8330<br />
+                                    <span class="text-danger">Data limite de entrega: </span>
+                                    <br />
+                                    {{sale.dateDispatch | date:'dd/MM/yyyy'}}
                                 </p>
                             </div>
                         </div>

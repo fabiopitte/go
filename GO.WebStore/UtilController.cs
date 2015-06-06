@@ -21,8 +21,8 @@ namespace GO.WebStore
         {
             try
             {
-                var UrlBase = "C:/Projetos/go/OAuthServer.Api/Images/" + url;
-                var UrlBaseVirtual = "http://localhost:60629/Images/" + url;
+                var UrlBase = "lamariee.scm.azurewebsites.net:443/" + url;
+                var UrlBaseVirtual = "http://servicelamariee.azurewebsites.net/Images/" + url;
 
                 var bmp = Bitmap.FromFile(UrlBase);
 
