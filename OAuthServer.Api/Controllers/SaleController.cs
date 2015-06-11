@@ -63,11 +63,6 @@ namespace OAuthServer.Api.Controllers
         {
             if (null == sale) return Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao realizar a venda.");
 
-            sale.Date = DateTime.Parse(DateTime.Parse(sale.Date.ToString()).ToString("MM/dd/yyyy"));
-
-            sale.DateDispatch = sale.DateDispatch.HasValue == true ?
-                DateTime.Parse(DateTime.Parse(sale.DateDispatch.ToString()).ToString("MM/dd/yyyy")) :
-                new System.Nullable<System.DateTime>();
             try
             {
                 //primeiro realiza a venda

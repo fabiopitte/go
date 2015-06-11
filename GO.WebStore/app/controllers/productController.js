@@ -97,9 +97,7 @@ app.controller('productController', ['$scope', '$location', '$routeParams', 'gos
             gostoFactory.obterFotosDoProduto(id)
             .success(function (fotos) {
                 angular.forEach(fotos, function (value, key) {
-                    gostoFactory.obterFoto(value.url).success(function (results) {
-                        fotinha.push({ url: results, id: value.id });
-                    });
+                    fotinha.push({ url: value.Url, id: value.Id });
                 });
 
                 $scope.pega = fotinha;

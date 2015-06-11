@@ -1005,6 +1005,16 @@
   <ItemGroup>
     <Folder Include="Images\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GO.Domain\GO.Domain.csproj">
+      <Project>{7223ae94-57f7-4fd9-a15a-eb9d89d344ff}</Project>
+      <Name>GO.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GO.Infra.SqlServer\GO.Infra.SqlServer.csproj">
+      <Project>{c5fbe147-bc7d-4a41-9f01-f5eab11ed75b}</Project>
+      <Name>GO.Infra.SqlServer</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

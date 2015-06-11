@@ -27,7 +27,7 @@ namespace OAuthServer.Api.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, products);
         }
 
-        [Authorize]
+        //[Authorize]
         [HttpPost]
         [Route("PostFormData/{id}")]
         public async Task<HttpResponseMessage> PostFormData(string id)
@@ -49,7 +49,8 @@ namespace OAuthServer.Api.Controllers
                     {
                         ProductId = int.Parse(id),
                         Title = file.Headers.ContentDisposition.FileName,
-                        Url = file.LocalFileName
+                        Url = file.LocalFileName,
+                        File = File.ReadAllBytes(file.LocalFileName)
                     };
 
                     var foto = new Repository<Photo>().Add(photo);
@@ -64,25 +65,6 @@ namespace OAuthServer.Api.Controllers
             catch (System.Exception e)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
-            }
-        }
-
-        [Authorize]
-        [Route("product/photos/{id}")]
-        [HttpGet]
-        public async Task<HttpResponseMessage> GetTotalPhotos(string id)
-        {
-            try
-            {
-                var photos = new Repository<Photo>().Search(int.Parse(id));
-
-                photos.ForEach(p => { p.Url = p.Url.Split(new char[] { '\\' })[5]; });
-
-                return Request.CreateResponse(HttpStatusCode.OK, photos);
-            }
-            catch
-            {
-                return Request.CreateResponse(HttpStatusCode.InternalServerError, "Falha ao obter as fotos.");
             }
         }
 

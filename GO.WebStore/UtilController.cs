@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Threading.Tasks;
 using System.Web.Hosting;
 using System.Web.Http;
 
@@ -14,32 +9,27 @@ namespace GO.WebStore
 {
     public class UtilController : ApiController
     {
-        //[Authorize]
-        [Route("product/photo/{url}")]
+        [Route("product/photos/{id}")]
         [HttpGet]
-        public HttpResponseMessage Get(string url)
+        public async Task<HttpResponseMessage> GetTotalPhotos(string id)
         {
             try
             {
-                var UrlBase = "lamariee.scm.azurewebsites.net:443/" + url;
-                var UrlBaseVirtual = "http://servicelamariee.azurewebsites.net/Images/" + url;
+                var photos = new GO.Infra.SqlServer.Repository<GO.Domain.Photo>().Search(int.Parse(id));
 
-                var bmp = Bitmap.FromFile(UrlBase);
-
-                var enderecoFisico = HostingEnvironment.MapPath("~/Images") + @"\" + url + ".png";
-                var enderecoVirtual = "Images/" + url + ".png";
-
-                if (!File.Exists(enderecoFisico))
+                photos.ForEach(p =>
                 {
-                    var Fs = new FileStream(enderecoFisico, FileMode.Create);
-                    bmp.Save(Fs, ImageFormat.Png);
+                    p.Url = p.Url.Split(new char[] { '\\' })[5];
 
-                    Fs.Dispose();
-                }
+                    var enderecoFoto = HostingEnvironment.MapPath("~/Images") + @"\" + p.Url + ".jpg";
 
-                bmp.Dispose();
+                    if (!File.Exists(enderecoFoto)) File.WriteAllBytes(enderecoFoto, p.File);
 
-                return Request.CreateResponse(HttpStatusCode.OK, enderecoVirtual);
+                    //seta o novo endereco
+                    p.Url = "Images/" + p.Url + ".jpg";
+                });
+
+                return Request.CreateResponse(HttpStatusCode.OK, photos);
             }
             catch
             {

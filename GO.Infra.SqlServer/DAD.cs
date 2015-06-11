@@ -173,6 +173,7 @@ namespace GO.Infra.SqlServer
                                    SaleId = sale.Id,
                                    Date = sale.Date,
                                    DateDispatch = sale.DateDispatch,
+                                   Type = sale.Type,
                                    Observacao = sale.Observations,
                                    Nome = sale.Customer.Nome,
                                    Cpf = sale.Customer.CPF,

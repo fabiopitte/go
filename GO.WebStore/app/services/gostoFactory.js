@@ -100,7 +100,7 @@ app.factory('gostoFactory', ['$http', 'config', function ($http, config) {
     }
 
     dataFactory.obterFotosDoProduto = function (id) {
-        return $http.get(config.baseServiceUrl + '/product/photos/' + id);
+        return $http.get('product/photos/' + id);
     };
 
     dataFactory.obterFoto = function (url) {
