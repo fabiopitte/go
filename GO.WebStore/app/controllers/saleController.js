@@ -215,7 +215,6 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter, con
     function inserir() {
 
         var sale = $scope.sale;
-
         sale.amount = parseFloat($('#sale-amount').val());
         sale.quantity = $('#sale-quantity').val();
         sale.total = parseFloat($('#sale-total').val());
@@ -223,7 +222,6 @@ app.controller('saleController', function ($scope, gostoFactory, dateFilter, con
         gostoFactory.inserirVenda(sale)
             .success(function (data) {
                 mensagem('Processando...', data.response.mensagem + ' AGUARDE...', 'sucesso');
-
                 setTimeout(function () {
                     $scope.$apply();
                     $('#loading-nota-fiscal').removeClass('hide');

@@ -154,14 +154,14 @@
                             <div class="col-sm-8 col-sm-offset-2">
                                 <ul class="ace-thumbnails clearfix">
                                     <li ng-repeat="photo in pega">
-                                        <img width="200" height="300" alt="200x300" ng-src="{{photo.url}}">
+                                      <img width="200" height="300" alt="200x300" ng-src="data:image/JPEG;base64,{{photo.image}}">
                                         <div class="tools tools-top">
                                             <a style="cursor:pointer;" class="red pull-right" ng-click="excluirFoto(photo)">
                                                 <i class="ace-icon fa fa-times"></i>
                                             </a>
-                                            <a style="cursor:pointer;" class="blue pull-left" ng-click="openWindow(photo);">
+                                            <!--<a style="cursor:pointer;" class="blue pull-left" ng-click="openWindow(photo);">
                                                 <i class="ace-icon fa fa-eye"></i>
-                                            </a>
+                                            </a>-->
                                         </div>
                                     </li>
                                 </ul>

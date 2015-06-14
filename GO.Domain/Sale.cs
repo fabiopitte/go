@@ -4,10 +4,7 @@ namespace GO.Domain
 {
     public class Sale
     {
-        public Sale()
-        {
-            this.Itens = new List<Item>();
-        }
+        public Sale() { this.Itens = new List<Item>(); }
 
         public int Id { get; set; }
 
@@ -17,9 +14,9 @@ namespace GO.Domain
 
         public byte Type { get; set; }
 
-        public System.DateTime Date { get; set; }
+        public string Date { get; set; }
 
-        public System.DateTime? DateDispatch { get; set; }
+        public string DateDispatch { get; set; }
 
         public string Observations { get; set; }
 

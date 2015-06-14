@@ -8,7 +8,9 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Hosting;
 using System.Web.Http;
 
@@ -17,6 +19,8 @@ namespace OAuthServer.Api.Controllers
     [RoutePrefix("api/v1/public")]
     public class ProductController : ApiController
     {
+        private const string CONTAINER = "documents";
+
         [Authorize]
         [Route("products")]
         [HttpGet]
@@ -32,71 +36,69 @@ namespace OAuthServer.Api.Controllers
         [Route("PostFormData/{id}")]
         public async Task<HttpResponseMessage> PostFormData(string id)
         {
-            if (!Request.Content.IsMimeMultipartContent()) throw new HttpResponseException(HttpStatusCode.UnsupportedMediaType);
-
-            string root = System.Web.HttpContext.Current.Server.MapPath("~/Images");
-            var provider = new MultipartFormDataStreamProvider(root);
-
             try
             {
-                await Request.Content.ReadAsMultipartAsync(provider);
-
-                Product produto = new Repository<Product>().Get(int.Parse(id));
-
-                foreach (MultipartFileData file in provider.FileData)
+                if (Request.Content.IsMimeMultipartContent())
                 {
-                    Photo photo = new Photo
+                    Product produto = new Repository<Product>().Get(int.Parse(id));
+
+                    Request.Content.LoadIntoBufferAsync().Wait();
+                    Request.Content.ReadAsMultipartAsync(new MultipartMemoryStreamProvider()).ContinueWith((task) =>
                     {
-                        ProductId = int.Parse(id),
-                        Title = file.Headers.ContentDisposition.FileName,
-                        Url = file.LocalFileName,
-                        File = File.ReadAllBytes(file.LocalFileName)
-                    };
+                        MultipartMemoryStreamProvider provider = task.Result;
+                        foreach (HttpContent content in provider.Contents)
+                        {
+                            Stream stream = content.ReadAsStreamAsync().Result;
 
-                    var foto = new Repository<Photo>().Add(photo);
+                            Photo photo = new Photo
+                            {
+                                ProductId = int.Parse(id),
+                                Title = content.Headers.ContentDisposition.FileName,
+                                Url = id,
+                                File = Ler(stream)
+                            };
 
-                    produto.Photos.Add(foto);
+                            var foto = new Repository<Photo>().Add(photo);
+
+                            produto.Photos.Add(foto);
+                        }
+
+                        new Repository<Product>().Update(produto);
+                    });
                 }
-
-                new Repository<Product>().Update(produto);
 
                 return Request.CreateResponse(HttpStatusCode.OK);
             }
             catch (System.Exception e)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, e.Message);
             }
         }
 
+        byte[] Ler(Stream stream)
+        {
+            var bytes = default(byte[]);
+            using (var memstream = new MemoryStream())
+            {
+                var buffer = new byte[16 * 1024];
+                var bytesRead = default(int);
+                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) > 0)
+                    memstream.Write(buffer, 0, bytesRead);
+                bytes = memstream.ToArray();
+            }
+            return bytes;
+        }
+
         [Authorize]
-        [Route("product/photo/{url}")]
+        [Route("product/photo/{id}")]
         [HttpGet]
-        public HttpResponseMessage GetPhoto(string url)
+        public HttpResponseMessage GetPhoto(string id)
         {
             try
             {
-                var bmp = Bitmap.FromFile(url);
+                var fotos = new Repository<Photo>().Search(int.Parse(id));
 
-                var Fs = new FileStream(HostingEnvironment.MapPath("~/Images") + @"\I" + new Guid().ToString() + ".png", FileMode.Create);
-                bmp.Save(Fs, ImageFormat.Png);
-                bmp.Dispose();
-
-                Image img = Image.FromStream(Fs);
-                Fs.Close();
-                Fs.Dispose();
-
-                MemoryStream ms = new MemoryStream();
-                img.Save(ms, ImageFormat.Png);
-
-                HttpResponseMessage response = new HttpResponseMessage();
-
-                response.Content = new ByteArrayContent(ms.ToArray());
-                ms.Close();
-                ms.Dispose();
-
-                response.Content.Headers.ContentType = new MediaTypeHeaderValue("image/png");
-                response.StatusCode = HttpStatusCode.OK;
-                return response;
+                return Request.CreateResponse(HttpStatusCode.OK, fotos);
             }
             catch
             {
