@@ -1,278 +1,197 @@
 ﻿<div class="row">
-    <div class="col-xs-12">
-        <div class="space-6"></div>
-        <div class="row">
-            <div class="col-sm-10 col-sm-offset-1">
-                <div class="widget-box transparent">
-                    <div class="widget-header widget-header-large">
-                        <h3 class="widget-title grey lighter">
-                            <i class="ace-icon fa fa-leaf green"></i>
-                            <span ng-if="sale.type == 1" class="visible-xs text-center">
-                                Contrato de locacao <br />
-                                <small>Termo de Responsabilidade</small>
-                            </span>
-                            <span ng-if="sale.type == 1" class="hidden-xs">
-                                Contrato de locacao <small>Termo de Responsabilidade</small>
-                            </span>
-
-                            <span ng-if="sale.type == 2">
-                                Nota Fisca de venda
-                            </span>
-                        </h3>
-                        <div class="widget-toolbar no-border invoice-info">
-                            <span class="invoice-info-label">{{sale.type == 1? 'Locacao:': 'venda:'}}</span>
-                            <span class="red">#000{{sale.id}}</span>
-                            <br>
-                            <span class="invoice-info-label">Data:</span>
-                            <span class="blue">{{sale.date | date:'dd/MM/yyyy'}}</span>
-                        </div>
-                        <div class="widget-toolbar hidden-480">
-                            <a href="javascript:window.print();">
-                                <i class="ace-icon fa fa-print"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="widget-body">
-                        <div class="widget-main padding-24">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="col-xs-11 label label-lg label-info arrowed-in arrowed-right">
-                                            <b>Maison de La Mariée</b>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <ul class="list-unstyled spaced">
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>CNPJ: 10.941.584/0001-53
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>Rua Dom Antônio Cândido de Alvarenga 228, centro
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>CEP: 08795-060
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>Cidade: Mogi das Cruzes, SP
-                                            </li>
-
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>Email: contato@lamariee.com.br
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>
-                                                Telefone: (11) 2610-8330
-                                            </li>
-                                            <li class="divider"></li>
-                                            <!--<li>
-                                                <i class="ace-icon fa fa-caret-right blue"></i>
-                                                Aluguel e venda de roupas e vestidos
-                                            </li>-->
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-6">
-                                    <div class="row">
-                                        <div class="col-xs-11 label label-lg label-success arrowed-in arrowed-right">
-                                            <b>{{sale.type == 1? 'LOCATARIO:': 'CLIENTE:'}} {{sale.customer.nome}}</b>
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <ul class="list-unstyled  spaced">
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>CPF: {{sale.customer.cpf}}
-                                            </li>
-
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>Identidade: {{sale.customer.rg}}
-                                            </li>
-
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>Endereco: {{sale.customer.endereco.street}}, {{sale.customer.endereco.number}}
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>CEP:{{sale.customer.endereco.cep}}
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>Cidade: {{sale.customer.endereco.city}}, {{sale.customer.endereco.state}}
-                                            </li>
-                                            <li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>Telefone: {{sale.customer.telefone}}
-                                            </li>
-                                            <li class="divider"></li>
-
-                                            <!--<li>
-                                                <i class="ace-icon fa fa-caret-right green"></i>
-                                                Contact Info
-                                            </li>-->
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Codigo</th>
-                                            <th>Produto</th>
-                                            <th>Cor</th>
-                                            <th class="hidden-480">Preço</th>
-                                            <th class="hidden-xs">Quantidade</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr ng-repeat="item in sale.itens">
-                                            <td>{{item.productCode}}</td>
-                                            <td>{{item.productTitle}}</td>
-                                            <td>{{item.productColor}}</td>
-                                            <td class="hidden-480"> {{item.price}} </td>
-                                            <td class="hidden-xs"> {{item.quantity}} </td>
-                                            <td>{{ getTotal(item, $index) }}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5 pull-right">
-                                    <h4 class="pull-right">
-                                        Total :
-                                        <span class="red">R$ {{ totalDaVenda }} </span>
-                                    </h4>
-                                </div>
-                            </div>
-                            <div class="hr hr8 hr-double hr-dotted"></div>
-
-                            <div class="row">
-                                <div class="col-sm-10 col-lg-offset-1">
-                                    <p class="text-muted">
-                                        {{sale.observations}}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="hr hr8 hr-double hr-dotted"></div>
-                            <div class="row">
-                                <!--<p class="text-center">
-                                    <span class="text-danger">Horario de atendimento </span>
-                                    <br />
-                                    Seg - Sex: 09:00 - 18:00 | Sáb: 09:00 - 14:00<br />
-                                    <span class="text-danger">Telefone </span>
-                                    <br />(11) 2610-8330<br />
-                                    <span ng-if="sale.type == 1">
-                                        <span class="text-danger">Data limite de entrega: </span>
-                                        <br />
-                                        {{sale.dateDispatch | date:'dd/MM/yyyy'}}
-                                    </span>
-                                </p>-->
-                              <div style="page-break-before:auto;">
-                                <p>
-                                  CONTRATO DE LOCAÇÃO
-                                  Pelo presente instrumento particular A Maison de La Mariée   aluguel de vestidos, sapatos e acessórios, com sede na Rua Dom Antônio Cândido de Alvarenga, nº. 228, Centro, CEP 08780-080 - Mogi das Cruzes/SP, inscrita no CNPJ. sob o nº 22.281.129/0001-58. Telefone (11) 2610-8330,  e-mail: lamarieenoiva@gmail.com, doravante denominada LOCADORA. Apresenta seu termo de adesão ao presente Contrato de Locação em que se obrigam LOCADORA E LOCATÁRIA  o cumprimento das cláusulas e anexos a seguir estipulados, para toda e qualquer locação de produtos.
-
-                                  LOCATÁRIA:_____________________________________________________________________________________________
-                                  CPF._______________________________________________RG______________________________________________
-                                  ENDEREÇO:_________________________________________________________________________________________
-                                  COMPL.____________________BAIRRO__________________________________________________________________
-                                  CEP________________________CIDADE/ESTADO_________________________________________________________
-                                  TEL. RES.____________________________________________CEL________________________________________________
-
-                                  Cláusula 1ª – Objeto
-
-                                  1.1. O presente contrato tem como objeto a locação por prazo certo e determinado de Vestido(s) sapato (s) e/ou acessório(s) de propriedade única e exclusiva da Maison de La Mariée.
-
-                                  Cláusula 2ª – Valor, Forma de Pagamentos e Documentos para Locação (Anexo I)
-
-                                  2.1. O valor da Locação é previamente informado à LOCATÁRIA no ato da contratação de acordo com  o valor do aluguel do(s) Produto(s), (conforme Anexo I) .
-
-                                  2.2. Para efetivação da Locação , a LOCATÁRIA deverá realizar o pagamento do valor total da Locação até a data de entrega do(s) Produto(s). Através de dinheiro, cartão de débito e/ou crédito  e boleto bancário.
-                                  2.3. Para Pagamentos parcelado/ adiantado  a LOCATÁRIA se compromete a efetuar o pagamento na data e no valor acordado e detalhado no Anexo I.  Sendo que o descumprimento de qualquer um dos itens  a Maison de La Mariée  fica desobrigada a alugar o  produto por  falta de pagamento.
-                                  2.4 . A LOCATÁRIA fica obrigada a apresentar  os seguintes documentos para efetivação  da Locação de qualquer produto da loja à Maison de La Mariée  (CPF,  RG e Comprovante de Residência em nome da LOCATÁRIA).
-
-                                  Cláusula 3ª – Prazo da Locação (Anexo I)
-
-                                  3.1. O prazo da Locação será aquele escolhido pela LOCATÁRIA no ato da contratação, de acordo com (Anexo I) as opções disponibilizadas pela Maison de La Mariée.
-                                  3.2. É direito da  LOCATÁRIA solicitar por e-mail ou telefone a extensão do prazo de Locação do(s) Produto(s) à Maison de La Mariée,  que aprovará ou não tal solicitação, de acordo com a disponibilidade do(s) Produto(s) e mediante o pagamento do valor do aluguel adicional decorrente da extensão do prazo da locação (conforme Anexo I).
-
-                                  Cláusula 4ª – Entrega do(s) Produto(s) Locado(s) (Anexo I)
-
-                                  4.1. O(s) Produto(s) locado(s) será(ão) entregue(s) pela Maison de La Mariée  à LOCATÁRIA limpo(s), em adequado estado de conservação e pronto(s) para utilização na data solicitada.
-                                  4.2. A LOCATÁRIA está ciente de que o vestido, sapato e /ou acessórios podem ser locados antes por outras clientes, em caso de a cliente anterior danificar o vestido A Maison de La Mariée  entrará em contato com A LOCATÁRIA  e informará o ocorrido. A LOCATÁRIA por sua vez pode optar pela troca do vestido ou um voucher no valor da locação.
-                                  4.3. Na eventual impossibilidade da entrega do(s) Produto(s) locado(s), o valor do aluguel, será integralmente restituído à LOCATÁRIA.
-
-                                  Cláusula 5ª – Obrigações e Responsabilidades da LOCATÁRIA (Anexo I)
-
-                                  5.1. Após o recebimento, a LOCATÁRIA assume o compromisso e a responsabilidade pela Guarda, cuidado e utilização com zelo do(s) Produto(s) locado(s), como se fosse(m) de sua propriedade, responsabilizando-se por eventual perda, destruição, manchas e/ou quaisquer danos que ocorram com o(s) Produto(s), além do desgaste natural decorrente da sua utilização normal, sendo expressamente proibido a LOCATÁRIA lavar o(s) Produto(s) locado(s).
-
-                                  5.2. Diante da responsabilidade assumida no item 5.1 acima, a LOCATÁRIA desde já concorda em pagar  todos e quaisquer danos eventualmente causados ao(s) Produto(s) da Maison de La Mariée., e, para tanto, autoriza desde já, que os valores decorrentes da reparação do(s) dano(s) causados ao(s) Produto(s), sejam descontados do seu cartão de crédito ou daquele utilizado para a realização da Locação, sendo certo que na hipótese de dano irreparável, será devido e cobrado pela Maison de La Mariée. à LOCATÁRIA, o valor de varejo do(s) Produto(s), hipótese em que a LOCATÁRIA poderá permanecer com o(s) Produto(s) danificado (Anexo I).
-
-                                  Cláusula 6ª – Devolução do(s) Produto(s) Locado(s) (Anexo I)
-
-                                  6.1. A LOCATÁRIA se compromete e se responsabiliza em realizar a devolução do(s) Produto(s) locado(s), da forma escolhida no ato da contratação da locação, sob pena da incidência das multas estabelecidas na Cláusula 7.
-                                  6.2. A devolução deverá ser realizada no endereço Rua Dom Antônio Cândido Alvarenga, 228 - Centro- Mogi das Cruzes, diretamente na Loja Maison de La Mariée (até às 17hs de segunda à  sexta- feira)  até a data do término do prazo de entrega.
-
-                                  Cláusula 7ª – Atraso na Devolução do(s) Produto(s) Locado(s) (Anexo I)
-
-                                  7.1. A LOCATÁRIA se compromete a informar imediatamente à Maison de La Mariée., todo e qualquer possível atraso que possa ocorrer na devolução do(s) Produto(s) locado(s), via e-mail ou telefone, para que possa ser verificada a possibilidade de extensão da LOCAÇÃO como indicado no item 3.2 acima.
-                                  7.2. Caso a extensão do prazo da Locação não seja possível, o atraso na devolução do(s) Produto(s) locado(s) acarretará a cobrança pela LOCADORA de multa correspondente ao valor proporcional a 02 (duas) diárias da Locação realizada, por dia de
-                                  atraso cujo valor será cobrado diretamente da LOCATÁRIA (conforme Anexo I).
-
-                                  7.3. Fica estabelecido que caso o atraso na devolução do(s) Produto(s) locado(s) seja superior a 05 (cinco) dias, será devido pela LOCATÁRIA à Maison de La Mariée  o valor de varejo do(s) Produto(s), que será cobrado na forma indicada no item 7.2 acima (Anexo I).
-
-                                  Cláusula 8ª – Cancelamento  da Locação
-
-                                  8.1. A LOCATÁRIA poderá cancelar a Locação  via e-mail ou telefone, no prazo de 30 dias de antecedência,  sem devolução do valor, nesta hipótese ela poderá optar ;
-                                  (a) Pelo recebimento de um voucher com crédito do valor  da Locação cancelada, para utilização em uma nova Locação no prazo de até 6 (meses) da data de sua emissão.
-                                  8.2. Na hipótese  da LOCATÁRIA solicitar o cancelamento da locação com  prazo inferior a 30 dias de antecedência, ela estará obrigada a pagar MULTA 30% do valor do aluguel (referente pagamento de despesas e manutenção do produto) à Maison de La Mariée.
-
-                                  Cláusula 9ª – Troca de Produto(s)
-
-                                  9. A troca do(s) Produto(s) locado(s), poderá ser realizada uma única vez e somente se a solicitação de troca for realizada pela LOCATÁRIA via e-mail ou telefone, no prazo de até 30 dias da data de retirada do produto.
-
-
-                                  Cláusula 10ª – Demais Disposições
-
-                                  10.2. Em caso de sua violação de qualquer disposição deste Contrato, Maison de La Mariée. reserva-se o direito de não realizar novas locações à LOCATÁRIA inadimplente, bem como o de alterar ou cancelar o presente Contrato a qualquer momento, a seu exclusivo critério.
-                                  10.3. As partes elegem o Fórum da Comarca de Mogi das Cruzes/SP, como o competente para dirimir quaisquer dúvidas oriundas do presente contrato, com exclusão de qualquer outro, por mais privilegiado que possa ser.
-
-                                  Cláusula 11ª – Vestido(s) Igual (is) no mesmo evento
-                                  11.1 – A Maison de La Mariée  não garante que o modelo de vestido/sapato e/ou acessório locado pela LOCATÁRIA não estará em uma mesma festa. Como a Maison de La Mariée  trabalha com vestidos de grandes estilistas, qualquer pessoa pode alugá-lo, sendo assim, não há garantia nesse sentido.
-                                  11.2 – No momento da locação, a Maison de La Mariée. solicitará informações sobre o evento da LOCATÁRIA para não ocorrer que o mesmo vestido da empresa esteja no mesmo evento. Caso a LOCATÁRIA não forneça os dados ou que o mesmo esteja incompleto, a Maison de La Mariée.  não garantirá que esse imprevisto aconteça.
-
-                                  ANEXO I
-                                  Valor do Aluguel R$ _________________________(____________________________________________________ _____________________________________________________), será efetuado de forma ____________________ ou Pagamento parcelado mensal/semanal de ______ vezes de R$: _______________________________________ (____________________________________________________________) será efetuado ____/____/_____ dia do mês/semana.
-                                  O prazo de locação do produto: _____ (dias)
-                                  Data de devolução ________/________/________Horário_____________.
-                                  Local de devolução: Loja Maison de La Mariée- Rua Dom Antônio Cândido de Alvarenga, nº. 228, Centro, CEP 08780-080 - Mogi das Cruzes/SP. Tel. (11) 2610-8330, e-mail: lamarieenoiva@gmail.com.
-                                  Multa de 02 diárias R$:_______________por dia de atraso da data de devolução do produto
-                                  Multa de R$:_______________caso haja danos no produto (referente o valor do produto no varejo)
-                                  Multa de R$________________se houver atraso de mais de 05 dias da data de devolução (referente o valor do
-                                  produto no varejo).
-                                  Multa de 30% no caso de cancelamento do aluguel com prazo inferior a 30 dias.
-                                  Declaro estar de acordo . “Li e Aceito os Termos do Contrato de Locação”.
-
-                                  Mogi das Cruzes, _____ de ____________________ de ________.
-
-                                  _________________________________________                     __________________________________________________
-                                  LOCATÁRIO																																					Maison de La Mariée
-
-
-                                  __________________________________________ 	                   _________________________________________________
-                                  TESTEMUNHA1						       																								      TESTEMUNHA2
-                                  CPF.							        																																	 CPF.
-                                  RG.							         																																		 RG.
-                                </p>
-                              </div>
-                              
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="col-xs-12">
+    <div class="space-6"></div>
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <div class="widget-box transparent">
+          <div class="widget-header widget-header">
+            <h3 class="widget-title grey lighter">
+              <span ng-if="sale.type == 1" class="visible-xs text-center">
+                <small>Nota Fiscal e Contrato de locacao</small>
+              </span>
+              <span ng-if="sale.type == 1" class="hidden-xs">
+                Contrato de locacao
+              </span>
+              <span ng-if="sale.type == 2">
+                Nota Fisca de venda
+              </span>
+            </h3>
+            <div class="widget-toolbar no-border invoice-info">
+              <span class="invoice-info-label">{{sale.type == 1? 'Locacao:': 'venda:'}}</span>
+              <span class="red">#000{{sale.id}}</span>
+              <br>
+              <span class="invoice-info-label">Data:</span>
+              <span class="blue">{{sale.date | date:'dd/MM/yyyy'}}</span>
             </div>
+            <div class="widget-toolbar hidden-480">
+              <a href="javascript:window.print();">
+                <i class="ace-icon fa fa-print"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <p class="text-justify">
+              <br>
+              Pelo presente instrumento particular a <strong>Maison de La Mariée</strong> aluguel de vestidos, sapatos e acessórios, com sede na Rua Dom Antônio Cândido de Alvarenga, nº. 228, Centro, CEP 08780-080 - Mogi das Cruzes/SP, inscrita no CNPJ. sob o nº 22.281.129/0001-58. Telefone (11) 2610-8330,  e-mail: lamarieenoiva@gmail.com, doravante denominada LOCADORA. Apresenta seu termo de adesão ao presente Contrato de Locação em que se obrigam LOCADORA E LOCATÁRIA  o cumprimento das cláusulas e anexos a seguir estipulados, para toda e qualquer locação de produtos.
+            </p>
+            <p class="text-left" style="line-height:30px;">
+              LOCATÁRIO(A): {{sale.customer.nome}}<br />
+              CPF: {{sale.customer.cpf}} <br />
+              RG: {{sale.customer.rg}}<br />
+              ENDEREÇO: {{sale.customer.endereco.street}}, {{sale.customer.endereco.number}}<br />
+              COMPL: {{sale.customer.complement}} <br />
+              BAIRRO: {{sale.customer.district}}<br />
+              CEP: {{sale.customer.endereco.cep}} <br />
+              CIDADE/ESTADO: {{sale.customer.endereco.city}}, {{sale.customer.endereco.state}}<br />
+              TEL. RES: {{sale.customer.telefone}} CEL: {{sale.customer.celular}}<br />
+            </p>
+            <strong>Cláusula 1ª – Objeto</strong>
+            <p class="text-justify">
+              1.1. O presente contrato tem como objeto a locação por prazo certo e determinado de Vestido(s) sapato (s) e/ou acessório(s) de propriedade única e exclusiva da Maison de La Mariée.
+            </p>
+            <strong>Cláusula 2ª – Valor, Forma de Pagamentos e Documentos para Locação (Anexo I)</strong>
+            <p class="text-justify">
+              2.1. O valor da Locação é previamente informado à LOCATÁRIA no ato da contratação de acordo com  o valor do aluguel do(s) Produto(s), (conforme Anexo I) .
+              2.2. Para efetivação da Locação , a LOCATÁRIA deverá realizar o pagamento do valor total da Locação até a data de entrega do(s) Produto(s). Através de dinheiro, cartão de débito e/ou crédito  e boleto bancário.
+              2.3. Para Pagamentos parcelado/ adiantado  a LOCATÁRIA se compromete a efetuar o pagamento na data e no valor acordado e detalhado no Anexo I.  Sendo que o descumprimento de qualquer um dos itens  a Maison de La Mariée  fica desobrigada a alugar o  produto por  falta de pagamento.
+              2.4 . A LOCATÁRIA fica obrigada a apresentar  os seguintes documentos para efetivação  da Locação de qualquer produto da loja à Maison de La Mariée  (CPF,  RG e Comprovante de Residência em nome da LOCATÁRIA).
+            </p>
+            <strong>Cláusula 3ª – Prazo da Locação (Anexo I)</strong>
+            <p class="text-justify">
+              3.1. O prazo da Locação será aquele escolhido pela LOCATÁRIA no ato da contratação, de acordo com (Anexo I) as opções disponibilizadas pela Maison de La Mariée.
+              3.2. É direito da  LOCATÁRIA solicitar por e-mail ou telefone a extensão do prazo de Locação do(s) Produto(s) à Maison de La Mariée,  que aprovará ou não tal solicitação, de acordo com a disponibilidade do(s) Produto(s) e mediante o pagamento do valor do aluguel adicional decorrente da extensão do prazo da locação (conforme Anexo I).
+            </p>
+            <strong>Cláusula 4ª – Entrega do(s) Produto(s) Locado(s) (Anexo I)</strong>
+            <p class="text-justify">
+              4.1. O(s) Produto(s) locado(s) será(ão) entregue(s) pela Maison de La Mariée  à LOCATÁRIA limpo(s), em adequado estado de conservação e pronto(s) para utilização na data solicitada.
+              4.2. A LOCATÁRIA está ciente de que o vestido, sapato e /ou acessórios podem ser locados antes por outras clientes, em caso de a cliente anterior danificar o vestido A Maison de La Mariée  entrará em contato com A LOCATÁRIA  e informará o ocorrido. A LOCATÁRIA por sua vez pode optar pela troca do vestido ou um voucher no valor da locação.
+              4.3. Na eventual impossibilidade da entrega do(s) Produto(s) locado(s), o valor do aluguel, será integralmente restituído à LOCATÁRIA.
+            </p>
+            <strong>Cláusula 5ª – Obrigações e Responsabilidades da LOCATÁRIA (Anexo I)</strong>
+            <p class="text-justify">
+              5.1. Após o recebimento, a LOCATÁRIA assume o compromisso e a responsabilidade pela Guarda, cuidado e utilização com zelo do(s) Produto(s) locado(s), como se fosse(m) de sua propriedade, responsabilizando-se por eventual perda, destruição, manchas e/ou quaisquer danos que ocorram com o(s) Produto(s), além do desgaste natural decorrente da sua utilização normal, sendo expressamente proibido a LOCATÁRIA lavar o(s) Produto(s) locado(s).
+              5.2. Diante da responsabilidade assumida no item 5.1 acima, a LOCATÁRIA desde já concorda em pagar  todos e quaisquer danos eventualmente causados ao(s) Produto(s) da Maison de La Mariée., e, para tanto, autoriza desde já, que os valores decorrentes da reparação do(s) dano(s) causados ao(s) Produto(s), sejam descontados do seu cartão de crédito ou daquele utilizado para a realização da Locação, sendo certo que na hipótese de dano irreparável, será devido e cobrado pela Maison de La Mariée. à LOCATÁRIA, o valor de varejo do(s) Produto(s), hipótese em que a LOCATÁRIA poderá permanecer com o(s) Produto(s) danificado (Anexo I).
+            </p>
+            <strong>Cláusula 6ª – Devolução do(s) Produto(s) Locado(s) (Anexo I)</strong>
+            <p class="text-justify">
+              6.1. A LOCATÁRIA se compromete e se responsabiliza em realizar a devolução do(s) Produto(s) locado(s), da forma escolhida no ato da contratação da locação, sob pena da incidência das multas estabelecidas na Cláusula 7.
+              6.2. A devolução deverá ser realizada no endereço Rua Dom Antônio Cândido Alvarenga, 228 - Centro- Mogi das Cruzes, diretamente na Loja Maison de La Mariée (até às 17hs de segunda à  sexta- feira)  até a data do término do prazo de entrega.
+            </p>
+            <strong>Cláusula 7ª – Atraso na Devolução do(s) Produto(s) Locado(s) (Anexo I)</strong>
+            <p class="text-justify">
+              7.1. A LOCATÁRIA se compromete a informar imediatamente à Maison de La Mariée., todo e qualquer possível atraso que possa ocorrer na devolução do(s) Produto(s) locado(s), via e-mail ou telefone, para que possa ser verificada a possibilidade de extensão da LOCAÇÃO como indicado no item 3.2 acima.
+              7.2. Caso a extensão do prazo da Locação não seja possível, o atraso na devolução do(s) Produto(s) locado(s) acarretará a cobrança pela LOCADORA de multa correspondente ao valor proporcional a 02 (duas) diárias da Locação realizada, por dia de
+              atraso cujo valor será cobrado diretamente da LOCATÁRIA (conforme Anexo I).
+              7.3. Fica estabelecido que caso o atraso na devolução do(s) Produto(s) locado(s) seja superior a 05 (cinco) dias, será devido pela LOCATÁRIA à Maison de La Mariée  o valor de varejo do(s) Produto(s), que será cobrado na forma indicada no item 7.2 acima (Anexo I).
+            </p>
+            <strong>Cláusula 8ª – Cancelamento  da Locação</strong>
+            <p class="text-justify">
+              8.1. A LOCATÁRIA poderá cancelar a Locação  via e-mail ou telefone, no prazo de 30 dias de antecedência,  sem devolução do valor, nesta hipótese ela poderá optar ;
+              (a) Pelo recebimento de um voucher com crédito do valor  da Locação cancelada, para utilização em uma nova Locação no prazo de até 6 (meses) da data de sua emissão.
+              8.2. Na hipótese  da LOCATÁRIA solicitar o cancelamento da locação com  prazo inferior a 30 dias de antecedência, ela estará obrigada a pagar MULTA 30% do valor do aluguel (referente pagamento de despesas e manutenção do produto) à Maison de La Mariée.
+            </p>
+            <strong>Cláusula 9ª – Troca de Produto(s)</strong>
+            <p class="text-justify">
+              9. A troca do(s) Produto(s) locado(s), poderá ser realizada uma única vez e somente se a solicitação de troca for realizada pela LOCATÁRIA via e-mail ou telefone, no prazo de até 30 dias da data de retirada do produto.
+            </p>
+            <strong>Cláusula 10ª – Demais Disposições.</strong>
+            <p class="text-justify">
+              10.2. Em caso de sua violação de qualquer disposição deste Contrato, Maison de La Mariée. reserva-se o direito de não realizar novas locações à LOCATÁRIA inadimplente, bem como o de alterar ou cancelar o presente Contrato a qualquer momento, a seu exclusivo critério.
+              10.3. As partes elegem o Fórum da Comarca de Mogi das Cruzes/SP, como o competente para dirimir quaisquer dúvidas oriundas do presente contrato, com exclusão de qualquer outro, por mais privilegiado que possa ser.
+            </p>
+            <strong>Cláusula 11ª – Vestido(s) Igual (is) no mesmo evento.</strong>
+            <p class="text-justify">
+              11.1 – A Maison de La Mariée  não garante que o modelo de vestido/sapato e/ou acessório locado pela LOCATÁRIA não estará em uma mesma festa. Como a Maison de La Mariée  trabalha com vestidos de grandes estilistas, qualquer pessoa pode alugá-lo, sendo assim, não há garantia nesse sentido.
+              11.2 – No momento da locação, a Maison de La Mariée. solicitará informações sobre o evento da LOCATÁRIA para não ocorrer que o mesmo vestido da empresa esteja no mesmo evento. Caso a LOCATÁRIA não forneça os dados ou que o mesmo esteja incompleto, a Maison de La Mariée.  não garantirá que esse imprevisto aconteça.
+            </p>
+          </div>
+          <div>
+            <div style="page-break-before:always!important;">
+              <strong>ANEXO</strong>
+              <br />
+              <div class="widget-body">
+                <div class="widget-main padding-24">
+                  <div>
+                    <table class="table table-condensed table-striped table-bordered">
+                      <thead>
+                        <tr>
+                          <th>Codigo</th>
+                          <th>Produto</th>
+                          <th>Cor</th>
+                          <th class="hidden-480">Preço</th>
+                          <th class="hidden-xs">Quantidade</th>
+                          <th>Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr ng-repeat="item in sale.itens">
+                          <td>{{item.productCode}}</td>
+                          <td>{{item.productTitle}}</td>
+                          <td>{{item.productColor}}</td>
+                          <td class="hidden-480"> {{item.price}} </td>
+                          <td class="hidden-xs"> {{item.quantity}} </td>
+                          <td>{{ getTotal(item, $index) }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-5 pull-right">
+                      <h4 class="pull-right">
+                        Total :
+                        <span class="red">R$ {{ totalDaVenda }} </span>
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-10 col-lg-offset-1">
+                      <p class="text-muted">
+                        {{sale.observations}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-left">
+                Valor do Aluguel R$ ___________(___________________________________________________), será efetuado de forma ____________________ ou Pagamento parcelado mensal/semanal de ______ vezes de R$: ______________ (__________________________________________) será efetuado ____/____/_____ dia do mês/semana.
+              </p>
+              <p class="text-justify">
+                <br />O prazo de locação do produto: _____ (dias)
+                <br />Data de devolução ________/________/________Horário_____________.
+                <br />Local de devolução: Loja Maison de La Mariée- Rua Dom Antônio Cândido de Alvarenga, nº. 228, Centro, CEP 08780-080 - Mogi das Cruzes/SP. Tel. (11) 2610-8330, e-mail: lamarieenoiva@gmail.com.
+                <br />Multa de 02 diárias R$:_______________por dia de atraso da data de devolução do produto
+                <br />Multa de R$:_______________caso haja danos no produto (referente o valor do produto no varejo)
+                <br />Multa de R$________________se houver atraso de mais de 05 dias da data de devolução (referente o valor do
+                produto no varejo).
+                <br />Multa de 30% no caso de cancelamento do aluguel com prazo inferior a 30 dias.
+                <br /><br />Declaro estar de acordo . “Li e Aceito os Termos do Contrato de Locação”.
+                <br /><br />
+                Mogi das Cruzes, _____ de ____________________ de ________________.
+              </p>
+              <div class="row">
+                <div class="col-md-6">
+                  <label style="text-decoration:overline; margin-top:30px; width:500px;">LOCATÁRIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+                <div class="col-md-6">
+                  <label style="text-decoration:overline; margin-top:30px; width:500px;">Maison de La Mariée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <label style="text-decoration:overline; margin-top:30px; width:500px;">TESTEMUNHA1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <br />CPF:
+                  <br />RG:
+                </div>
+                <div class="col-md-6">
+                  <label style="text-decoration:overline; margin-top:30px; width:500px;">TESTEMUNHA2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <br />CPF:
+                  <br />RG:
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
