@@ -4,8 +4,8 @@
     <div class="row">
       <div class="col-sm-10 col-sm-offset-1">
         <div class="widget-box transparent">
-          <div class="widget-header widget-header">
-            <h3 class="widget-title grey lighter">
+          <div class="widget-header">
+            <h3 class="widget-title grey lighter" style="display:inline-block;">
               <span ng-if="sale.type == 1" class="visible-xs text-center">
                 <small>Nota Fiscal e Contrato de locacao</small>
               </span>
@@ -29,7 +29,7 @@
               </a>
             </div>
           </div>
-          <div>
+          <div style="font-size:9pt;">
             <p class="text-justify">
               <br>
               Pelo presente instrumento particular a <strong>Maison de La Mariée</strong> aluguel de vestidos, sapatos e acessórios, com sede na Rua Dom Antônio Cândido de Alvarenga, nº. 228, Centro, CEP 08780-080 - Mogi das Cruzes/SP, inscrita no CNPJ. sob o nº 22.281.129/0001-58. Telefone (11) 2610-8330,  e-mail: lamarieenoiva@gmail.com, doravante denominada LOCADORA. Apresenta seu termo de adesão ao presente Contrato de Locação em que se obrigam LOCADORA E LOCATÁRIA  o cumprimento das cláusulas e anexos a seguir estipulados, para toda e qualquer locação de produtos.
@@ -45,6 +45,11 @@
               CIDADE/ESTADO: {{sale.customer.endereco.city}}, {{sale.customer.endereco.state}}<br />
               TEL. RES: {{sale.customer.telefone}} CEL: {{sale.customer.celular}}<br />
             </p>
+            <br />
+            <!--<hr style="border: 1px solid white; margin: 1px;">
+            <div style="display: block; float: none; break-before: always; page-break-before: always;height: auto; margin: 0; padding: 0;">
+              teste
+            </div>-->
             <strong>Cláusula 1ª – Objeto</strong>
             <p class="text-justify">
               1.1. O presente contrato tem como objeto a locação por prazo certo e determinado de Vestido(s) sapato (s) e/ou acessório(s) de propriedade única e exclusiva da Maison de La Mariée.
@@ -108,7 +113,6 @@
           <div>
             <div style="page-break-before:always!important;">
               <strong>ANEXO</strong>
-              <br />
               <div class="widget-body">
                 <div class="widget-main padding-24">
                   <div>
@@ -159,31 +163,29 @@
                 <br />O prazo de locação do produto: _____ (dias)
                 <br />Data de devolução ________/________/________Horário_____________.
                 <br />Local de devolução: Loja Maison de La Mariée- Rua Dom Antônio Cândido de Alvarenga, nº. 228, Centro, CEP 08780-080 - Mogi das Cruzes/SP. Tel. (11) 2610-8330, e-mail: lamarieenoiva@gmail.com.
-                <br />Multa de 02 diárias R$:_______________por dia de atraso da data de devolução do produto
                 <br />Multa de R$:_______________caso haja danos no produto (referente o valor do produto no varejo)
-                <br />Multa de R$________________se houver atraso de mais de 05 dias da data de devolução (referente o valor do
-                produto no varejo).
+                <br />Multa de15% ( quinze por cento) do valor da locação por dia de atraso.
                 <br />Multa de 30% no caso de cancelamento do aluguel com prazo inferior a 30 dias.
-                <br /><br />Declaro estar de acordo . “Li e Aceito os Termos do Contrato de Locação”.
+                <br />Declaro estar de acordo . “Li e Aceito os Termos do Contrato de Locação”.
+                <br />Provado na retirada  SIM (   )        NÃO (    )
                 <br /><br />
-                Mogi das Cruzes, _____ de ____________________ de ________________.
+                <div class="pull-right">Mogi das Cruzes, _____ de ____________________ de ________________.</div>
               </p>
+              <br />
               <div class="row">
                 <div class="col-md-6">
-                  <label style="text-decoration:overline; margin-top:30px; width:500px;">LOCATÁRIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <label style="text-decoration:overline; margin-top:30px;">LOCATÁRIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 </div>
                 <div class="col-md-6">
-                  <label style="text-decoration:overline; margin-top:30px; width:500px;">Maison de La Mariée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <label style="text-decoration:overline; margin-top:30px;">Maison de La Mariée&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-md-6">
                   <label style="text-decoration:overline; margin-top:30px; width:500px;">TESTEMUNHA1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                   <br />CPF:
                   <br />RG:
                 </div>
                 <div class="col-md-6">
-                  <label style="text-decoration:overline; margin-top:30px; width:500px;">TESTEMUNHA2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                  <label style="text-decoration:overline; margin-top:30px; width:500px;">TESTEMUNHA2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
                   <br />CPF:
                   <br />RG:
                 </div>
